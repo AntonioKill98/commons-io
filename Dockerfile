@@ -5,4 +5,4 @@ FROM maven:3.8.3-openjdk-17
 WORKDIR /app
 
 COPY . .
-RUN mvn -Drat.skip=true package
+RUN mvn package
