@@ -416,15 +416,6 @@ file comparators, endian transformation classes, and much more.
             <exclude>**/*AbstractTestCase*</exclude>
             <exclude>**/testtools/**</exclude>
             <!-- https://issues.apache.org/jira/browse/SUREFIRE-44 -->
-
-            <!-- TEST ESCLUSI POICHE' GENERANO FAILURE NON CONTROLLABILI -->
-            <exclude>**/FileUtilsCleanDirectoryTest.java</exclude>
-            <exclude>**/FileUtilsDeleteDirectoryLinuxTest.java</exclude>
-            <exclude>**/FileUtilsTest.java</exclude>
-            <exclude>**/DirectoryFileFilterTest.java</exclude>
-            <exclude>**/FileFilterTest.java</exclude>
-            <!-- FINE DEI TEST ANOMALI -->
-
             <exclude>**/*$*</exclude>
           </excludes>
         </configuration>
