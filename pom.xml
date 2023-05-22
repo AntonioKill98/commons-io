@@ -333,10 +333,10 @@ file comparators, endian transformation classes, and much more.
     <commons.releaseManagerKey>86fdc7e2a11262cb</commons.releaseManagerKey>
 
     <!-- SEZIONE DEDICATA A SONARCLOUD -->
-    <sonar.organization>antoniokill98</sonar.organization>
-    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <!-- <sonar.organization>antoniokill98</sonar.organization> -->
+    <!-- <sonar.host.url>https://sonarcloud.io</sonar.host.url> -->
     <!-- FINE SEZIONE SONARCLOUD -->
-    
+
   </properties>
 
   <build>
