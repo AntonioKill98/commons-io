@@ -344,6 +344,29 @@ file comparators, endian transformation classes, and much more.
     <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check pmd:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
       <plugins>
+
+        <!-- JACOCO PLUGIN -->
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.7</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <!-- FINE JACOCO PLUGIN -->
+
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
