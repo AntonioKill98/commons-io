@@ -286,6 +286,23 @@ file comparators, endian transformation classes, and much more.
       <version>${jmh.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- PITEST DEPENDENCY -->
+    <!--
+    <dependency>
+      <groupId>org.pitest</groupId>
+      <artifactId>pitest</artifactId>
+      <version>1.13.1</version>
+      <scope>test</scope>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>org.pitest</groupId>
+      <artifactId>pitest-junit5-plugin</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <!-- FINE PITEST DEPENDENCY -->
+
   </dependencies>
 
   <properties>
@@ -366,6 +383,21 @@ file comparators, endian transformation classes, and much more.
           </executions>
         </plugin>
         <!-- FINE JACOCO PLUGIN -->
+
+        <!-- PITEST PLUGIN -->
+        <!--
+        <plugin>
+          <groupId>org.pitest</groupId>
+          <artifactId>pitest-maven</artifactId>
+          <version>1.13.1</version>
+        </plugin>
+        -->
+        <plugin>
+          <groupId>org.pitest</groupId>
+          <artifactId>pitest-maven</artifactId>
+          <version>1.13.1</version>
+        </plugin>
+        <!-- FINE PITEST PLUGIN -->
 
         <plugin>
           <groupId>org.apache.rat</groupId>
