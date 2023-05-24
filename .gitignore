@@ -20,3 +20,4 @@ site-content
 
 ### Ignore Visual Studio code files
 /.vscode/
+src/test/resources/org/apache/commons/io/test-file-empty.bin
