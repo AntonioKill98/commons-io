@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Uncheck.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.function</a> &gt; <span class="el_source">Uncheck.java</span></div><h1>Uncheck.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.function;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+
+/**
+ * Unchecks calls by throwing {@link UncheckedIOException} instead of {@link IOException}.
+ *
+ * @since 2.12.0
+ */
+public final class Uncheck {
+
+    /**
+     * Accepts an IO consumer with the given arguments.
+     *
+     * @param &lt;T&gt; the first input type.
+     * @param &lt;U&gt; the second input type.
+     * @param t the first input argument.
+     * @param u the second input argument.
+     * @param consumer Consumes the value.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T, U&gt; void accept(final IOBiConsumer&lt;T, U&gt; consumer, final T t, final U u) {
+        try {
+<span class="fc" id="L42">            consumer.accept(t, u);</span>
+<span class="fc" id="L43">        } catch (final IOException e) {</span>
+<span class="fc" id="L44">            throw wrap(e);</span>
+<span class="fc" id="L45">        }</span>
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Accepts an IO consumer with the given argument.
+     *
+     * @param &lt;T&gt; the input type.
+     * @param t the input argument.
+     * @param consumer Consumes the value.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T&gt; void accept(final IOConsumer&lt;T&gt; consumer, final T t) {
+        try {
+<span class="fc" id="L58">            consumer.accept(t);</span>
+<span class="fc" id="L59">        } catch (final IOException e) {</span>
+<span class="fc" id="L60">            throw wrap(e);</span>
+<span class="fc" id="L61">        }</span>
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * Accepts an IO consumer with the given arguments.
+     *
+     * @param &lt;T&gt; the first input type.
+     * @param &lt;U&gt; the second input type.
+     * @param &lt;V&gt; the third input type.
+     * @param t the first input argument.
+     * @param u the second input argument.
+     * @param v the third input argument.
+     * @param consumer Consumes the value.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T, U, V&gt; void accept(final IOTriConsumer&lt;T, U, V&gt; consumer, final T t, final U u, final V v) {
+        try {
+<span class="fc" id="L78">            consumer.accept(t, u, v);</span>
+<span class="fc" id="L79">        } catch (final IOException e) {</span>
+<span class="fc" id="L80">            throw wrap(e);</span>
+<span class="fc" id="L81">        }</span>
+<span class="fc" id="L82">    }</span>
+
+    /**
+     * Applies an IO function with the given arguments.
+     *
+     * @param &lt;T&gt; the first function argument type.
+     * @param &lt;U&gt; the second function argument type.
+     * @param &lt;R&gt; the return type.
+     * @param function the function.
+     * @param t the first function argument.
+     * @param u the second function argument.
+     * @return the function result.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T, U, R&gt; R apply(final IOBiFunction&lt;T, U, R&gt; function, final T t, final U u) {
+        try {
+<span class="fc" id="L98">            return function.apply(t, u);</span>
+<span class="fc" id="L99">        } catch (final IOException e) {</span>
+<span class="fc" id="L100">            throw wrap(e);</span>
+        }
+    }
+
+    /**
+     * Applies an IO function with the given arguments.
+     *
+     * @param function the function.
+     * @param &lt;T&gt; the first function argument type.
+     * @param &lt;R&gt; the return type.
+     * @param t the first function argument.
+     * @return the function result.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T, R&gt; R apply(final IOFunction&lt;T, R&gt; function, final T t) {
+        try {
+<span class="fc" id="L116">            return function.apply(t);</span>
+<span class="fc" id="L117">        } catch (final IOException e) {</span>
+<span class="fc" id="L118">            throw wrap(e);</span>
+        }
+    }
+
+    /**
+     * Applies an IO quad-function with the given arguments.
+     *
+     * @param function the function.
+     * @param &lt;T&gt; the first function argument type.
+     * @param &lt;U&gt; the second function argument type.
+     * @param &lt;V&gt; the third function argument type.
+     * @param &lt;W&gt; the fourth function argument type.
+     * @param &lt;R&gt; the return type.
+     * @param t the first function argument.
+     * @param u the second function argument.
+     * @param v the third function argument.
+     * @param w the fourth function argument.
+     * @return the function result.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T, U, V, W, R&gt; R apply(final IOQuadFunction&lt;T, U, V, W, R&gt; function, final T t, final U u, final V v, final W w) {
+        try {
+<span class="fc" id="L140">            return function.apply(t, u, v, w);</span>
+<span class="fc" id="L141">        } catch (final IOException e) {</span>
+<span class="fc" id="L142">            throw wrap(e);</span>
+        }
+    }
+
+    /**
+     * Applies an IO tri-function with the given arguments.
+     *
+     * @param &lt;T&gt; the first function argument type.
+     * @param &lt;U&gt; the second function argument type.
+     * @param &lt;V&gt; the third function argument type.
+     * @param &lt;R&gt; the return type.
+     * @param function the function.
+     * @param t the first function argument.
+     * @param u the second function argument.
+     * @param v the third function argument.
+     * @return the function result.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T, U, V, R&gt; R apply(final IOTriFunction&lt;T, U, V, R&gt; function, final T t, final U u, final V v) {
+        try {
+<span class="fc" id="L162">            return function.apply(t, u, v);</span>
+<span class="fc" id="L163">        } catch (final IOException e) {</span>
+<span class="fc" id="L164">            throw wrap(e);</span>
+        }
+    }
+
+    /**
+     * Compares the arguments with the comparator.
+     *
+     * @param &lt;T&gt; the first function argument type.
+     * @param comparator the function.
+     * @param t the first function argument.
+     * @param u the second function argument.
+     * @return the comparator result.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T&gt; int compare(final IOComparator&lt;T&gt; comparator, final T t, final T u) {
+        try {
+<span class="fc" id="L180">            return comparator.compare(t, u);</span>
+<span class="fc" id="L181">        } catch (final IOException e) {</span>
+<span class="fc" id="L182">            throw wrap(e);</span>
+        }
+    }
+
+    /**
+     * Gets the result from an IO supplier.
+     *
+     * @param &lt;T&gt; the return type of the operations.
+     * @param supplier Supplies the return value.
+     * @return result from the supplier.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static &lt;T&gt; T get(final IOSupplier&lt;T&gt; supplier) {
+        try {
+<span class="fc" id="L196">            return supplier.get();</span>
+<span class="fc" id="L197">        } catch (final IOException e) {</span>
+<span class="fc" id="L198">            throw wrap(e);</span>
+        }
+    }
+
+    /**
+     * Runs an IO runnable.
+     *
+     * @param runnable The runnable to run.
+     * @throws UncheckedIOException if an I/O error occurs.
+     */
+    public static void run(final IORunnable runnable) {
+        try {
+<span class="fc" id="L210">            runnable.run();</span>
+<span class="fc" id="L211">        } catch (final IOException e) {</span>
+<span class="fc" id="L212">            throw wrap(e);</span>
+<span class="fc" id="L213">        }</span>
+<span class="fc" id="L214">    }</span>
+
+    /**
+     * Tests an IO predicate.
+     *
+     * @param &lt;T&gt; the type of the input to the predicate.
+     * @param predicate the predicate.
+     * @param t the input to the predicate.
+     * @return {@code true} if the input argument matches the predicate, otherwise {@code false}.
+     */
+    public static &lt;T&gt; boolean test(final IOPredicate&lt;T&gt; predicate, final T t) {
+        try {
+<span class="fc" id="L226">            return predicate.test(t);</span>
+<span class="fc" id="L227">        } catch (final IOException e) {</span>
+<span class="fc" id="L228">            throw wrap(e);</span>
+        }
+    }
+
+    /**
+     * Creates a new UncheckedIOException for the given detail message.
+     * &lt;p&gt;
+     * This method exists because there is no String constructor in {@link UncheckedIOException}.
+     * &lt;/p&gt;
+     *
+     * @param e The exception to wrap.
+     * @return a new {@link UncheckedIOException}.
+     */
+    private static UncheckedIOException wrap(final IOException e) {
+<span class="fc" id="L242">        return new UncheckedIOException(e);</span>
+    }
+
+    /**
+     * No instances needed.
+     */
+    private Uncheck() {
+        // no instances needed.
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

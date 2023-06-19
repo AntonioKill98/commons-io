@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PeekableInputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input.buffer</a> &gt; <span class="el_source">PeekableInputStream.java</span></div><h1>PeekableInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input.buffer;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
+
+/**
+ * Implements a buffered input stream, which allows to peek into the buffers first bytes. This comes in handy when
+ * manually implementing scanners, lexers, parsers, and the like.
+ */
+public class PeekableInputStream extends CircularBufferInputStream {
+
+    /**
+     * Creates a new instance, which filters the given input stream, and uses a reasonable default buffer size ({@link IOUtils#DEFAULT_BUFFER_SIZE}).
+     *
+     * @param inputStream The input stream, which is being buffered.
+     */
+    public PeekableInputStream(final InputStream inputStream) {
+<span class="nc" id="L37">        super(inputStream);</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Creates a new instance, which filters the given input stream, and uses the given buffer size.
+     *
+     * @param inputStream The input stream, which is being buffered.
+     * @param bufferSize The size of the {@link CircularByteBuffer}, which is used internally.
+     */
+    public PeekableInputStream(final InputStream inputStream, final int bufferSize) {
+<span class="nc" id="L47">        super(inputStream, bufferSize);</span>
+<span class="nc" id="L48">    }</span>
+
+    /**
+     * Returns whether the next bytes in the buffer are as given by {@code sourceBuffer}. This is equivalent to
+     * {@link #peek(byte[], int, int)} with {@code offset} == 0, and {@code length} == {@code sourceBuffer.length}
+     *
+     * @param sourceBuffer the buffer to compare against
+     * @return true if the next bytes are as given
+     * @throws IOException Refilling the buffer failed.
+     */
+    public boolean peek(final byte[] sourceBuffer) throws IOException {
+<span class="nc" id="L59">        Objects.requireNonNull(sourceBuffer, &quot;sourceBuffer&quot;);</span>
+<span class="nc" id="L60">        return peek(sourceBuffer, 0, sourceBuffer.length);</span>
+    }
+
+    /**
+     * Returns whether the next bytes in the buffer are as given by {@code sourceBuffer}, {code offset}, and
+     * {@code length}.
+     *
+     * @param sourceBuffer the buffer to compare against
+     * @param offset the start offset
+     * @param length the length to compare
+     * @return true if the next bytes in the buffer are as given
+     * @throws IOException if there is a problem calling fillBuffer()
+     */
+    public boolean peek(final byte[] sourceBuffer, final int offset, final int length) throws IOException {
+<span class="nc" id="L74">        Objects.requireNonNull(sourceBuffer, &quot;sourceBuffer&quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (sourceBuffer.length &gt; bufferSize) {</span>
+<span class="nc" id="L76">            throw new IllegalArgumentException(&quot;Peek request size of &quot; + sourceBuffer.length</span>
+                + &quot; bytes exceeds buffer size of &quot; + bufferSize + &quot; bytes&quot;);
+        }
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (buffer.getCurrentNumberOfBytes() &lt; sourceBuffer.length) {</span>
+<span class="nc" id="L80">            fillBuffer();</span>
+        }
+<span class="nc" id="L82">        return buffer.peek(sourceBuffer, offset, length);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

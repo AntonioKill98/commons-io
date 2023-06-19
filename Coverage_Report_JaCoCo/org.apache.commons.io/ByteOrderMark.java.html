@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ByteOrderMark.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io</a> &gt; <span class="el_source">ByteOrderMark.java</span></div><h1>ByteOrderMark.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io;
+
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.Objects;
+
+/**
+ * Byte Order Mark (BOM) representation - see {@link org.apache.commons.io.input.BOMInputStream}.
+ *
+ * @see org.apache.commons.io.input.BOMInputStream
+ * @see &lt;a href=&quot;http://en.wikipedia.org/wiki/Byte_order_mark&quot;&gt;Wikipedia: Byte Order Mark&lt;/a&gt;
+ * @see &lt;a href=&quot;http://www.w3.org/TR/2006/REC-xml-20060816/#sec-guessing&quot;&gt;W3C: Autodetection of Character Encodings
+ *      (Non-Normative)&lt;/a&gt;
+ * @since 2.0
+ */
+public class ByteOrderMark implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /** UTF-8 BOM. */
+<span class="fc" id="L38">    public static final ByteOrderMark UTF_8 = new ByteOrderMark(StandardCharsets.UTF_8.name(), 0xEF, 0xBB, 0xBF);</span>
+
+    /** UTF-16BE BOM (Big-Endian). */
+<span class="fc" id="L41">    public static final ByteOrderMark UTF_16BE = new ByteOrderMark(StandardCharsets.UTF_16BE.name(), 0xFE, 0xFF);</span>
+
+    /** UTF-16LE BOM (Little-Endian). */
+<span class="fc" id="L44">    public static final ByteOrderMark UTF_16LE = new ByteOrderMark(StandardCharsets.UTF_16LE.name(), 0xFF, 0xFE);</span>
+
+    /**
+     * UTF-32BE BOM (Big-Endian).
+     *
+     * @since 2.2
+     */
+<span class="fc" id="L51">    public static final ByteOrderMark UTF_32BE = new ByteOrderMark(&quot;UTF-32BE&quot;, 0x00, 0x00, 0xFE, 0xFF);</span>
+
+    /**
+     * UTF-32LE BOM (Little-Endian).
+     *
+     * @since 2.2
+     */
+<span class="fc" id="L58">    public static final ByteOrderMark UTF_32LE = new ByteOrderMark(&quot;UTF-32LE&quot;, 0xFF, 0xFE, 0x00, 0x00);</span>
+
+    /**
+     * Unicode BOM character; external form depends on the encoding.
+     *
+     * @see &lt;a href=&quot;http://unicode.org/faq/utf_bom.html#BOM&quot;&gt;Byte Order Mark (BOM) FAQ&lt;/a&gt;
+     * @since 2.5
+     */
+    public static final char UTF_BOM = '\uFEFF';
+
+    private final String charsetName;
+    private final int[] bytes;
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param charsetName The name of the charset the BOM represents
+     * @param bytes The BOM's bytes
+     * @throws IllegalArgumentException if the charsetName is zero length
+     * @throws IllegalArgumentException if the bytes are zero length
+     */
+<span class="fc" id="L79">    public ByteOrderMark(final String charsetName, final int... bytes) {</span>
+<span class="fc" id="L80">        Objects.requireNonNull(charsetName, &quot;charsetName&quot;);</span>
+<span class="fc" id="L81">        Objects.requireNonNull(bytes, &quot;bytes&quot;);</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (charsetName.isEmpty()) {</span>
+<span class="fc" id="L83">            throw new IllegalArgumentException(&quot;No charsetName specified&quot;);</span>
+        }
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (bytes.length == 0) {</span>
+<span class="fc" id="L86">            throw new IllegalArgumentException(&quot;No bytes specified&quot;);</span>
+        }
+<span class="fc" id="L88">        this.charsetName = charsetName;</span>
+<span class="fc" id="L89">        this.bytes = bytes.clone();</span>
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * Indicates if this instance's bytes equals another.
+     *
+     * @param obj The object to compare to
+     * @return true if the bom's bytes are equal, otherwise
+     * false
+     */
+    @Override
+    public boolean equals(final Object obj) {
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (!(obj instanceof ByteOrderMark)) {</span>
+<span class="fc" id="L102">            return false;</span>
+        }
+<span class="fc" id="L104">        final ByteOrderMark bom = (ByteOrderMark) obj;</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (bytes.length != bom.length()) {</span>
+<span class="fc" id="L106">            return false;</span>
+        }
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        for (int i = 0; i &lt; bytes.length; i++) {</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">            if (bytes[i] != bom.get(i)) {</span>
+<span class="fc" id="L110">                return false;</span>
+            }
+        }
+<span class="fc" id="L113">        return true;</span>
+    }
+
+    /**
+     * Gets the byte at the specified position.
+     *
+     * @param pos The position
+     * @return The specified byte
+     */
+    public int get(final int pos) {
+<span class="fc" id="L123">        return bytes[pos];</span>
+    }
+
+    /**
+     * Gets a copy of the BOM's bytes.
+     *
+     * @return a copy of the BOM's bytes
+     */
+    public byte[] getBytes() {
+<span class="fc" id="L132">        final byte[] copy = IOUtils.byteArray(bytes.length);</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        for (int i = 0; i &lt; bytes.length; i++) {</span>
+<span class="fc" id="L134">            copy[i] = (byte) bytes[i];</span>
+        }
+<span class="fc" id="L136">        return copy;</span>
+    }
+
+    /**
+     * Gets the name of the {@link java.nio.charset.Charset} the BOM represents.
+     *
+     * @return the character set name
+     */
+    public String getCharsetName() {
+<span class="fc" id="L145">        return charsetName;</span>
+    }
+
+    /**
+     * Computes the hashcode for this BOM.
+     *
+     * @return the hashcode for this BOM.
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L156">        int hashCode = getClass().hashCode();</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        for (final int b : bytes) {</span>
+<span class="fc" id="L158">            hashCode += b;</span>
+        }
+<span class="fc" id="L160">        return hashCode;</span>
+    }
+
+    /**
+     * Gets the length of the BOM's bytes.
+     *
+     * @return the length of the BOM's bytes
+     */
+    public int length() {
+<span class="fc" id="L169">        return bytes.length;</span>
+    }
+
+    /**
+     * Converts this instance to a String representation of the BOM.
+     *
+     * @return the length of the BOM's bytes
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L179">        final StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L180">        builder.append(getClass().getSimpleName());</span>
+<span class="fc" id="L181">        builder.append('[');</span>
+<span class="fc" id="L182">        builder.append(charsetName);</span>
+<span class="fc" id="L183">        builder.append(&quot;: &quot;);</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        for (int i = 0; i &lt; bytes.length; i++) {</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">            if (i &gt; 0) {</span>
+<span class="fc" id="L186">                builder.append(&quot;,&quot;);</span>
+            }
+<span class="fc" id="L188">            builder.append(&quot;0x&quot;);</span>
+<span class="fc" id="L189">            builder.append(Integer.toHexString(0xFF &amp; bytes[i]).toUpperCase(Locale.ROOT));</span>
+        }
+<span class="fc" id="L191">        builder.append(']');</span>
+<span class="fc" id="L192">        return builder.toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

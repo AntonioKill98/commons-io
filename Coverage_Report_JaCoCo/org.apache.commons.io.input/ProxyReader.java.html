@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProxyReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">ProxyReader.java</span></div><h1>ProxyReader.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input;
+
+import static org.apache.commons.io.IOUtils.EOF;
+
+import java.io.FilterReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.CharBuffer;
+
+import org.apache.commons.io.IOUtils;
+
+/**
+ * A Proxy stream which acts as expected, that is it passes the method
+ * calls on to the proxied stream and doesn't change which methods are
+ * being called.
+ * &lt;p&gt;
+ * It is an alternative base class to FilterReader
+ * to increase reusability, because FilterReader changes the
+ * methods being called, such as read(char[]) to read(char[], int, int).
+ * &lt;/p&gt;
+ */
+public abstract class ProxyReader extends FilterReader {
+
+    /**
+     * Constructs a new ProxyReader.
+     *
+     * @param proxy  the Reader to delegate to
+     */
+    public ProxyReader(final Reader proxy) {
+<span class="fc" id="L46">        super(proxy);</span>
+        // the proxy is stored in a protected superclass variable named 'in'
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * Invoked by the read methods after the proxied call has returned
+     * successfully. The number of chars returned to the caller (or -1 if
+     * the end of stream was reached) is given as an argument.
+     * &lt;p&gt;
+     * Subclasses can override this method to add common post-processing
+     * functionality without having to override all the read methods.
+     * The default implementation does nothing.
+     * &lt;p&gt;
+     * Note this method is &lt;em&gt;not&lt;/em&gt; called from {@link #skip(long)} or
+     * {@link #reset()}. You need to explicitly override those methods if
+     * you want to add post-processing steps also to them.
+     *
+     * @since 2.0
+     * @param n number of chars read, or -1 if the end of stream was reached
+     * @throws IOException if the post-processing fails
+     */
+    @SuppressWarnings(&quot;unused&quot;) // Possibly thrown from subclasses.
+    protected void afterRead(final int n) throws IOException {
+        // noop
+<span class="fc" id="L70">    }</span>
+
+    /**
+     * Invoked by the read methods before the call is proxied. The number
+     * of chars that the caller wanted to read (1 for the {@link #read()}
+     * method, buffer length for {@link #read(char[])}, etc.) is given as
+     * an argument.
+     * &lt;p&gt;
+     * Subclasses can override this method to add common pre-processing
+     * functionality without having to override all the read methods.
+     * The default implementation does nothing.
+     * &lt;p&gt;
+     * Note this method is &lt;em&gt;not&lt;/em&gt; called from {@link #skip(long)} or
+     * {@link #reset()}. You need to explicitly override those methods if
+     * you want to add pre-processing steps also to them.
+     *
+     * @since 2.0
+     * @param n number of chars that the caller asked to be read
+     * @throws IOException if the pre-processing fails
+     */
+    @SuppressWarnings(&quot;unused&quot;) // Possibly thrown from subclasses.
+    protected void beforeRead(final int n) throws IOException {
+        // noop
+<span class="fc" id="L93">    }</span>
+
+    /**
+     * Invokes the delegate's {@code close()} method.
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public void close() throws IOException {
+        try {
+<span class="fc" id="L102">            in.close();</span>
+<span class="fc" id="L103">        } catch (final IOException e) {</span>
+<span class="nc" id="L104">            handleIOException(e);</span>
+<span class="fc" id="L105">        }</span>
+<span class="fc" id="L106">    }</span>
+
+    /**
+     * Handle any IOExceptions thrown.
+     * &lt;p&gt;
+     * This method provides a point to implement custom exception
+     * handling. The default behavior is to re-throw the exception.
+     * @param e The IOException thrown
+     * @throws IOException if an I/O error occurs.
+     * @since 2.0
+     */
+    protected void handleIOException(final IOException e) throws IOException {
+<span class="fc" id="L118">        throw e;</span>
+    }
+
+    /**
+     * Invokes the delegate's {@code mark(int)} method.
+     * @param idx read ahead limit
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public synchronized void mark(final int idx) throws IOException {
+        try {
+<span class="fc" id="L129">            in.mark(idx);</span>
+<span class="nc" id="L130">        } catch (final IOException e) {</span>
+<span class="nc" id="L131">            handleIOException(e);</span>
+<span class="fc" id="L132">        }</span>
+<span class="fc" id="L133">    }</span>
+
+    /**
+     * Invokes the delegate's {@code markSupported()} method.
+     * @return true if mark is supported, otherwise false
+     */
+    @Override
+    public boolean markSupported() {
+<span class="nc" id="L141">        return in.markSupported();</span>
+    }
+
+    /**
+     * Invokes the delegate's {@code read()} method.
+     * @return the character read or -1 if the end of stream
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public int read() throws IOException {
+        try {
+<span class="fc" id="L152">            beforeRead(1);</span>
+<span class="fc" id="L153">            final int c = in.read();</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">            afterRead(c != EOF ? 1 : EOF);</span>
+<span class="fc" id="L155">            return c;</span>
+<span class="fc" id="L156">        } catch (final IOException e) {</span>
+<span class="nc" id="L157">            handleIOException(e);</span>
+<span class="nc" id="L158">            return EOF;</span>
+        }
+    }
+
+    /**
+     * Invokes the delegate's {@code read(char[])} method.
+     * @param chr the buffer to read the characters into
+     * @return the number of characters read or -1 if the end of stream
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public int read(final char[] chr) throws IOException {
+        try {
+<span class="fc" id="L171">            beforeRead(IOUtils.length(chr));</span>
+<span class="fc" id="L172">            final int n = in.read(chr);</span>
+<span class="fc" id="L173">            afterRead(n);</span>
+<span class="fc" id="L174">            return n;</span>
+<span class="nc" id="L175">        } catch (final IOException e) {</span>
+<span class="nc" id="L176">            handleIOException(e);</span>
+<span class="nc" id="L177">            return EOF;</span>
+        }
+    }
+
+    /**
+     * Invokes the delegate's {@code read(char[], int, int)} method.
+     * @param chr the buffer to read the characters into
+     * @param st The start offset
+     * @param len The number of bytes to read
+     * @return the number of characters read or -1 if the end of stream
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public int read(final char[] chr, final int st, final int len) throws IOException {
+        try {
+<span class="fc" id="L192">            beforeRead(len);</span>
+<span class="fc" id="L193">            final int n = in.read(chr, st, len);</span>
+<span class="fc" id="L194">            afterRead(n);</span>
+<span class="fc" id="L195">            return n;</span>
+<span class="nc" id="L196">        } catch (final IOException e) {</span>
+<span class="nc" id="L197">            handleIOException(e);</span>
+<span class="nc" id="L198">            return EOF;</span>
+        }
+    }
+
+    /**
+     * Invokes the delegate's {@code read(CharBuffer)} method.
+     * @param target the char buffer to read the characters into
+     * @return the number of characters read or -1 if the end of stream
+     * @throws IOException if an I/O error occurs.
+     * @since 2.0
+     */
+    @Override
+    public int read(final CharBuffer target) throws IOException {
+        try {
+<span class="fc" id="L212">            beforeRead(IOUtils.length(target));</span>
+<span class="fc" id="L213">            final int n = in.read(target);</span>
+<span class="fc" id="L214">            afterRead(n);</span>
+<span class="fc" id="L215">            return n;</span>
+<span class="nc" id="L216">        } catch (final IOException e) {</span>
+<span class="nc" id="L217">            handleIOException(e);</span>
+<span class="nc" id="L218">            return EOF;</span>
+        }
+    }
+
+    /**
+     * Invokes the delegate's {@code ready()} method.
+     * @return true if the stream is ready to be read
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public boolean ready() throws IOException {
+        try {
+<span class="fc" id="L230">            return in.ready();</span>
+<span class="fc" id="L231">        } catch (final IOException e) {</span>
+<span class="nc" id="L232">            handleIOException(e);</span>
+<span class="nc" id="L233">            return false;</span>
+        }
+    }
+
+    /**
+     * Invokes the delegate's {@code reset()} method.
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public synchronized void reset() throws IOException {
+        try {
+<span class="fc" id="L244">            in.reset();</span>
+<span class="nc" id="L245">        } catch (final IOException e) {</span>
+<span class="nc" id="L246">            handleIOException(e);</span>
+<span class="fc" id="L247">        }</span>
+<span class="fc" id="L248">    }</span>
+
+    /**
+     * Invokes the delegate's {@code skip(long)} method.
+     * @param ln the number of bytes to skip
+     * @return the number of bytes to skipped or EOF if the end of stream
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public long skip(final long ln) throws IOException {
+        try {
+<span class="fc" id="L259">            return in.skip(ln);</span>
+<span class="nc" id="L260">        } catch (final IOException e) {</span>
+<span class="nc" id="L261">            handleIOException(e);</span>
+<span class="nc" id="L262">            return 0;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CharacterSetFilterReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">CharacterSetFilterReader.java</span></div><h1>CharacterSetFilterReader.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input;
+
+import java.io.Reader;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.IntPredicate;
+
+/**
+ * A filter reader that removes a given set of characters represented as {@code int} code points, handy to remove known
+ * junk characters from CSV files for example.
+ * &lt;p&gt;
+ * This class must convert each {@code int} read to an {@link Integer}. You can increase the Integer cache with a system
+ * property, see {@link Integer}.
+ * &lt;/p&gt;
+ */
+public class CharacterSetFilterReader extends AbstractCharacterFilterReader {
+
+    private static IntPredicate toIntPredicate(final Set&lt;Integer&gt; skip) {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (skip == null) {</span>
+<span class="fc" id="L38">            return SKIP_NONE;</span>
+        }
+<span class="fc" id="L40">        final Set&lt;Integer&gt; unmodifiableSet = Collections.unmodifiableSet(skip);</span>
+<span class="fc" id="L41">        return c -&gt; unmodifiableSet.contains(Integer.valueOf(c));</span>
+    }
+
+    /**
+     * Constructs a new reader.
+     *
+     * @param reader the reader to filter.
+     * @param skip the set of characters to filter out.
+     * @since 2.9.0
+     */
+    public CharacterSetFilterReader(final Reader reader, final Integer... skip) {
+<span class="fc" id="L52">        this(reader, new HashSet&lt;&gt;(Arrays.asList(skip)));</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Constructs a new reader.
+     *
+     * @param reader the reader to filter.
+     * @param skip the set of characters to filter out.
+     */
+    public CharacterSetFilterReader(final Reader reader, final Set&lt;Integer&gt; skip) {
+<span class="fc" id="L62">        super(reader, toIntPredicate(skip));</span>
+<span class="fc" id="L63">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

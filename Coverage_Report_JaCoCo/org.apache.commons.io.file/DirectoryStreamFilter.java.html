@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirectoryStreamFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.file</a> &gt; <span class="el_source">DirectoryStreamFilter.java</span></div><h1>DirectoryStreamFilter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.file;
+
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
+import java.util.Objects;
+
+/**
+ * A {@link java.nio.file.DirectoryStream.Filter DirectoryStream.Filter} that delegates to a {@link PathFilter}.
+ * &lt;p&gt;
+ * You pass this filter to {@link java.nio.file.Files#newDirectoryStream(Path, DirectoryStream.Filter)
+ * Files#newDirectoryStream(Path, DirectoryStream.Filter)}.
+ * &lt;/p&gt;
+ *
+ * @since 2.9.0
+ */
+public class DirectoryStreamFilter implements DirectoryStream.Filter&lt;Path&gt; {
+
+    private final PathFilter pathFilter;
+
+    /**
+     * Constructs a new instance for the given path filter.
+     *
+     * @param pathFilter How to filter paths.
+     */
+<span class="fc" id="L44">    public DirectoryStreamFilter(final PathFilter pathFilter) {</span>
+        // TODO Instead of NPE, we could map null to FalseFileFilter.
+<span class="fc" id="L46">        this.pathFilter = Objects.requireNonNull(pathFilter, &quot;pathFilter&quot;);</span>
+<span class="fc" id="L47">    }</span>
+
+    @Override
+    public boolean accept(final Path path) throws IOException {
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        return pathFilter.accept(path, PathUtils.readBasicFileAttributes(path, PathUtils.EMPTY_LINK_OPTION_ARRAY)) == FileVisitResult.CONTINUE;</span>
+    }
+
+    /**
+     * Gets the path filter.
+     *
+     * @return the path filter.
+     */
+    public PathFilter getPathFilter() {
+<span class="fc" id="L60">        return pathFilter;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

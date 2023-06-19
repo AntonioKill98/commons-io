@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmptyFileFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.filefilter</a> &gt; <span class="el_source">EmptyFileFilter.java</span></div><h1>EmptyFileFilter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.filefilter;
+
+import java.io.File;
+import java.io.Serializable;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.stream.Stream;
+
+import org.apache.commons.io.IOUtils;
+
+/**
+ * This filter accepts files or directories that are empty.
+ * &lt;p&gt;
+ * If the {@link File} is a directory it checks that it contains no files.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * Example, showing how to print out a list of the current directory's empty files/directories:
+ * &lt;/p&gt;
+ * &lt;h2&gt;Using Classic IO&lt;/h2&gt;
+ * &lt;pre&gt;
+ * File dir = FileUtils.current();
+ * String[] files = dir.list(EmptyFileFilter.EMPTY);
+ * for (String file : files) {
+ *     System.out.println(file);
+ * }
+ * &lt;/pre&gt;
+ *
+ * &lt;p&gt;
+ * Example, showing how to print out a list of the current directory's non-empty files/directories:
+ * &lt;/p&gt;
+ *
+ * &lt;pre&gt;
+ * File dir = FileUtils.current();
+ * String[] files = dir.list(EmptyFileFilter.NOT_EMPTY);
+ * for (String file : files) {
+ *     System.out.println(file);
+ * }
+ * &lt;/pre&gt;
+ *
+ * &lt;h2&gt;Using NIO&lt;/h2&gt;
+ * &lt;pre&gt;
+ * final Path dir = PathUtils.current();
+ * final AccumulatorPathVisitor visitor = AccumulatorPathVisitor.withLongCounters(EmptyFileFilter.EMPTY);
+ * //
+ * // Walk one dir
+ * Files.&lt;b&gt;walkFileTree&lt;/b&gt;(dir, Collections.emptySet(), 1, visitor);
+ * System.out.println(visitor.getPathCounters());
+ * System.out.println(visitor.getFileList());
+ * //
+ * visitor.getPathCounters().reset();
+ * //
+ * // Walk dir tree
+ * Files.&lt;b&gt;walkFileTree&lt;/b&gt;(dir, visitor);
+ * System.out.println(visitor.getPathCounters());
+ * System.out.println(visitor.getDirList());
+ * System.out.println(visitor.getFileList());
+ * &lt;/pre&gt;
+ *
+ * @since 1.3
+ */
+public class EmptyFileFilter extends AbstractFileFilter implements Serializable {
+
+    /** Singleton instance of &lt;i&gt;empty&lt;/i&gt; filter */
+<span class="fc" id="L82">    public static final IOFileFilter EMPTY = new EmptyFileFilter();</span>
+
+    /** Singleton instance of &lt;i&gt;not-empty&lt;/i&gt; filter */
+<span class="fc" id="L85">    public static final IOFileFilter NOT_EMPTY = EMPTY.negate();</span>
+
+    private static final long serialVersionUID = 3631422087512832211L;
+
+    /**
+     * Restrictive constructor.
+     */
+<span class="fc" id="L92">    protected EmptyFileFilter() {</span>
+<span class="fc" id="L93">    }</span>
+
+    /**
+     * Checks to see if the file is empty.
+     *
+     * @param file the file or directory to check
+     * @return {@code true} if the file or directory is &lt;i&gt;empty&lt;/i&gt;, otherwise {@code false}.
+     */
+    @Override
+    public boolean accept(final File file) {
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (file.isDirectory()) {</span>
+<span class="nc" id="L104">            final File[] files = file.listFiles();</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            return IOUtils.length(files) == 0;</span>
+        }
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        return file.length() == 0;</span>
+    }
+
+    /**
+     * Checks to see if the file is empty.
+     * @param file the file or directory to check
+     *
+     * @return {@code true} if the file or directory is &lt;i&gt;empty&lt;/i&gt;, otherwise {@code false}.
+     * @since 2.9.0
+     */
+    @Override
+    public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {
+<span class="fc" id="L119">        return get(() -&gt; {</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">            if (Files.isDirectory(file)) {</span>
+<span class="fc" id="L121">                try (Stream&lt;Path&gt; stream = Files.list(file)) {</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">                    return toFileVisitResult(!stream.findFirst().isPresent());</span>
+                }
+            }
+<span class="nc bnc" id="L125" title="All 2 branches missed.">            return toFileVisitResult(Files.size(file) == 0);</span>
+        });
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

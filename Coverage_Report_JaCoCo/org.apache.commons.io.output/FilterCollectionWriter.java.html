@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilterCollectionWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.output</a> &gt; <span class="el_source">FilterCollectionWriter.java</span></div><h1>FilterCollectionWriter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.output;
+
+import java.io.FilterWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.stream.Stream;
+
+import org.apache.commons.io.IOExceptionList;
+import org.apache.commons.io.IOIndexedException;
+import org.apache.commons.io.function.IOConsumer;
+
+/**
+ * Abstract class for writing filtered character streams to a {@link Collection} of writers. This is in contrast to
+ * {@link FilterWriter} which is backed by a single {@link Writer}.
+ * &lt;p&gt;
+ * This abstract class provides default methods that pass all requests to the contained writers. Subclasses should
+ * likely override some of these methods.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * The class {@link Writer} defines method signatures with {@code throws} {@link IOException}, which in this class are
+ * actually {@link IOExceptionList} containing a list of {@link IOIndexedException}.
+ * &lt;/p&gt;
+ *
+ * @since 2.7
+ */
+public class FilterCollectionWriter extends Writer {
+
+    /**
+     * Empty and immutable collection of writers.
+     */
+<span class="fc" id="L52">    protected final Collection&lt;Writer&gt; EMPTY_WRITERS = Collections.emptyList();</span>
+
+    /**
+     * The underlying writers.
+     */
+    protected final Collection&lt;Writer&gt; writers;
+
+    /**
+     * Creates a new filtered collection writer.
+     *
+     * @param writers Writers to provide the underlying targets.
+     */
+<span class="fc" id="L64">    protected FilterCollectionWriter(final Collection&lt;Writer&gt; writers) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        this.writers = writers == null ? EMPTY_WRITERS : writers;</span>
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Creates a new filtered collection writer.
+     *
+     * @param writers Writers to provide the underlying targets.
+     */
+<span class="fc" id="L73">    protected FilterCollectionWriter(final Writer... writers) {</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        this.writers = writers == null ? EMPTY_WRITERS : Arrays.asList(writers);</span>
+<span class="fc" id="L75">    }</span>
+
+    @Override
+    public Writer append(final char c) throws IOException {
+<span class="fc" id="L79">        return forAllWriters(w -&gt; w.append(c));</span>
+    }
+
+    @Override
+    public Writer append(final CharSequence csq) throws IOException {
+<span class="fc" id="L84">        return forAllWriters(w -&gt; w.append(csq));</span>
+    }
+
+    @Override
+    public Writer append(final CharSequence csq, final int start, final int end) throws IOException {
+<span class="fc" id="L89">        return forAllWriters(w -&gt; w.append(csq, start, end));</span>
+    }
+
+    @SuppressWarnings(&quot;resource&quot;) // no allocation
+    @Override
+    public void close() throws IOException {
+<span class="fc" id="L95">        forAllWriters(Writer::close);</span>
+<span class="fc" id="L96">    }</span>
+
+    /**
+     * Flushes the stream.
+     *
+     * @throws IOException If an I/O error occurs
+     */
+    @SuppressWarnings(&quot;resource&quot;) // no allocation
+    @Override
+    public void flush() throws IOException {
+<span class="fc" id="L106">        forAllWriters(Writer::flush);</span>
+<span class="fc" id="L107">    }</span>
+
+    private FilterCollectionWriter forAllWriters(final IOConsumer&lt;Writer&gt; action) throws IOExceptionList {
+<span class="fc" id="L110">        IOConsumer.forAll(action, writers());</span>
+<span class="fc" id="L111">        return this;</span>
+    }
+
+    @SuppressWarnings(&quot;resource&quot;) // no allocation
+    @Override
+    public void write(final char[] cbuf) throws IOException {
+<span class="fc" id="L117">        forAllWriters(w -&gt; w.write(cbuf));</span>
+<span class="fc" id="L118">    }</span>
+
+    /**
+     * Writes a portion of an array of characters.
+     *
+     * @param cbuf Buffer of characters to be written
+     * @param off  Offset from which to start reading characters
+     * @param len  Number of characters to be written
+     * @throws IOException If an I/O error occurs
+     */
+    @SuppressWarnings(&quot;resource&quot;) // no allocation
+    @Override
+    public void write(final char[] cbuf, final int off, final int len) throws IOException {
+<span class="fc" id="L131">        forAllWriters(w -&gt; w.write(cbuf, off, len));</span>
+<span class="fc" id="L132">    }</span>
+
+    /**
+     * Writes a single character.
+     *
+     * @throws IOException If an I/O error occurs
+     */
+    @SuppressWarnings(&quot;resource&quot;) // no allocation
+    @Override
+    public void write(final int c) throws IOException {
+<span class="fc" id="L142">        forAllWriters(w -&gt; w.write(c));</span>
+<span class="fc" id="L143">    }</span>
+
+    @SuppressWarnings(&quot;resource&quot;) // no allocation
+    @Override
+    public void write(final String str) throws IOException {
+<span class="pc" id="L148">        forAllWriters(w -&gt; w.write(str));</span>
+<span class="nc" id="L149">    }</span>
+
+    /**
+     * Writes a portion of a string.
+     *
+     * @param str String to be written
+     * @param off Offset from which to start reading characters
+     * @param len Number of characters to be written
+     * @throws IOException If an I/O error occurs
+     */
+    @SuppressWarnings(&quot;resource&quot;) // no allocation
+    @Override
+    public void write(final String str, final int off, final int len) throws IOException {
+<span class="pc" id="L162">        forAllWriters(w -&gt; w.write(str, off, len));</span>
+<span class="nc" id="L163">    }</span>
+
+    private Stream&lt;Writer&gt; writers() {
+<span class="fc" id="L166">        return writers.stream().filter(Objects::nonNull);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppendableWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.output</a> &gt; <span class="el_source">AppendableWriter.java</span></div><h1>AppendableWriter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.output;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Objects;
+
+/**
+ * Writer implementation that writes the data to an {@link Appendable}
+ * Object.
+ * &lt;p&gt;
+ * For example, can be used with a {@link java.lang.StringBuilder}
+ * or {@link java.lang.StringBuffer}.
+ * &lt;/p&gt;
+ *
+ * @since 2.7
+ * @see Appendable
+ *
+ * @param &lt;T&gt; The type of the {@link Appendable} wrapped by this AppendableWriter.
+ */
+public class AppendableWriter &lt;T extends Appendable&gt; extends Writer {
+
+    private final T appendable;
+
+    /**
+     * Constructs a new instance with the specified appendable.
+     *
+     * @param appendable the appendable to write to
+     */
+<span class="fc" id="L45">    public AppendableWriter(final T appendable) {</span>
+<span class="fc" id="L46">        this.appendable = appendable;</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Appends the specified character to the underlying appendable.
+     *
+     * @param c the character to append
+     * @return this writer
+     * @throws IOException upon error
+     */
+    @Override
+    public Writer append(final char c) throws IOException {
+<span class="fc" id="L58">        appendable.append(c);</span>
+<span class="fc" id="L59">        return this;</span>
+    }
+
+    /**
+     * Appends the specified character sequence to the underlying appendable.
+     *
+     * @param csq the character sequence to append
+     * @return this writer
+     * @throws IOException upon error
+     */
+    @Override
+    public Writer append(final CharSequence csq) throws IOException {
+<span class="fc" id="L71">        appendable.append(csq);</span>
+<span class="fc" id="L72">        return this;</span>
+    }
+
+    /**
+     * Appends a subsequence of the specified character sequence to the underlying appendable.
+     *
+     * @param csq the character sequence from which a subsequence will be appended
+     * @param start the index of the first character in the subsequence
+     * @param end the index of the character following the last character in the subsequence
+     * @return this writer
+     * @throws IOException upon error
+     */
+    @Override
+    public Writer append(final CharSequence csq, final int start, final int end) throws IOException {
+<span class="fc" id="L86">        appendable.append(csq, start, end);</span>
+<span class="fc" id="L87">        return this;</span>
+    }
+
+    /**
+     * Closes the stream. This implementation does nothing.
+     *
+     * @throws IOException upon error
+     */
+    @Override
+    public void close() throws IOException {
+        // noop
+<span class="fc" id="L98">    }</span>
+
+    /**
+     * Flushes the stream. This implementation does nothing.
+     *
+     * @throws IOException upon error
+     */
+    @Override
+    public void flush() throws IOException {
+        // noop
+<span class="nc" id="L108">    }</span>
+
+    /**
+     * Return the target appendable.
+     *
+     * @return the target appendable
+     */
+    public T getAppendable() {
+<span class="fc" id="L116">        return appendable;</span>
+    }
+
+    /**
+     * Writes a portion of an array of characters to the underlying appendable.
+     *
+     * @param cbuf an array with the characters to write
+     * @param off offset from which to start writing characters
+     * @param len number of characters to write
+     * @throws IOException upon error
+     */
+    @Override
+    public void write(final char[] cbuf, final int off, final int len) throws IOException {
+<span class="fc" id="L129">        Objects.requireNonNull(cbuf, &quot;Character array is missing&quot;);</span>
+<span class="pc bpc" id="L130" title="2 of 4 branches missed.">        if (len &lt; 0 || off + len &gt; cbuf.length) {</span>
+<span class="nc" id="L131">            throw new IndexOutOfBoundsException(&quot;Array Size=&quot; + cbuf.length +</span>
+                    &quot;, offset=&quot; + off + &quot;, length=&quot; + len);
+        }
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        for (int i = 0; i &lt; len; i++) {</span>
+<span class="fc" id="L135">            appendable.append(cbuf[off + i]);</span>
+        }
+<span class="fc" id="L137">    }</span>
+
+    /**
+     * Writes a character to the underlying appendable.
+     *
+     * @param c the character to write
+     * @throws IOException upon error
+     */
+    @Override
+    public void write(final int c) throws IOException {
+<span class="fc" id="L147">        appendable.append((char)c);</span>
+<span class="fc" id="L148">    }</span>
+
+    /**
+     * Writes a portion of a String to the underlying appendable.
+     *
+     * @param str a string
+     * @param off offset from which to start writing characters
+     * @param len number of characters to write
+     * @throws IOException upon error
+     */
+    @Override
+    public void write(final String str, final int off, final int len) throws IOException {
+        // appendable.append will add &quot;null&quot; for a null String; add an explicit null check
+<span class="fc" id="L161">        Objects.requireNonNull(str, &quot;String is missing&quot;);</span>
+<span class="fc" id="L162">        appendable.append(str, off, off + len);</span>
+<span class="fc" id="L163">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

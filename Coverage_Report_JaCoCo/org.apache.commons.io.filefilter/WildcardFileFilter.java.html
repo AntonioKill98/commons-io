@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WildcardFileFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.filefilter</a> &gt; <span class="el_source">WildcardFileFilter.java</span></div><h1>WildcardFileFilter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.filefilter;
+
+import java.io.File;
+import java.io.Serializable;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOCase;
+import org.apache.commons.io.build.AbstractSupplier;
+
+/**
+ * Filters files using the supplied wildcards.
+ * &lt;p&gt;
+ * This filter selects files and directories based on one or more wildcards. Testing is case-sensitive by default, but this can be configured.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * The wildcard matcher uses the characters '?' and '*' to represent a single or multiple wildcard characters. This is the same as often found on DOS/Unix
+ * command lines. The check is case-sensitive by default. See {@link FilenameUtils#wildcardMatchOnSystem(String,String)} for more information.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * For example:
+ * &lt;/p&gt;
+ * &lt;h2&gt;Using Classic IO&lt;/h2&gt;
+ *
+ * &lt;pre&gt;
+ * File dir = FileUtils.current();
+ * FileFilter fileFilter = new WildcardFileFilter(&quot;*test*.java~*~&quot;);
+ * File[] files = dir.listFiles(fileFilter);
+ * for (String file : files) {
+ *     System.out.println(file);
+ * }
+ * &lt;/pre&gt;
+ *
+ * &lt;h2&gt;Using NIO&lt;/h2&gt;
+ *
+ * &lt;pre&gt;
+ * final Path dir = PathUtils.current();
+ * final AccumulatorPathVisitor visitor = AccumulatorPathVisitor.withLongCounters(new WildcardFileFilter(&quot;*test*.java~*~&quot;));
+ * //
+ * // Walk one dir
+ * Files.&lt;b&gt;walkFileTree&lt;/b&gt;(dir, Collections.emptySet(), 1, visitor);
+ * System.out.println(visitor.getPathCounters());
+ * System.out.println(visitor.getFileList());
+ * //
+ * visitor.getPathCounters().reset();
+ * //
+ * // Walk dir tree
+ * Files.&lt;b&gt;walkFileTree&lt;/b&gt;(dir, visitor);
+ * System.out.println(visitor.getPathCounters());
+ * System.out.println(visitor.getDirList());
+ * System.out.println(visitor.getFileList());
+ * &lt;/pre&gt;
+ *
+ * @since 1.3
+ */
+public class WildcardFileFilter extends AbstractFileFilter implements Serializable {
+
+    /**
+     * Builds a new {@link WildcardFileFilter} instance.
+     *
+     * @since 2.12.02
+     */
+<span class="fc" id="L84">    public static class Builder extends AbstractSupplier&lt;WildcardFileFilter, Builder&gt; {</span>
+
+        /** The wildcards that will be used to match file names. */
+        private String[] wildcards;
+
+        /** Whether the comparison is case-sensitive. */
+<span class="fc" id="L90">        private IOCase ioCase = IOCase.SENSITIVE;</span>
+
+        @Override
+        public WildcardFileFilter get() {
+<span class="fc" id="L94">            return new WildcardFileFilter(ioCase, wildcards);</span>
+        }
+
+        /**
+         * Sets how to handle case sensitivity, null means case-sensitive.
+         *
+         * @param ioCase how to handle case sensitivity, null means case-sensitive.
+         * @return this
+         */
+        public Builder setIoCase(final IOCase ioCase) {
+<span class="fc" id="L104">            this.ioCase = IOCase.value(ioCase, IOCase.SENSITIVE);</span>
+<span class="fc" id="L105">            return this;</span>
+        }
+
+        /**
+         * Sets the list of wildcards to match, not null.
+         *
+         * @param wildcards the list of wildcards to match, not null.
+         * @return this
+         */
+        public Builder setWildcards(final List&lt;String&gt; wildcards) {
+<span class="fc" id="L115">            setWildcards(requireWildcards(wildcards).toArray(EMPTY_STRING_ARRAY));</span>
+<span class="fc" id="L116">            return this;</span>
+        }
+
+        /**
+         * Sets the wildcards to match, not null.
+         *
+         * @param wildcards the wildcards to match, not null.
+         * @return this
+         */
+        public Builder setWildcards(final String... wildcards) {
+<span class="fc" id="L126">            this.wildcards = requireWildcards(wildcards);</span>
+<span class="fc" id="L127">            return this;</span>
+        }
+
+    }
+
+    /**
+     * Constructs a new {@link Builder}.
+     *
+     * @return a new {@link Builder}.
+     * @since 2.12.0
+     */
+    public static Builder builder() {
+<span class="fc" id="L139">        return new Builder();</span>
+    }
+
+    private static final long serialVersionUID = -7426486598995782105L;
+
+    private static &lt;T&gt; T requireWildcards(final T wildcards) {
+<span class="fc" id="L145">        return Objects.requireNonNull(wildcards, &quot;wildcards&quot;);</span>
+    }
+
+    /** The wildcards that will be used to match file names. */
+    private final String[] wildcards;
+
+    /** Whether the comparison is case-sensitive. */
+    private final IOCase ioCase;
+
+    /**
+     * Constructs a new wildcard filter for an array of wildcards specifying case-sensitivity.
+     *
+     * @param wildcards the array of wildcards to match, not null
+     * @param ioCase    how to handle case sensitivity, null means case-sensitive
+     * @throws NullPointerException if the pattern array is null
+     */
+<span class="fc" id="L161">    private WildcardFileFilter(final IOCase ioCase, final String... wildcards) {</span>
+<span class="fc" id="L162">        this.wildcards = requireWildcards(wildcards).clone();</span>
+<span class="fc" id="L163">        this.ioCase = IOCase.value(ioCase, IOCase.SENSITIVE);</span>
+<span class="fc" id="L164">    }</span>
+
+    /**
+     * Constructs a new case-sensitive wildcard filter for a list of wildcards.
+     *
+     * @param wildcards the list of wildcards to match, not null
+     * @throws IllegalArgumentException if the pattern list is null
+     * @throws ClassCastException       if the list does not contain Strings
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public WildcardFileFilter(final List&lt;String&gt; wildcards) {
+<span class="nc" id="L176">        this(wildcards, IOCase.SENSITIVE);</span>
+<span class="nc" id="L177">    }</span>
+
+    /**
+     * Constructs a new wildcard filter for a list of wildcards specifying case-sensitivity.
+     *
+     * @param wildcards the list of wildcards to match, not null
+     * @param ioCase    how to handle case sensitivity, null means case-sensitive
+     * @throws IllegalArgumentException if the pattern list is null
+     * @throws ClassCastException       if the list does not contain Strings
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public WildcardFileFilter(final List&lt;String&gt; wildcards, final IOCase ioCase) {
+<span class="nc" id="L190">        this(ioCase, requireWildcards(wildcards).toArray(EMPTY_STRING_ARRAY));</span>
+<span class="nc" id="L191">    }</span>
+
+    /**
+     * Constructs a new case-sensitive wildcard filter for a single wildcard.
+     *
+     * @param wildcard the wildcard to match
+     * @throws IllegalArgumentException if the pattern is null
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public WildcardFileFilter(final String wildcard) {
+<span class="fc" id="L202">        this(IOCase.SENSITIVE, requireWildcards(wildcard));</span>
+<span class="fc" id="L203">    }</span>
+
+    /**
+     * Constructs a new case-sensitive wildcard filter for an array of wildcards.
+     *
+     * @param wildcards the array of wildcards to match
+     * @throws NullPointerException if the pattern array is null
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public WildcardFileFilter(final String... wildcards) {
+<span class="fc" id="L214">        this(IOCase.SENSITIVE, wildcards);</span>
+<span class="fc" id="L215">    }</span>
+
+    /**
+     * Constructs a new wildcard filter for a single wildcard specifying case-sensitivity.
+     *
+     * @param wildcard the wildcard to match, not null
+     * @param ioCase   how to handle case sensitivity, null means case-sensitive
+     * @throws NullPointerException if the pattern is null
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public WildcardFileFilter(final String wildcard, final IOCase ioCase) {
+<span class="fc" id="L227">        this(ioCase, wildcard);</span>
+<span class="fc" id="L228">    }</span>
+
+    /**
+     * Constructs a new wildcard filter for an array of wildcards specifying case-sensitivity.
+     *
+     * @param wildcards the array of wildcards to match, not null
+     * @param ioCase    how to handle case sensitivity, null means case-sensitive
+     * @throws NullPointerException if the pattern array is null
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public WildcardFileFilter(final String[] wildcards, final IOCase ioCase) {
+<span class="nc" id="L240">        this(ioCase, wildcards);</span>
+<span class="nc" id="L241">    }</span>
+
+    /**
+     * Checks to see if the file name matches one of the wildcards.
+     *
+     * @param file the file to check
+     * @return true if the file name matches one of the wildcards
+     */
+    @Override
+    public boolean accept(final File file) {
+<span class="fc" id="L251">        return accept(file.getName());</span>
+    }
+
+    /**
+     * Checks to see if the file name matches one of the wildcards.
+     *
+     * @param dir  the file directory (ignored)
+     * @param name the file name
+     * @return true if the file name matches one of the wildcards
+     */
+    @Override
+    public boolean accept(final File dir, final String name) {
+<span class="fc" id="L263">        return accept(name);</span>
+    }
+
+    /**
+     * Checks to see if the file name matches one of the wildcards.
+     *
+     * @param file the file to check
+     *
+     * @return true if the file name matches one of the wildcards.
+     * @since 2.9.0
+     */
+    @Override
+    public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {
+<span class="fc" id="L276">        return toFileVisitResult(accept(Objects.toString(file.getFileName(), null)));</span>
+    }
+
+    private boolean accept(final String name) {
+<span class="fc" id="L280">        return Stream.of(wildcards).anyMatch(wildcard -&gt; FilenameUtils.wildcardMatch(name, wildcard, ioCase));</span>
+    }
+
+    /**
+     * Provide a String representation of this file filter.
+     *
+     * @return a String representation
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L290">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L291">        buffer.append(super.toString());</span>
+<span class="fc" id="L292">        buffer.append(&quot;(&quot;);</span>
+<span class="fc" id="L293">        append(wildcards, buffer);</span>
+<span class="fc" id="L294">        buffer.append(&quot;)&quot;);</span>
+<span class="fc" id="L295">        return buffer.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

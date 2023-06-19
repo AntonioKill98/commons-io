@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RandomAccessFileInputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">RandomAccessFileInputStream.java</span></div><h1>RandomAccessFileInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.input;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.util.Objects;
+
+import org.apache.commons.io.RandomAccessFileMode;
+import org.apache.commons.io.build.AbstractStreamBuilder;
+import org.apache.commons.io.output.DeferredFileOutputStream;
+
+/**
+ * Streams data from a {@link RandomAccessFile} starting at its current position.
+ *
+ * @since 2.8.0
+ */
+public class RandomAccessFileInputStream extends InputStream {
+
+    /**
+     * Builds a new {@link DeferredFileOutputStream} instance.
+     * &lt;p&gt;
+     * For example:
+     * &lt;/p&gt;
+     * &lt;pre&gt;{@code
+     * RandomAccessFileInputStream s = RandomAccessFileInputStream.builder()
+     *   .setPath(path)
+     *   .setCloseOnClose(true)
+     *   .get()}
+     * &lt;/pre&gt;
+     * &lt;p&gt;
+     * @since 2.12.02
+     */
+<span class="fc" id="L50">    public static class Builder extends AbstractStreamBuilder&lt;RandomAccessFileInputStream, Builder&gt; {</span>
+
+        private RandomAccessFile randomAccessFile;
+        private boolean closeOnClose;
+
+        @SuppressWarnings(&quot;resource&quot;) // Caller closes depending on settings
+        @Override
+        public RandomAccessFileInputStream get() throws IOException {
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            if (randomAccessFile != null) {</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">                if (getOrigin() != null) {</span>
+<span class="nc" id="L60">                    throw new IllegalStateException(String.format(&quot;Only set one of RandomAccessFile (%s) or origin (%s)&quot;, randomAccessFile, getOrigin()));</span>
+                }
+<span class="fc" id="L62">                return new RandomAccessFileInputStream(randomAccessFile, closeOnClose);</span>
+            }
+<span class="fc" id="L64">            return new RandomAccessFileInputStream(RandomAccessFileMode.READ_ONLY.create(getOrigin().getFile()), closeOnClose);</span>
+        }
+
+        /**
+         * Sets whether to close the underlying file when this stream is closed.
+         *
+         * @param closeOnClose Whether to close the underlying file when this stream is closed.
+         * @return this
+         */
+        public Builder setCloseOnClose(final boolean closeOnClose) {
+<span class="nc" id="L74">            this.closeOnClose = closeOnClose;</span>
+<span class="nc" id="L75">            return this;</span>
+        }
+
+        /**
+         * Sets the RandomAccessFile to stream.
+         *
+         * @param randomAccessFile the RandomAccessFile to stream.
+         * @return this
+         */
+        public Builder setRandomAccessFile(final RandomAccessFile randomAccessFile) {
+<span class="fc" id="L85">            this.randomAccessFile = randomAccessFile;</span>
+<span class="fc" id="L86">            return this;</span>
+        }
+
+    }
+
+    /**
+     * Constructs a new {@link Builder}.
+     *
+     * @return a new {@link Builder}.
+     * @since 2.12.0
+     */
+    public static Builder builder() {
+<span class="fc" id="L98">        return new Builder();</span>
+    }
+
+    private final boolean closeOnClose;
+    private final RandomAccessFile randomAccessFile;
+
+    /**
+     * Constructs a new instance configured to leave the underlying file open when this stream is closed.
+     *
+     * @param file The file to stream.
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public RandomAccessFileInputStream(final RandomAccessFile file) {
+<span class="fc" id="L112">        this(file, false);</span>
+<span class="fc" id="L113">    }</span>
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param file         The file to stream.
+     * @param closeOnClose Whether to close the underlying file when this stream is closed.
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+<span class="fc" id="L123">    public RandomAccessFileInputStream(final RandomAccessFile file, final boolean closeOnClose) {</span>
+<span class="fc" id="L124">        this.randomAccessFile = Objects.requireNonNull(file, &quot;file&quot;);</span>
+<span class="fc" id="L125">        this.closeOnClose = closeOnClose;</span>
+<span class="fc" id="L126">    }</span>
+
+    /**
+     * Returns an estimate of the number of bytes that can be read (or skipped over) from this input stream.
+     *
+     * If there are more than {@link Integer#MAX_VALUE} bytes available, return {@link Integer#MAX_VALUE}.
+     *
+     * @return An estimate of the number of bytes that can be read.
+     * @throws IOException If an I/O error occurs.
+     */
+    @Override
+    public int available() throws IOException {
+<span class="fc" id="L138">        final long avail = availableLong();</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (avail &gt; Integer.MAX_VALUE) {</span>
+<span class="nc" id="L140">            return Integer.MAX_VALUE;</span>
+        }
+<span class="fc" id="L142">        return (int) avail;</span>
+    }
+
+    /**
+     * Returns the number of bytes that can be read (or skipped over) from this input stream.
+     *
+     * @return The number of bytes that can be read.
+     * @throws IOException If an I/O error occurs.
+     */
+    public long availableLong() throws IOException {
+<span class="fc" id="L152">        return randomAccessFile.length() - randomAccessFile.getFilePointer();</span>
+    }
+
+    @Override
+    public void close() throws IOException {
+<span class="fc" id="L157">        super.close();</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        if (closeOnClose) {</span>
+<span class="fc" id="L159">            randomAccessFile.close();</span>
+        }
+<span class="fc" id="L161">    }</span>
+
+    /**
+     * Gets the underlying file.
+     *
+     * @return the underlying file.
+     */
+    public RandomAccessFile getRandomAccessFile() {
+<span class="fc" id="L169">        return randomAccessFile;</span>
+    }
+
+    /**
+     * Returns whether to close the underlying file when this stream is closed.
+     *
+     * @return Whether to close the underlying file when this stream is closed.
+     */
+    public boolean isCloseOnClose() {
+<span class="fc" id="L178">        return closeOnClose;</span>
+    }
+
+    @Override
+    public int read() throws IOException {
+<span class="fc" id="L183">        return randomAccessFile.read();</span>
+    }
+
+    @Override
+    public int read(final byte[] bytes) throws IOException {
+<span class="fc" id="L188">        return randomAccessFile.read(bytes);</span>
+    }
+
+    @Override
+    public int read(final byte[] bytes, final int offset, final int length) throws IOException {
+<span class="fc" id="L193">        return randomAccessFile.read(bytes, offset, length);</span>
+    }
+
+    /**
+     * Delegates to the underlying file.
+     *
+     * @param position See {@link RandomAccessFile#seek(long)}.
+     * @throws IOException See {@link RandomAccessFile#seek(long)}.
+     * @see RandomAccessFile#seek(long)
+     */
+    private void seek(final long position) throws IOException {
+<span class="fc" id="L204">        randomAccessFile.seek(position);</span>
+<span class="fc" id="L205">    }</span>
+
+    @Override
+    public long skip(final long skipCount) throws IOException {
+<span class="fc bfc" id="L209" title="All 2 branches covered.">        if (skipCount &lt;= 0) {</span>
+<span class="fc" id="L210">            return 0;</span>
+        }
+<span class="fc" id="L212">        final long filePointer = randomAccessFile.getFilePointer();</span>
+<span class="fc" id="L213">        final long fileLength = randomAccessFile.length();</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">        if (filePointer &gt;= fileLength) {</span>
+<span class="fc" id="L215">            return 0;</span>
+        }
+<span class="fc" id="L217">        final long targetPos = filePointer + skipCount;</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        final long newPos = targetPos &gt; fileLength ? fileLength - 1 : targetPos;</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">        if (newPos &gt; 0) {</span>
+<span class="fc" id="L220">            seek(newPos);</span>
+        }
+<span class="fc" id="L222">        return randomAccessFile.getFilePointer() - filePointer;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

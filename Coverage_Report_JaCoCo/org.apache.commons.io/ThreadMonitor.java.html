@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ThreadMonitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io</a> &gt; <span class="el_source">ThreadMonitor.java</span></div><h1>ThreadMonitor.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io;
+
+import java.time.Duration;
+
+/**
+ * Monitors a thread, interrupting it if it reaches the specified timeout.
+ * &lt;p&gt;
+ * This works by sleeping until the specified timeout amount and then interrupting the thread being monitored. If the
+ * thread being monitored completes its work before being interrupted, it should {@code interrupt()} the &lt;i&gt;monitor&lt;/i&gt;
+ * thread.
+ * &lt;/p&gt;
+ *
+ * &lt;pre&gt;
+ * Duration timeout = Duration.ofSeconds(1);
+ * try {
+ *     Thread monitor = ThreadMonitor.start(timeout);
+ *     // do some work here
+ *     ThreadMonitor.stop(monitor);
+ * } catch (InterruptedException e) {
+ *     // timed amount was reached
+ * }
+ * &lt;/pre&gt;
+ */
+class ThreadMonitor implements Runnable {
+
+    /**
+     * Starts monitoring the current thread.
+     *
+     * @param timeout The timeout amount. or no timeout if the value is zero or less.
+     * @return The monitor thread or {@code null} if the timeout amount is not greater than zero.
+     */
+    static Thread start(final Duration timeout) {
+<span class="fc" id="L49">        return start(Thread.currentThread(), timeout);</span>
+    }
+
+    /**
+     * Starts monitoring the specified thread.
+     *
+     * @param thread The thread to monitor
+     * @param timeout The timeout amount. or no timeout if the value is zero or less.
+     * @return The monitor thread or {@code null} if the timeout amount is not greater than zero.
+     */
+    static Thread start(final Thread thread, final Duration timeout) {
+<span class="fc bfc" id="L60" title="All 4 branches covered.">        if (timeout.isZero() || timeout.isNegative()) {</span>
+<span class="fc" id="L61">            return null;</span>
+        }
+<span class="fc" id="L63">        final Thread monitor = new Thread(new ThreadMonitor(thread, timeout), ThreadMonitor.class.getSimpleName());</span>
+<span class="fc" id="L64">        monitor.setDaemon(true);</span>
+<span class="fc" id="L65">        monitor.start();</span>
+<span class="fc" id="L66">        return monitor;</span>
+    }
+
+    /**
+     * Stops monitoring the specified thread.
+     *
+     * @param thread The monitor thread, may be {@code null}.
+     */
+    static void stop(final Thread thread) {
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (thread != null) {</span>
+<span class="fc" id="L76">            thread.interrupt();</span>
+        }
+<span class="fc" id="L78">    }</span>
+
+    private final Thread thread;
+
+    private final Duration timeout;
+
+    /**
+     * Constructs a new monitor.
+     *
+     * @param thread The thread to monitor.
+     * @param timeout The timeout amount.
+     */
+<span class="fc" id="L90">    private ThreadMonitor(final Thread thread, final Duration timeout) {</span>
+<span class="fc" id="L91">        this.thread = thread;</span>
+<span class="fc" id="L92">        this.timeout = timeout;</span>
+<span class="fc" id="L93">    }</span>
+
+    /**
+     * Sleeps until the specified timeout amount and then interrupt the thread being monitored.
+     *
+     * @see Runnable#run()
+     */
+    @Override
+    public void run() {
+        try {
+<span class="fc" id="L103">            ThreadUtils.sleep(timeout);</span>
+<span class="fc" id="L104">            thread.interrupt();</span>
+<span class="fc" id="L105">        } catch (final InterruptedException e) {</span>
+            // timeout not reached
+<span class="fc" id="L107">        }</span>
+<span class="fc" id="L108">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

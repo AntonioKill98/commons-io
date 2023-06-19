@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IOSpliterator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.function</a> &gt; <span class="el_source">IOSpliterator.java</span></div><h1>IOSpliterator.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.function;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.util.Objects;
+import java.util.Spliterator;
+import java.util.function.Consumer;
+
+/**
+ * Like {@link Spliterator} but throws {@link IOException}.
+ *
+ * @param &lt;T&gt; the type of elements returned by this IOSpliterator.
+ * @since 2.12.0
+ */
+public interface IOSpliterator&lt;T&gt; {
+
+    /**
+     * Adapts the given Spliterator as an IOSpliterator.
+     *
+     * @param &lt;E&gt; the type of the stream elements.
+     * @param iterator The iterator to adapt
+     * @return A new IOSpliterator
+     */
+    static &lt;E&gt; IOSpliterator&lt;E&gt; adapt(final Spliterator&lt;E&gt; iterator) {
+<span class="fc" id="L42">        return IOSpliteratorAdapter.adapt(iterator);</span>
+    }
+
+    /**
+     * Creates a {@link Spliterator} for this instance that throws {@link UncheckedIOException} instead of
+     * {@link IOException}.
+     *
+     * @return an {@link UncheckedIOException} {@link Spliterator}.
+     */
+    default Spliterator&lt;T&gt; asSpliterator() {
+<span class="fc" id="L52">        return new UncheckedIOSpliterator&lt;&gt;(this);</span>
+    }
+
+    /**
+     * Like {@link Spliterator#characteristics()}.
+     *
+     * @return a representation of characteristics
+     */
+    default int characteristics() {
+<span class="fc" id="L61">        return unwrap().characteristics();</span>
+    }
+
+    /**
+     * Like {@link Spliterator#estimateSize()}.
+     *
+     *
+     * @return the estimated size, or {@code Long.MAX_VALUE} if infinite, unknown, or too expensive to compute.
+     */
+    default long estimateSize() {
+<span class="fc" id="L71">        return unwrap().estimateSize();</span>
+    }
+
+    /**
+     * Like {@link Spliterator#forEachRemaining(Consumer)}.
+     *
+     * @param action The action
+     * @throws NullPointerException if the specified action is null
+     */
+    default void forEachRemaining(final IOConsumer&lt;? super T&gt; action) {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        while (tryAdvance(action)) { // NOPMD</span>
+        }
+<span class="fc" id="L83">    }</span>
+
+    /**
+     * Like {@link Spliterator#getComparator()}.
+     *
+     * @return a Comparator, or {@code null} if the elements are sorted in the natural order.
+     * @throws IllegalStateException if the spliterator does not report a characteristic of {@code SORTED}.
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    default IOComparator&lt;? super T&gt; getComparator() {
+<span class="fc" id="L93">        return (IOComparator&lt;T&gt;) unwrap().getComparator();</span>
+    }
+
+    /**
+     * Like {@link Spliterator#getExactSizeIfKnown()}.
+     *
+     * @return the exact size, if known, else {@code -1}.
+     */
+    default long getExactSizeIfKnown() {
+<span class="fc" id="L102">        return unwrap().getExactSizeIfKnown();</span>
+    }
+
+    /**
+     * Like {@link Spliterator#hasCharacteristics(int)}.
+     *
+     * @param characteristics the characteristics to check for
+     * @return {@code true} if all the specified characteristics are present, else {@code false}
+     */
+    default boolean hasCharacteristics(final int characteristics) {
+<span class="fc" id="L112">        return unwrap().hasCharacteristics(characteristics);</span>
+    }
+
+    /**
+     * Like {@link Spliterator#tryAdvance(Consumer)}.
+     *
+     * @param action The action
+     * @return {@code false} if no remaining elements existed upon entry to this method, else {@code true}.
+     * @throws NullPointerException if the specified action is null
+     */
+    default boolean tryAdvance(IOConsumer&lt;? super T&gt; action) {
+<span class="fc" id="L123">        return unwrap().tryAdvance(Objects.requireNonNull(action, &quot;action&quot;).asConsumer());</span>
+    }
+
+    /**
+     * Like {@link Spliterator#trySplit()}.
+     *
+     * @return a {@code Spliterator} covering some portion of the elements, or {@code null} if this spliterator cannot be
+     *         split
+     */
+    default IOSpliterator&lt;T&gt; trySplit() {
+<span class="fc" id="L133">        return adapt(unwrap().trySplit());</span>
+    }
+
+    /**
+     * Unwraps this instance and returns the underlying {@link Spliterator}.
+     * &lt;p&gt;
+     * Implementations may not have anything to unwrap and that behavior is undefined for now.
+     * &lt;/p&gt;
+     *
+     * @return the underlying Spliterator.
+     */
+    Spliterator&lt;T&gt; unwrap();
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

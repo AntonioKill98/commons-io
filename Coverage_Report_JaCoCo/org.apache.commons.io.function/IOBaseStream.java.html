@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IOBaseStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.function</a> &gt; <span class="el_source">IOBaseStream.java</span></div><h1>IOBaseStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.function;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.util.stream.BaseStream;
+import java.util.stream.Stream;
+
+/**
+ * Like {@link BaseStream} but throws {@link IOException}.
+ *
+ * @param &lt;T&gt; the type of the stream elements.
+ * @param &lt;S&gt; the type of the IO stream extending {@code IOBaseStream}.
+ * @param &lt;B&gt; the type of the stream extending {@code BaseStream}.
+ * @since 2.12.0
+ */
+public interface IOBaseStream&lt;T, S extends IOBaseStream&lt;T, S, B&gt;, B extends BaseStream&lt;T, B&gt;&gt; extends Closeable {
+
+    /**
+     * Creates a {@link BaseStream} for this instance that throws {@link UncheckedIOException} instead of
+     * {@link IOException}.
+     *
+     * @return an {@link UncheckedIOException} {@link BaseStream}.
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    default BaseStream&lt;T, B&gt; asBaseStream() {
+<span class="fc" id="L44">        return new UncheckedIOBaseStream&lt;&gt;((S) this);</span>
+    }
+
+    /**
+     * Like {@link BaseStream#close()}.
+     *
+     * @see BaseStream#close()
+     */
+    @Override
+    default void close() {
+<span class="fc" id="L54">        unwrap().close();</span>
+<span class="fc" id="L55">    }</span>
+
+    /**
+     * Like {@link BaseStream#isParallel()}.
+     *
+     * @return See {@link BaseStream#isParallel() delegate}.
+     * @see BaseStream#isParallel()
+     */
+    @SuppressWarnings(&quot;resource&quot;) // for unwrap()
+    default boolean isParallel() {
+<span class="fc" id="L65">        return unwrap().isParallel();</span>
+    }
+
+    /**
+     * Like {@link BaseStream#iterator()}.
+     *
+     * @return See {@link BaseStream#iterator() delegate}.
+     * @see BaseStream#iterator()
+     */
+    @SuppressWarnings(&quot;resource&quot;) // for unwrap()
+    default IOIterator&lt;T&gt; iterator() {
+<span class="fc" id="L76">        return IOIteratorAdapter.adapt(unwrap().iterator());</span>
+    }
+
+    /**
+     * Like {@link BaseStream#onClose(Runnable)}.
+     *
+     * @param closeHandler See {@link BaseStream#onClose(Runnable) delegate}.
+     * @return See {@link BaseStream#onClose(Runnable) delegate}.
+     * @throws IOException if an I/O error occurs.
+     * @see BaseStream#onClose(Runnable)
+     */
+    @SuppressWarnings({&quot;unused&quot;, &quot;resource&quot;}) // throws IOException, unwrap()
+    default S onClose(final IORunnable closeHandler) throws IOException {
+<span class="fc" id="L89">        return wrap(unwrap().onClose(() -&gt; Erase.run(closeHandler)));</span>
+    }
+
+    /**
+     * Like {@link BaseStream#parallel()}.
+     *
+     * @return See {@link BaseStream#parallel() delegate}.
+     * @see BaseStream#parallel()
+     */
+    @SuppressWarnings({&quot;resource&quot;, &quot;unchecked&quot;}) // for unwrap(), this
+    default S parallel() {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        return isParallel() ? (S) this : wrap(unwrap().parallel());</span>
+    }
+
+    /**
+     * Like {@link BaseStream#sequential()}.
+     *
+     * @return See {@link BaseStream#sequential() delegate}.
+     * @see BaseStream#sequential()
+     */
+    @SuppressWarnings({&quot;resource&quot;, &quot;unchecked&quot;}) // for unwrap(), this
+    default S sequential() {
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        return isParallel() ? wrap(unwrap().sequential()) : (S) this;</span>
+    }
+
+    /**
+     * Like {@link BaseStream#spliterator()}.
+     *
+     * @return See {@link BaseStream#spliterator() delegate}.
+     * @see BaseStream#spliterator()
+     */
+    @SuppressWarnings(&quot;resource&quot;) // for unwrap()
+    default IOSpliterator&lt;T&gt; spliterator() {
+<span class="fc" id="L122">        return IOSpliteratorAdapter.adapt(unwrap().spliterator());</span>
+    }
+
+    /**
+     * Like {@link BaseStream#unordered()}.
+     *
+     * @return See {@link BaseStream#unordered() delegate}.
+     * @see java.util.stream.BaseStream#unordered()
+     */
+    @SuppressWarnings(&quot;resource&quot;) // for unwrap()
+    default S unordered() {
+<span class="fc" id="L133">        return wrap(unwrap().unordered());</span>
+    }
+
+    /**
+     * Unwraps this instance and returns the underlying {@link Stream}.
+     * &lt;p&gt;
+     * Implementations may not have anything to unwrap and that behavior is undefined for now.
+     * &lt;/p&gt;
+     *
+     * @return the underlying stream.
+     */
+    B unwrap();
+
+    /**
+     * Wraps a {@link Stream}.
+     *
+     * @param delegate The delegate.
+     * @return An IO stream.
+     */
+    S wrap(B delegate);
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

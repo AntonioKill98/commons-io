@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CleaningPathVisitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.file</a> &gt; <span class="el_source">CleaningPathVisitor.java</span></div><h1>CleaningPathVisitor.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.file;
+
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
+import java.util.Objects;
+
+import org.apache.commons.io.file.Counters.PathCounters;
+
+/**
+ * Deletes files but not directories as a visit proceeds.
+ *
+ * @since 2.7
+ */
+public class CleaningPathVisitor extends CountingPathVisitor {
+
+    /**
+     * Creates a new instance configured with a BigInteger {@link PathCounters}.
+     *
+     * @return a new instance configured with a BigInteger {@link PathCounters}.
+     */
+    public static CountingPathVisitor withBigIntegerCounters() {
+<span class="fc" id="L44">        return new CleaningPathVisitor(Counters.bigIntegerPathCounters());</span>
+    }
+
+    /**
+     * Creates a new instance configured with a long {@link PathCounters}.
+     *
+     * @return a new instance configured with a long {@link PathCounters}.
+     */
+    public static CountingPathVisitor withLongCounters() {
+<span class="fc" id="L53">        return new CleaningPathVisitor(Counters.longPathCounters());</span>
+    }
+
+    private final String[] skip;
+    private final boolean overrideReadOnly;
+
+    /**
+     * Constructs a new visitor that deletes files except for the files and directories explicitly given.
+     *
+     * @param pathCounter How to count visits.
+     * @param deleteOption How deletion is handled.
+     * @param skip The files to skip deleting.
+     * @since 2.8.0
+     */
+    public CleaningPathVisitor(final PathCounters pathCounter, final DeleteOption[] deleteOption, final String... skip) {
+<span class="fc" id="L68">        super(pathCounter);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        final String[] temp = skip != null ? skip.clone() : EMPTY_STRING_ARRAY;</span>
+<span class="fc" id="L70">        Arrays.sort(temp);</span>
+<span class="fc" id="L71">        this.skip = temp;</span>
+<span class="fc" id="L72">        this.overrideReadOnly = StandardDeleteOption.overrideReadOnly(deleteOption);</span>
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * Constructs a new visitor that deletes files except for the files and directories explicitly given.
+     *
+     * @param pathCounter How to count visits.
+     * @param skip The files to skip deleting.
+     */
+    public CleaningPathVisitor(final PathCounters pathCounter, final String... skip) {
+<span class="fc" id="L82">        this(pathCounter, PathUtils.EMPTY_DELETE_OPTION_ARRAY, skip);</span>
+<span class="fc" id="L83">    }</span>
+
+    /**
+     * Returns true to process the given path, false if not.
+     *
+     * @param path the path to test.
+     * @return true to process the given path, false if not.
+     */
+    private boolean accept(final Path path) {
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        return Arrays.binarySearch(skip, Objects.toString(path.getFileName(), null)) &lt; 0;</span>
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L98">            return true;</span>
+        }
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (!super.equals(obj)) {</span>
+<span class="fc" id="L101">            return false;</span>
+        }
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L104">            return false;</span>
+        }
+<span class="nc" id="L106">        final CleaningPathVisitor other = (CleaningPathVisitor) obj;</span>
+<span class="nc bnc" id="L107" title="All 4 branches missed.">        return overrideReadOnly == other.overrideReadOnly &amp;&amp; Arrays.equals(skip, other.skip);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L112">        final int prime = 31;</span>
+<span class="fc" id="L113">        int result = super.hashCode();</span>
+<span class="fc" id="L114">        result = prime * result + Arrays.hashCode(skip);</span>
+<span class="fc" id="L115">        result = prime * result + Objects.hash(overrideReadOnly);</span>
+<span class="fc" id="L116">        return result;</span>
+    }
+
+    @Override
+    public FileVisitResult preVisitDirectory(final Path dir, final BasicFileAttributes attributes) throws IOException {
+<span class="fc" id="L121">        super.preVisitDirectory(dir, attributes);</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        return accept(dir) ? FileVisitResult.CONTINUE : FileVisitResult.SKIP_SUBTREE;</span>
+    }
+
+    @Override
+    public FileVisitResult visitFile(final Path file, final BasicFileAttributes attributes) throws IOException {
+        // Files.deleteIfExists() never follows links, so use LinkOption.NOFOLLOW_LINKS in other calls to Files.
+<span class="pc bpc" id="L128" title="1 of 4 branches missed.">        if (accept(file) &amp;&amp; Files.exists(file, LinkOption.NOFOLLOW_LINKS)) {</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">            if (overrideReadOnly) {</span>
+<span class="nc" id="L130">                PathUtils.setReadOnly(file, false, LinkOption.NOFOLLOW_LINKS);</span>
+            }
+<span class="fc" id="L132">            Files.deleteIfExists(file);</span>
+        }
+<span class="fc" id="L134">        updateFileCounters(file, attributes);</span>
+<span class="fc" id="L135">        return FileVisitResult.CONTINUE;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UncheckedFilterOutputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.output</a> &gt; <span class="el_source">UncheckedFilterOutputStream.java</span></div><h1>UncheckedFilterOutputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.output;
+
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UncheckedIOException;
+
+import org.apache.commons.io.function.Uncheck;
+
+/**
+ * A {@link FilterOutputStream} that throws {@link UncheckedIOException} instead of {@link UncheckedIOException}.
+ *
+ * @see FilterOutputStream
+ * @see UncheckedIOException
+ * @see UncheckedIOException
+ * @since 2.12.0
+ */
+public class UncheckedFilterOutputStream extends FilterOutputStream {
+
+    /**
+     * Creates a new instance.
+     *
+     * @param outputStream an OutputStream object providing the underlying stream.
+     * @return a new UncheckedFilterOutputStream.
+     */
+    public static UncheckedFilterOutputStream on(final OutputStream outputStream) {
+<span class="fc" id="L44">        return new UncheckedFilterOutputStream(outputStream);</span>
+    }
+
+    /**
+     * Creates an output stream filter built on top of the specified underlying output stream.
+     *
+     * @param outputStream the underlying output stream, or {@code null} if this instance is to be created without an
+     *        underlying stream.
+     */
+    public UncheckedFilterOutputStream(final OutputStream outputStream) {
+<span class="fc" id="L54">        super(outputStream);</span>
+<span class="fc" id="L55">    }</span>
+
+    /**
+     * Calls this method's super and rethrow {@link IOException} as {@link UncheckedIOException}.
+     */
+    @Override
+    public void close() throws UncheckedIOException {
+<span class="fc" id="L62">        Uncheck.run(super::close);</span>
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * Calls this method's super and rethrow {@link IOException} as {@link UncheckedIOException}.
+     */
+    @Override
+    public void flush() throws UncheckedIOException {
+<span class="fc" id="L70">        Uncheck.run(super::flush);</span>
+<span class="fc" id="L71">    }</span>
+
+    /**
+     * Calls this method's super and rethrow {@link IOException} as {@link UncheckedIOException}.
+     */
+    @Override
+    public void write(final byte[] b) throws UncheckedIOException {
+<span class="nc" id="L78">        Uncheck.accept(super::write, b);</span>
+<span class="nc" id="L79">    }</span>
+
+    /**
+     * Calls this method's super and rethrow {@link IOException} as {@link UncheckedIOException}.
+     */
+    @Override
+    public void write(final byte[] b, final int off, final int len) throws UncheckedIOException {
+<span class="nc" id="L86">        Uncheck.accept(super::write, b, off, len);</span>
+<span class="nc" id="L87">    }</span>
+
+    /**
+     * Calls this method's super and rethrow {@link IOException} as {@link UncheckedIOException}.
+     */
+    @Override
+    public void write(final int b) throws UncheckedIOException {
+<span class="fc" id="L94">        Uncheck.accept(super::write, b);</span>
+<span class="fc" id="L95">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

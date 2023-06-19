@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CopyDirectoryVisitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.file</a> &gt; <span class="el_source">CopyDirectoryVisitor.java</span></div><h1>CopyDirectoryVisitor.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.file;
+
+import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.ProviderMismatchException;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
+import java.util.Objects;
+
+import org.apache.commons.io.file.Counters.PathCounters;
+
+/**
+ * Copies a source directory to a target directory.
+ *
+ * @since 2.7
+ */
+public class CopyDirectoryVisitor extends CountingPathVisitor {
+
+    private static CopyOption[] toCopyOption(final CopyOption... copyOptions) {
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        return copyOptions == null ? PathUtils.EMPTY_COPY_OPTIONS : copyOptions.clone();</span>
+    }
+
+    private final CopyOption[] copyOptions;
+    private final Path sourceDirectory;
+    private final Path targetDirectory;
+
+    /**
+     * Constructs a new visitor that deletes files except for the files and directories explicitly given.
+     *
+     * @param pathCounter How to count visits.
+     * @param sourceDirectory The source directory
+     * @param targetDirectory The target directory
+     * @param copyOptions Specifies how the copying should be done.
+     */
+    public CopyDirectoryVisitor(final PathCounters pathCounter, final Path sourceDirectory, final Path targetDirectory, final CopyOption... copyOptions) {
+<span class="fc" id="L56">        super(pathCounter);</span>
+<span class="fc" id="L57">        this.sourceDirectory = sourceDirectory;</span>
+<span class="fc" id="L58">        this.targetDirectory = targetDirectory;</span>
+<span class="fc" id="L59">        this.copyOptions = toCopyOption(copyOptions);</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Constructs a new visitor that deletes files except for the files and directories explicitly given.
+     *
+     * @param pathCounter How to count visits.
+     * @param fileFilter How to filter file paths.
+     * @param dirFilter How to filter directory paths.
+     * @param sourceDirectory The source directory
+     * @param targetDirectory The target directory
+     * @param copyOptions Specifies how the copying should be done.
+     * @since 2.9.0
+     */
+    public CopyDirectoryVisitor(final PathCounters pathCounter, final PathFilter fileFilter, final PathFilter dirFilter, final Path sourceDirectory,
+        final Path targetDirectory, final CopyOption... copyOptions) {
+<span class="fc" id="L75">        super(pathCounter, fileFilter, dirFilter);</span>
+<span class="fc" id="L76">        this.sourceDirectory = sourceDirectory;</span>
+<span class="fc" id="L77">        this.targetDirectory = targetDirectory;</span>
+<span class="fc" id="L78">        this.copyOptions = toCopyOption(copyOptions);</span>
+<span class="fc" id="L79">    }</span>
+
+    /**
+     * Copies the sourceFile to the targetFile.
+     *
+     * @param sourceFile the source file.
+     * @param targetFile the target file.
+     * @throws IOException if an I/O error occurs.
+     * @since 2.8.0
+     */
+    protected void copy(final Path sourceFile, final Path targetFile) throws IOException {
+<span class="fc" id="L90">        Files.copy(sourceFile, targetFile, copyOptions);</span>
+<span class="fc" id="L91">    }</span>
+
+    @Override
+    public boolean equals(final Object obj) {
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L96">            return true;</span>
+        }
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (!super.equals(obj)) {</span>
+<span class="fc" id="L99">            return false;</span>
+        }
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L102">            return false;</span>
+        }
+<span class="fc" id="L104">        final CopyDirectoryVisitor other = (CopyDirectoryVisitor) obj;</span>
+<span class="pc bpc" id="L105" title="2 of 4 branches missed.">        return Arrays.equals(copyOptions, other.copyOptions) &amp;&amp; Objects.equals(sourceDirectory, other.sourceDirectory)</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">            &amp;&amp; Objects.equals(targetDirectory, other.targetDirectory);</span>
+    }
+
+    /**
+     * Gets the copy options.
+     *
+     * @return the copy options.
+     * @since 2.8.0
+     */
+    public CopyOption[] getCopyOptions() {
+<span class="fc" id="L116">        return copyOptions.clone();</span>
+    }
+
+    /**
+     * Gets the source directory.
+     *
+     * @return the source directory.
+     * @since 2.8.0
+     */
+    public Path getSourceDirectory() {
+<span class="fc" id="L126">        return sourceDirectory;</span>
+    }
+
+    /**
+     * Gets the target directory.
+     *
+     * @return the target directory.
+     * @since 2.8.0
+     */
+    public Path getTargetDirectory() {
+<span class="fc" id="L136">        return targetDirectory;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L141">        final int prime = 31;</span>
+<span class="fc" id="L142">        int result = super.hashCode();</span>
+<span class="fc" id="L143">        result = prime * result + Arrays.hashCode(copyOptions);</span>
+<span class="fc" id="L144">        result = prime * result + Objects.hash(sourceDirectory, targetDirectory);</span>
+<span class="fc" id="L145">        return result;</span>
+    }
+
+    @Override
+    public FileVisitResult preVisitDirectory(final Path directory, final BasicFileAttributes attributes)
+        throws IOException {
+<span class="fc" id="L151">        final Path newTargetDir = resolveRelativeAsString(directory);</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (Files.notExists(newTargetDir)) {</span>
+<span class="fc" id="L153">            Files.createDirectory(newTargetDir);</span>
+        }
+<span class="fc" id="L155">        return super.preVisitDirectory(directory, attributes);</span>
+    }
+
+    /**
+     * Relativizes against {@code sourceDirectory}, then resolves against {@code targetDirectory}.
+     *
+     * We have to call {@link Path#toString()} relative value because we cannot use paths belonging to different
+     * FileSystems in the Path methods, usually this leads to {@link ProviderMismatchException}.
+     *
+     * @param directory the directory to relativize.
+     * @return a new path, relativized against sourceDirectory, then resolved against targetDirectory.
+     */
+    private Path resolveRelativeAsString(final Path directory) {
+<span class="fc" id="L168">        return targetDirectory.resolve(sourceDirectory.relativize(directory).toString());</span>
+    }
+
+    @Override
+    public FileVisitResult visitFile(final Path sourceFile, final BasicFileAttributes attributes) throws IOException {
+<span class="fc" id="L173">        final Path targetFile = resolveRelativeAsString(sourceFile);</span>
+<span class="fc" id="L174">        copy(sourceFile, targetFile);</span>
+<span class="fc" id="L175">        return super.visitFile(targetFile, attributes);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

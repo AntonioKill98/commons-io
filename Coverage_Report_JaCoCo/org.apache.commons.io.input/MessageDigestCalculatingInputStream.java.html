@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MessageDigestCalculatingInputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">MessageDigestCalculatingInputStream.java</span></div><h1>MessageDigestCalculatingInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Provider;
+
+import org.apache.commons.io.build.AbstractStreamBuilder;
+
+/**
+ * This class is an example for using an {@link ObservableInputStream}. It creates its own {@link org.apache.commons.io.input.ObservableInputStream.Observer},
+ * which calculates a checksum using a MessageDigest, for example an MD5 sum.
+ * &lt;p&gt;
+ * See the MessageDigest section in the &lt;a href= &quot;https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest&quot;&gt; Java
+ * Cryptography Architecture Standard Algorithm Name Documentation&lt;/a&gt; for information about standard algorithm names.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * &lt;em&gt;Note&lt;/em&gt;: Neither {@link ObservableInputStream}, nor {@link MessageDigest}, are thread safe. So is {@link MessageDigestCalculatingInputStream}.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * TODO Rename to MessageDigestInputStream in 3.0.
+ * &lt;/p&gt;
+ */
+public class MessageDigestCalculatingInputStream extends ObservableInputStream {
+
+    /**
+     * Builds a new {@link ReaderInputStream} instance.
+     * &lt;p&gt;
+     * For example:
+     * &lt;/p&gt;
+     * &lt;pre&gt;{@code
+     * MessageDigestCalculatingInputStream s = MessageDigestCalculatingInputStream.builder()
+     *   .setPath(path)
+     *   .setMessageDigest(&quot;SHA-512&quot;)
+     *   .get()}
+     * &lt;/pre&gt;
+     * &lt;p&gt;
+     * @since 2.12.02
+     */
+    public static class Builder extends AbstractStreamBuilder&lt;MessageDigestCalculatingInputStream, Builder&gt; {
+
+        private MessageDigest messageDigest;
+
+<span class="fc" id="L61">        public Builder() {</span>
+            try {
+<span class="fc" id="L63">                this.messageDigest = getDefaultMessageDigest();</span>
+<span class="nc" id="L64">            } catch (final NoSuchAlgorithmException e) {</span>
+                // Should not happen.
+<span class="nc" id="L66">                throw new IllegalStateException(e);</span>
+<span class="fc" id="L67">            }</span>
+<span class="fc" id="L68">        }</span>
+
+        @SuppressWarnings(&quot;resource&quot;)
+        @Override
+        public MessageDigestCalculatingInputStream get() throws IOException {
+<span class="fc" id="L73">            return new MessageDigestCalculatingInputStream(getOrigin().getInputStream(), messageDigest);</span>
+        }
+
+        /**
+         * Sets the message digest.
+         *
+         * @param messageDigest the message digest.
+         */
+        public void setMessageDigest(final MessageDigest messageDigest) {
+<span class="nc" id="L82">            this.messageDigest = messageDigest;</span>
+<span class="nc" id="L83">        }</span>
+
+        /**
+         * Sets the name of the name of the message digest algorithm.
+         *
+         * @param algorithm the name of the algorithm. See the MessageDigest section in the
+         *                  &lt;a href= &quot;https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest&quot;&gt; Java Cryptography
+         *                  Architecture Standard Algorithm Name Documentation&lt;/a&gt; for information about standard algorithm names.
+         * @throws NoSuchAlgorithmException if no Provider supports a MessageDigestSpi implementation for the specified algorithm.
+         */
+        public void setMessageDigest(final String algorithm) throws NoSuchAlgorithmException {
+<span class="nc" id="L94">            this.messageDigest = MessageDigest.getInstance(algorithm);</span>
+<span class="nc" id="L95">        }</span>
+
+    }
+
+    /**
+     * Constructs a new {@link Builder}.
+     *
+     * @return a new {@link Builder}.
+     * @since 2.12.0
+     */
+    public static Builder builder() {
+<span class="fc" id="L106">        return new Builder();</span>
+    }
+
+    /**
+     * Maintains the message digest.
+     */
+    public static class MessageDigestMaintainingObserver extends Observer {
+        private final MessageDigest messageDigest;
+
+        /**
+         * Creates an MessageDigestMaintainingObserver for the given MessageDigest.
+         *
+         * @param messageDigest the message digest to use
+         */
+<span class="fc" id="L120">        public MessageDigestMaintainingObserver(final MessageDigest messageDigest) {</span>
+<span class="fc" id="L121">            this.messageDigest = messageDigest;</span>
+<span class="fc" id="L122">        }</span>
+
+        @Override
+        public void data(final byte[] input, final int offset, final int length) throws IOException {
+<span class="fc" id="L126">            messageDigest.update(input, offset, length);</span>
+<span class="fc" id="L127">        }</span>
+
+        @Override
+        public void data(final int input) throws IOException {
+<span class="nc" id="L131">            messageDigest.update((byte) input);</span>
+<span class="nc" id="L132">        }</span>
+    }
+
+    /**
+     * The default message digest algorithm.
+     * &lt;p&gt;
+     * The MD5 cryptographic algorithm is weak and should not be used.
+     * &lt;/p&gt;
+     */
+    private static final String DEFAULT_ALGORITHM = &quot;MD5&quot;;
+
+    /**
+     * Gets a MessageDigest object that implements the default digest algorithm.
+     *
+     * @return a Message Digest object that implements the default algorithm.
+     * @throws NoSuchAlgorithmException if no Provider supports a MessageDigestSpi implementation.
+     * @see Provider
+     */
+    static MessageDigest getDefaultMessageDigest() throws NoSuchAlgorithmException {
+<span class="fc" id="L151">        return MessageDigest.getInstance(DEFAULT_ALGORITHM);</span>
+    }
+
+    private final MessageDigest messageDigest;
+
+    /**
+     * Creates a new instance, which calculates a signature on the given stream, using a {@link MessageDigest} with the &quot;MD5&quot; algorithm.
+     * &lt;p&gt;
+     * The MD5 algorithm is weak and should not be used.
+     * &lt;/p&gt;
+     *
+     * @param inputStream the stream to calculate the message digest for
+     * @throws NoSuchAlgorithmException if no Provider supports a MessageDigestSpi implementation for the specified algorithm.
+     * @deprecated Use {@link #builder()}.
+     */
+    @Deprecated
+    public MessageDigestCalculatingInputStream(final InputStream inputStream) throws NoSuchAlgorithmException {
+<span class="fc" id="L168">        this(inputStream, getDefaultMessageDigest());</span>
+<span class="fc" id="L169">    }</span>
+
+    /**
+     * Creates a new instance, which calculates a signature on the given stream, using the given {@link MessageDigest}.
+     *
+     * @param inputStream   the stream to calculate the message digest for
+     * @param messageDigest the message digest to use
+     * @deprecated Use {@link #builder()}.
+     */
+    @Deprecated
+    public MessageDigestCalculatingInputStream(final InputStream inputStream, final MessageDigest messageDigest) {
+<span class="fc" id="L180">        super(inputStream, new MessageDigestMaintainingObserver(messageDigest));</span>
+<span class="fc" id="L181">        this.messageDigest = messageDigest;</span>
+<span class="fc" id="L182">    }</span>
+
+    /**
+     * Creates a new instance, which calculates a signature on the given stream, using a {@link MessageDigest} with the given algorithm.
+     *
+     * @param inputStream the stream to calculate the message digest for
+     * @param algorithm   the name of the algorithm requested. See the MessageDigest section in the
+     *                    &lt;a href= &quot;https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest&quot;&gt; Java Cryptography
+     *                    Architecture Standard Algorithm Name Documentation&lt;/a&gt; for information about standard algorithm names.
+     * @throws NoSuchAlgorithmException if no Provider supports a MessageDigestSpi implementation for the specified algorithm.
+     * @deprecated Use {@link #builder()}.
+     */
+    @Deprecated
+    public MessageDigestCalculatingInputStream(final InputStream inputStream, final String algorithm) throws NoSuchAlgorithmException {
+<span class="nc" id="L196">        this(inputStream, MessageDigest.getInstance(algorithm));</span>
+<span class="nc" id="L197">    }</span>
+
+    /**
+     * Gets the {@link MessageDigest}, which is being used for generating the checksum.
+     * &lt;p&gt;
+     * &lt;em&gt;Note&lt;/em&gt;: The checksum will only reflect the data, which has been read so far. This is probably not, what you expect. Make sure, that the complete
+     * data has been read, if that is what you want. The easiest way to do so is by invoking {@link #consume()}.
+     * &lt;/p&gt;
+     *
+     * @return the message digest used
+     */
+    public MessageDigest getMessageDigest() {
+<span class="fc" id="L209">        return messageDigest;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

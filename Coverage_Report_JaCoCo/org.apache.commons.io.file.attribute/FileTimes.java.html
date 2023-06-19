@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileTimes.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.file.attribute</a> &gt; <span class="el_source">FileTimes.java</span></div><h1>FileTimes.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.file.attribute;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Helps use {@link FileTime} and interoperate Date and NTFS times.
+ *
+ * @since 2.12.0
+ */
+public class FileTimes {
+
+    /**
+     * Constant for the {@code 1970-01-01T00:00:00Z} {@link Instant#EPOCH epoch} as a time stamp attribute.
+     *
+     * @see Instant#EPOCH
+     */
+<span class="fc" id="L40">    public static final FileTime EPOCH = FileTime.from(Instant.EPOCH);</span>
+
+    /**
+     * The offset of Windows time 0 to Unix epoch in 100-nanosecond intervals.
+     *
+     * &lt;a href=&quot;https://msdn.microsoft.com/en-us/library/windows/desktop/ms724290%28v=vs.85%29.aspx&quot;&gt;Windows File Times&lt;/a&gt;
+     * &lt;p&gt;
+     * A file time is a 64-bit value that represents the number of 100-nanosecond intervals that have elapsed since 12:00
+     * A.M. January 1, 1601 Coordinated Universal Time (UTC). This is the offset of Windows time 0 to Unix epoch in
+     * 100-nanosecond intervals.
+     * &lt;/p&gt;
+     */
+    static final long WINDOWS_EPOCH_OFFSET = -116444736000000000L;
+
+    /**
+     * The amount of 100-nanosecond intervals in one second.
+     */
+<span class="fc" id="L57">    private static final long HUNDRED_NANOS_PER_SECOND = TimeUnit.SECONDS.toNanos(1) / 100;</span>
+
+    /**
+     * The amount of 100-nanosecond intervals in one millisecond.
+     */
+<span class="fc" id="L62">    static final long HUNDRED_NANOS_PER_MILLISECOND = TimeUnit.MILLISECONDS.toNanos(1) / 100;</span>
+
+    /**
+     * Subtracts milliseconds from a source FileTime.
+     *
+     * @param fileTime The source FileTime.
+     * @param millisToSubtract The milliseconds to subtract.
+     * @return The resulting FileTime.
+     */
+    public static FileTime minusMillis(final FileTime fileTime, final long millisToSubtract) {
+<span class="fc" id="L72">        return FileTime.from(fileTime.toInstant().minusMillis(millisToSubtract));</span>
+    }
+
+    /**
+     * Subtracts nanoseconds from a source FileTime.
+     *
+     * @param fileTime The source FileTime.
+     * @param nanosToSubtract The nanoseconds to subtract.
+     * @return The resulting FileTime.
+     */
+    public static FileTime minusNanos(final FileTime fileTime, final long nanosToSubtract) {
+<span class="fc" id="L83">        return FileTime.from(fileTime.toInstant().minusNanos(nanosToSubtract));</span>
+    }
+
+    /**
+     * Subtracts seconds from a source FileTime.
+     *
+     * @param fileTime The source FileTime.
+     * @param secondsToSubtract The seconds to subtract.
+     * @return The resulting FileTime.
+     */
+    public static FileTime minusSeconds(final FileTime fileTime, final long secondsToSubtract) {
+<span class="fc" id="L94">        return FileTime.from(fileTime.toInstant().minusSeconds(secondsToSubtract));</span>
+    }
+
+    /**
+     * Obtains the current instant FileTime from the system clock.
+     *
+     * @return the current instant FileTime from the system clock.
+     */
+    public static FileTime now() {
+<span class="fc" id="L103">        return FileTime.from(Instant.now());</span>
+    }
+
+    /**
+     * Converts NTFS time (100 nanosecond units since 1 January 1601) to Java time.
+     *
+     * @param ntfsTime the NTFS time in 100 nanosecond units
+     * @return the Date
+     */
+    public static Date ntfsTimeToDate(final long ntfsTime) {
+<span class="fc" id="L113">        final long javaHundredNanos = Math.addExact(ntfsTime, WINDOWS_EPOCH_OFFSET);</span>
+<span class="fc" id="L114">        final long javaMillis = Math.floorDiv(javaHundredNanos, HUNDRED_NANOS_PER_MILLISECOND);</span>
+<span class="fc" id="L115">        return new Date(javaMillis);</span>
+    }
+
+    /**
+     * Converts NTFS time (100-nanosecond units since 1 January 1601) to a FileTime.
+     *
+     * @param ntfsTime the NTFS time in 100-nanosecond units
+     * @return the FileTime
+     *
+     * @see #toNtfsTime(FileTime)
+     */
+    public static FileTime ntfsTimeToFileTime(final long ntfsTime) {
+<span class="fc" id="L127">        final long javaHundredsNanos = Math.addExact(ntfsTime, WINDOWS_EPOCH_OFFSET);</span>
+<span class="fc" id="L128">        final long javaSeconds = Math.floorDiv(javaHundredsNanos, HUNDRED_NANOS_PER_SECOND);</span>
+<span class="fc" id="L129">        final long javaNanos = Math.floorMod(javaHundredsNanos, HUNDRED_NANOS_PER_SECOND) * 100;</span>
+<span class="fc" id="L130">        return FileTime.from(Instant.ofEpochSecond(javaSeconds, javaNanos));</span>
+    }
+
+    /**
+     * Adds milliseconds to a source FileTime.
+     *
+     * @param fileTime The source FileTime.
+     * @param millisToAdd The milliseconds to add.
+     * @return The resulting FileTime.
+     */
+    public static FileTime plusMillis(final FileTime fileTime, final long millisToAdd) {
+<span class="fc" id="L141">        return FileTime.from(fileTime.toInstant().plusMillis(millisToAdd));</span>
+    }
+
+    /**
+     * Adds nanoseconds from a source FileTime.
+     *
+     * @param fileTime The source FileTime.
+     * @param nanosToSubtract The nanoseconds to subtract.
+     * @return The resulting FileTime.
+     */
+    public static FileTime plusNanos(final FileTime fileTime, final long nanosToSubtract) {
+<span class="fc" id="L152">        return FileTime.from(fileTime.toInstant().plusNanos(nanosToSubtract));</span>
+    }
+
+    /**
+     * Adds seconds to a source FileTime.
+     *
+     * @param fileTime The source FileTime.
+     * @param secondsToAdd The seconds to add.
+     * @return The resulting FileTime.
+     */
+    public static FileTime plusSeconds(final FileTime fileTime, final long secondsToAdd) {
+<span class="fc" id="L163">        return FileTime.from(fileTime.toInstant().plusSeconds(secondsToAdd));</span>
+    }
+
+    /**
+     * Sets the last modified time of the given file path to now.
+     *
+     * @param path The file path to set.
+     * @throws IOException if an I/O error occurs.
+     */
+    public static void setLastModifiedTime(final Path path) throws IOException {
+<span class="fc" id="L173">        Files.setLastModifiedTime(path, now());</span>
+<span class="fc" id="L174">    }</span>
+
+    /**
+     * Converts {@link FileTime} to a {@link Date}. If the provided FileTime is {@code null}, the returned Date is also
+     * {@code null}.
+     *
+     * @param fileTime the file time to be converted.
+     * @return a {@link Date} which corresponds to the supplied time, or {@code null} if the time is {@code null}.
+     * @see #toFileTime(Date)
+     */
+    public static Date toDate(final FileTime fileTime) {
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        return fileTime != null ? new Date(fileTime.toMillis()) : null;</span>
+    }
+
+    /**
+     * Converts {@link Date} to a {@link FileTime}. If the provided Date is {@code null}, the returned FileTime is also
+     * {@code null}.
+     *
+     * @param date the date to be converted.
+     * @return a {@link FileTime} which corresponds to the supplied date, or {@code null} if the date is {@code null}.
+     * @see #toDate(FileTime)
+     */
+    public static FileTime toFileTime(final Date date) {
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        return date != null ? FileTime.fromMillis(date.getTime()) : null;</span>
+    }
+
+    /**
+     * Converts a {@link Date} to NTFS time.
+     *
+     * @param date the Date
+     * @return the NTFS time
+     */
+    public static long toNtfsTime(final Date date) {
+<span class="fc" id="L207">        final long javaHundredNanos = date.getTime() * HUNDRED_NANOS_PER_MILLISECOND;</span>
+<span class="fc" id="L208">        return Math.subtractExact(javaHundredNanos, WINDOWS_EPOCH_OFFSET);</span>
+    }
+
+    /**
+     * Converts a {@link FileTime} to NTFS time (100-nanosecond units since 1 January 1601).
+     *
+     * @param fileTime the FileTime
+     * @return the NTFS time in 100-nanosecond units
+     */
+    public static long toNtfsTime(final FileTime fileTime) {
+<span class="fc" id="L218">        final Instant instant = fileTime.toInstant();</span>
+<span class="fc" id="L219">        final long javaHundredNanos = instant.getEpochSecond() * HUNDRED_NANOS_PER_SECOND + instant.getNano() / 100;</span>
+<span class="fc" id="L220">        return Math.subtractExact(javaHundredNanos, WINDOWS_EPOCH_OFFSET);</span>
+    }
+
+    private FileTimes() {
+        // No instances.
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

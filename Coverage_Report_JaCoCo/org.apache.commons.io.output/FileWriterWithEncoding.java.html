@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileWriterWithEncoding.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.output</a> &gt; <span class="el_source">FileWriterWithEncoding.java</span></div><h1>FileWriterWithEncoding.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.output;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+import java.util.Objects;
+
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.build.AbstractStreamBuilder;
+
+/**
+ * Writer of files that allows the encoding to be set.
+ * &lt;p&gt;
+ * This class provides a simple alternative to {@link FileWriter} that allows an encoding to be set. Unfortunately, it cannot subclass {@link FileWriter}.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * By default, the file will be overwritten, but this may be changed to append.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * The encoding must be specified using either the name of the {@link Charset}, the {@link Charset}, or a {@link CharsetEncoder}. If the default encoding is
+ * required then use the {@link java.io.FileWriter} directly, rather than this implementation.
+ * &lt;/p&gt;
+ *
+ * @since 1.4
+ */
+public class FileWriterWithEncoding extends ProxyWriter {
+
+    /**
+     * Builds a new {@link DeferredFileOutputStream} instance.
+     * &lt;p&gt;
+     * Using a CharsetEncoder:
+     * &lt;/p&gt;
+     * &lt;pre&gt;{@code
+     * FileWriterWithEncoding s = FileWriterWithEncoding.builder()
+     *   .setPath(path)
+     *   .setAppend(false)
+     *   .setCharsetEncoder(StandardCharsets.UTF_8.newEncoder())
+     *   .get()}
+     * &lt;/pre&gt;
+     * &lt;p&gt;
+     * Using a Charset:
+     * &lt;/p&gt;
+     * &lt;pre&gt;{@code
+     * FileWriterWithEncoding s = FileWriterWithEncoding.builder()
+     *   .setPath(path)
+     *   .setAppend(false)
+     *   .setCharsetEncoder(StandardCharsets.UTF_8)
+     *   .get()}
+     * &lt;/pre&gt;
+     * @since 2.12.02
+     */
+<span class="fc" id="L74">    public static class Builder extends AbstractStreamBuilder&lt;FileWriterWithEncoding, Builder&gt; {</span>
+
+        private boolean append;
+
+<span class="fc" id="L78">        private CharsetEncoder charsetEncoder = super.getCharset().newEncoder();</span>
+
+        @SuppressWarnings(&quot;resource&quot;)
+        @Override
+        public FileWriterWithEncoding get() throws IOException {
+<span class="pc bpc" id="L83" title="2 of 6 branches missed.">            if (charsetEncoder != null &amp;&amp; getCharset() != null &amp;&amp; !charsetEncoder.charset().equals(getCharset())) {</span>
+<span class="nc" id="L84">                throw new IllegalStateException(String.format(&quot;Mismatched Charset(%s) and CharsetEncoder(%s)&quot;, getCharset(), charsetEncoder.charset()));</span>
+            }
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            final Object encoder = charsetEncoder != null ? charsetEncoder : getCharset();</span>
+<span class="fc" id="L87">            return new FileWriterWithEncoding(FileWriterWithEncoding.initWriter(getOrigin().getFile(), encoder, append));</span>
+        }
+
+        /**
+         * Sets whether or not to append.
+         *
+         * @param append Whether or not to append.
+         * @return this
+         */
+        public Builder setAppend(final boolean append) {
+<span class="fc" id="L97">            this.append = append;</span>
+<span class="fc" id="L98">            return this;</span>
+        }
+
+        /**
+         * Sets charsetEncoder to use for encoding.
+         *
+         * @param charsetEncoder The charsetEncoder to use for encoding.
+         * @return this
+         */
+        public Builder setCharsetEncoder(final CharsetEncoder charsetEncoder) {
+<span class="fc" id="L108">            this.charsetEncoder = charsetEncoder;</span>
+<span class="fc" id="L109">            return this;</span>
+        }
+
+    }
+
+    /**
+     * Constructs a new {@link Builder}.
+     *
+     * @return Creates a new {@link Builder}.
+     * @since 2.12.0
+     */
+    public static Builder builder() {
+<span class="fc" id="L121">        return new Builder();</span>
+    }
+
+    /**
+     * Initializes the wrapped file writer. Ensure that a cleanup occurs if the writer creation fails.
+     *
+     * @param file     the file to be accessed
+     * @param encoding the encoding to use - may be Charset, CharsetEncoder or String, null uses the default Charset.
+     * @param append   true to append
+     * @return a new initialized OutputStreamWriter
+     * @throws IOException if an error occurs
+     */
+    private static OutputStreamWriter initWriter(final File file, final Object encoding, final boolean append) throws IOException {
+<span class="fc" id="L134">        Objects.requireNonNull(file, &quot;file&quot;);</span>
+<span class="fc" id="L135">        OutputStream outputStream = null;</span>
+<span class="fc" id="L136">        final boolean fileExistedAlready = file.exists();</span>
+        try {
+<span class="fc" id="L138">            outputStream = FileUtils.newOutputStream(file, append);</span>
+<span class="fc bfc" id="L139" title="All 4 branches covered.">            if (encoding == null || encoding instanceof Charset) {</span>
+<span class="fc" id="L140">                return new OutputStreamWriter(outputStream, Charsets.toCharset((Charset) encoding));</span>
+            }
+<span class="fc bfc" id="L142" title="All 2 branches covered.">            if (encoding instanceof CharsetEncoder) {</span>
+<span class="fc" id="L143">                return new OutputStreamWriter(outputStream, (CharsetEncoder) encoding);</span>
+            }
+<span class="fc" id="L145">            return new OutputStreamWriter(outputStream, (String) encoding);</span>
+<span class="fc" id="L146">        } catch (final IOException | RuntimeException ex) {</span>
+            try {
+<span class="fc" id="L148">                IOUtils.close(outputStream);</span>
+<span class="nc" id="L149">            } catch (final IOException e) {</span>
+<span class="nc" id="L150">                ex.addSuppressed(e);</span>
+<span class="fc" id="L151">            }</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">            if (!fileExistedAlready) {</span>
+<span class="fc" id="L153">                FileUtils.deleteQuietly(file);</span>
+            }
+<span class="fc" id="L155">            throw ex;</span>
+        }
+    }
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param file    the file to write to, not null
+     * @param charset the encoding to use, not null
+     * @throws NullPointerException if the file or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final File file, final Charset charset) throws IOException {
+<span class="fc" id="L170">        this(file, charset, false);</span>
+<span class="fc" id="L171">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param file     the file to write to, not null.
+     * @param encoding the name of the requested charset, null uses the default Charset.
+     * @param append   true if content should be appended, false to overwrite.
+     * @throws NullPointerException if the file is null.
+     * @throws IOException          in case of an I/O error.
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    @SuppressWarnings(&quot;resource&quot;) // Call site is responsible for closing a new instance.
+    public FileWriterWithEncoding(final File file, final Charset encoding, final boolean append) throws IOException {
+<span class="fc" id="L186">        this(initWriter(file, encoding, append));</span>
+<span class="fc" id="L187">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param file           the file to write to, not null
+     * @param charsetEncoder the encoding to use, not null
+     * @throws NullPointerException if the file or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final File file, final CharsetEncoder charsetEncoder) throws IOException {
+<span class="fc" id="L200">        this(file, charsetEncoder, false);</span>
+<span class="fc" id="L201">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param file           the file to write to, not null.
+     * @param charsetEncoder the encoding to use, null uses the default Charset.
+     * @param append         true if content should be appended, false to overwrite.
+     * @throws NullPointerException if the file is null.
+     * @throws IOException          in case of an I/O error.
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    @SuppressWarnings(&quot;resource&quot;) // Call site is responsible for closing a new instance.
+    public FileWriterWithEncoding(final File file, final CharsetEncoder charsetEncoder, final boolean append) throws IOException {
+<span class="fc" id="L216">        this(initWriter(file, charsetEncoder, append));</span>
+<span class="fc" id="L217">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param file        the file to write to, not null
+     * @param charsetName the name of the requested charset, not null
+     * @throws NullPointerException if the file or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final File file, final String charsetName) throws IOException {
+<span class="fc" id="L230">        this(file, charsetName, false);</span>
+<span class="fc" id="L231">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param file        the file to write to, not null.
+     * @param charsetName the name of the requested charset, null uses the default Charset.
+     * @param append      true if content should be appended, false to overwrite.
+     * @throws NullPointerException if the file is null.
+     * @throws IOException          in case of an I/O error.
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    @SuppressWarnings(&quot;resource&quot;) // Call site is responsible for closing a new instance.
+    public FileWriterWithEncoding(final File file, final String charsetName, final boolean append) throws IOException {
+<span class="fc" id="L246">        this(initWriter(file, charsetName, append));</span>
+<span class="fc" id="L247">    }</span>
+
+    private FileWriterWithEncoding(final OutputStreamWriter outputStreamWriter) {
+<span class="fc" id="L250">        super(outputStreamWriter);</span>
+<span class="fc" id="L251">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param fileName the name of the file to write to, not null
+     * @param charset  the charset to use, not null
+     * @throws NullPointerException if the file name or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final String fileName, final Charset charset) throws IOException {
+<span class="fc" id="L264">        this(new File(fileName), charset, false);</span>
+<span class="fc" id="L265">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param fileName the name of the file to write to, not null
+     * @param charset  the encoding to use, not null
+     * @param append   true if content should be appended, false to overwrite
+     * @throws NullPointerException if the file name or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final String fileName, final Charset charset, final boolean append) throws IOException {
+<span class="nc" id="L279">        this(new File(fileName), charset, append);</span>
+<span class="nc" id="L280">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param fileName the name of the file to write to, not null
+     * @param encoding the encoding to use, not null
+     * @throws NullPointerException if the file name or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final String fileName, final CharsetEncoder encoding) throws IOException {
+<span class="fc" id="L293">        this(new File(fileName), encoding, false);</span>
+<span class="fc" id="L294">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param fileName       the name of the file to write to, not null
+     * @param charsetEncoder the encoding to use, not null
+     * @param append         true if content should be appended, false to overwrite
+     * @throws NullPointerException if the file name or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final String fileName, final CharsetEncoder charsetEncoder, final boolean append) throws IOException {
+<span class="nc" id="L308">        this(new File(fileName), charsetEncoder, append);</span>
+<span class="nc" id="L309">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param fileName    the name of the file to write to, not null
+     * @param charsetName the name of the requested charset, not null
+     * @throws NullPointerException if the file name or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final String fileName, final String charsetName) throws IOException {
+<span class="fc" id="L322">        this(new File(fileName), charsetName, false);</span>
+<span class="fc" id="L323">    }</span>
+
+    /**
+     * Constructs a FileWriterWithEncoding with a file encoding.
+     *
+     * @param fileName    the name of the file to write to, not null
+     * @param charsetName the name of the requested charset, not null
+     * @param append      true if content should be appended, false to overwrite
+     * @throws NullPointerException if the file name or encoding is null
+     * @throws IOException          in case of an I/O error
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public FileWriterWithEncoding(final String fileName, final String charsetName, final boolean append) throws IOException {
+<span class="nc" id="L337">        this(new File(fileName), charsetName, append);</span>
+<span class="nc" id="L338">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

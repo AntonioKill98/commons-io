@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileSystem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io</a> &gt; <span class="el_source">FileSystem.java</span></div><h1>FileSystem.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io;
+
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Objects;
+
+/**
+ * Abstracts an OS' file system details, currently supporting the single use case of converting a file name String to a
+ * legal file name with {@link #toLegalFileName(String, char)}.
+ * &lt;p&gt;
+ * The starting point of any operation is {@link #getCurrent()} which gets you the enum for the file system that matches
+ * the OS hosting the running JVM.
+ * &lt;/p&gt;
+ *
+ * @since 2.7
+ */
+<span class="fc" id="L34">public enum FileSystem {</span>
+
+    /**
+     * Generic file system.
+     */
+<span class="fc" id="L39">    GENERIC(4096, false, false, Integer.MAX_VALUE, Integer.MAX_VALUE, new int[] { 0 }, new String[] {}, false, false, '/'),</span>
+
+    /**
+     * Linux file system.
+     */
+<span class="fc" id="L44">    LINUX(8192, true, true, 255, 4096, new int[] {</span>
+            // KEEP THIS ARRAY SORTED!
+            // @formatter:off
+            // ASCII NUL
+            0,
+             '/'
+            // @formatter:on
+    }, new String[] {}, false, false, '/'),
+
+    /**
+     * MacOS file system.
+     */
+<span class="fc" id="L56">    MAC_OSX(4096, true, true, 255, 1024, new int[] {</span>
+            // KEEP THIS ARRAY SORTED!
+            // @formatter:off
+            // ASCII NUL
+            0,
+            '/',
+             ':'
+            // @formatter:on
+    }, new String[] {}, false, false, '/'),
+
+    /**
+     * Windows file system.
+     * &lt;p&gt;
+     * The reserved characters are defined in the
+     * &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file&quot;&gt;Naming Conventions
+     * (microsoft.com)&lt;/a&gt;.
+     * &lt;/p&gt;
+     *
+     * @see &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file&quot;&gt;Naming Conventions
+     *      (microsoft.com)&lt;/a&gt;
+     * @see &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea#consoles&quot;&gt;
+     *      CreateFileA function - Consoles (microsoft.com)&lt;/a&gt;
+     */
+<span class="fc" id="L79">    WINDOWS(4096, false, true,</span>
+            255, 32000, // KEEP THIS ARRAY SORTED!
+            new int[] {
+                    // KEEP THIS ARRAY SORTED!
+                    // @formatter:off
+                    // ASCII NUL
+                    0,
+                    // 1-31 may be allowed in file streams
+                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+                    29, 30, 31,
+                    '&quot;', '*', '/', ':', '&lt;', '&gt;', '?', '\\', '|'
+                    // @formatter:on
+            }, new String[] { &quot;AUX&quot;, &quot;COM1&quot;, &quot;COM2&quot;, &quot;COM3&quot;, &quot;COM4&quot;, &quot;COM5&quot;, &quot;COM6&quot;, &quot;COM7&quot;, &quot;COM8&quot;, &quot;COM9&quot;, &quot;CON&quot;, &quot;CONIN$&quot;, &quot;CONOUT$&quot;,
+                            &quot;LPT1&quot;, &quot;LPT2&quot;, &quot;LPT3&quot;, &quot;LPT4&quot;, &quot;LPT5&quot;, &quot;LPT6&quot;, &quot;LPT7&quot;, &quot;LPT8&quot;, &quot;LPT9&quot;, &quot;NUL&quot;, &quot;PRN&quot; }, true, true, '\\');
+
+    /**
+     * &lt;p&gt;
+     * Is {@code true} if this is Linux.
+     * &lt;/p&gt;
+     * &lt;p&gt;
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * &lt;/p&gt;
+     */
+<span class="fc" id="L102">    private static final boolean IS_OS_LINUX = getOsMatchesName(&quot;Linux&quot;);</span>
+
+    /**
+     * &lt;p&gt;
+     * Is {@code true} if this is Mac.
+     * &lt;/p&gt;
+     * &lt;p&gt;
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * &lt;/p&gt;
+     */
+<span class="fc" id="L112">    private static final boolean IS_OS_MAC = getOsMatchesName(&quot;Mac&quot;);</span>
+
+    /**
+     * The prefix String for all Windows OS.
+     */
+    private static final String OS_NAME_WINDOWS_PREFIX = &quot;Windows&quot;;
+
+    /**
+     * &lt;p&gt;
+     * Is {@code true} if this is Windows.
+     * &lt;/p&gt;
+     * &lt;p&gt;
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * &lt;/p&gt;
+     */
+<span class="fc" id="L127">    private static final boolean IS_OS_WINDOWS = getOsMatchesName(OS_NAME_WINDOWS_PREFIX);</span>
+
+    /**
+     * The current FileSystem.
+     */
+<span class="fc" id="L132">    private static final FileSystem CURRENT = current();</span>
+
+    /**
+     * Gets the current file system.
+     *
+     * @return the current file system
+     */
+    private static FileSystem current() {
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (IS_OS_LINUX) {</span>
+<span class="nc" id="L141">            return LINUX;</span>
+        }
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        if (IS_OS_MAC) {</span>
+<span class="fc" id="L144">            return MAC_OSX;</span>
+        }
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (IS_OS_WINDOWS) {</span>
+<span class="nc" id="L147">            return WINDOWS;</span>
+        }
+<span class="nc" id="L149">        return GENERIC;</span>
+    }
+
+    /**
+     * Gets the current file system.
+     *
+     * @return the current file system
+     */
+    public static FileSystem getCurrent() {
+<span class="fc" id="L158">        return CURRENT;</span>
+    }
+
+    /**
+     * Decides if the operating system matches.
+     *
+     * @param osNamePrefix
+     *            the prefix for the os name
+     * @return true if matches, or false if not or can't determine
+     */
+    private static boolean getOsMatchesName(final String osNamePrefix) {
+<span class="fc" id="L169">        return isOsNameMatch(getSystemProperty(&quot;os.name&quot;), osNamePrefix);</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Gets a System property, defaulting to {@code null} if the property cannot be read.
+     * &lt;/p&gt;
+     * &lt;p&gt;
+     * If a {@link SecurityException} is caught, the return value is {@code null} and a message is written to
+     * {@code System.err}.
+     * &lt;/p&gt;
+     *
+     * @param property
+     *            the system property name
+     * @return the system property value or {@code null} if a security problem occurs
+     */
+    private static String getSystemProperty(final String property) {
+        try {
+<span class="fc" id="L187">            return System.getProperty(property);</span>
+<span class="nc" id="L188">        } catch (final SecurityException ex) {</span>
+            // we are not allowed to look at this property
+<span class="nc" id="L190">            System.err.println(&quot;Caught a SecurityException reading the system property '&quot; + property</span>
+                    + &quot;'; the SystemUtils property value will default to null.&quot;);
+<span class="nc" id="L192">            return null;</span>
+        }
+    }
+
+    /**
+     * Copied from Apache Commons Lang CharSequenceUtils.
+     *
+     * Returns the index within {@code cs} of the first occurrence of the
+     * specified character, starting the search at the specified index.
+     * &lt;p&gt;
+     * If a character with value {@code searchChar} occurs in the
+     * character sequence represented by the {@code cs}
+     * object at an index no smaller than {@code start}, then
+     * the index of the first such occurrence is returned. For values
+     * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
+     * this is the smallest value &lt;i&gt;k&lt;/i&gt; such that:
+     * &lt;/p&gt;
+     * &lt;blockquote&gt;&lt;pre&gt;
+     * (this.charAt(&lt;i&gt;k&lt;/i&gt;) == searchChar) &amp;amp;&amp;amp; (&lt;i&gt;k&lt;/i&gt; &amp;gt;= start)
+     * &lt;/pre&gt;&lt;/blockquote&gt;
+     * is true. For other values of {@code searchChar}, it is the
+     * smallest value &lt;i&gt;k&lt;/i&gt; such that:
+     * &lt;blockquote&gt;&lt;pre&gt;
+     * (this.codePointAt(&lt;i&gt;k&lt;/i&gt;) == searchChar) &amp;amp;&amp;amp; (&lt;i&gt;k&lt;/i&gt; &amp;gt;= start)
+     * &lt;/pre&gt;&lt;/blockquote&gt;
+     * &lt;p&gt;
+     * is true. In either case, if no such character occurs inm {@code cs}
+     * at or after position {@code start}, then
+     * {@code -1} is returned.
+     * &lt;/p&gt;
+     * &lt;p&gt;
+     * There is no restriction on the value of {@code start}. If it
+     * is negative, it has the same effect as if it were zero: the entire
+     * {@link CharSequence} may be searched. If it is greater than
+     * the length of {@code cs}, it has the same effect as if it were
+     * equal to the length of {@code cs}: {@code -1} is returned.
+     * &lt;/p&gt;
+     * &lt;p&gt;All indices are specified in {@code char} values
+     * (Unicode code units).
+     * &lt;/p&gt;
+     *
+     * @param cs  the {@link CharSequence} to be processed, not null
+     * @param searchChar  the char to be searched for
+     * @param start  the start index, negative starts at the string start
+     * @return the index where the search char was found, -1 if not found
+     * @since 3.6 updated to behave more like {@link String}
+     */
+    private static int indexOf(final CharSequence cs, final int searchChar, int start) {
+<span class="pc bpc" id="L240" title="1 of 2 branches missed.">        if (cs instanceof String) {</span>
+<span class="fc" id="L241">            return ((String) cs).indexOf(searchChar, start);</span>
+        }
+<span class="nc" id="L243">        final int sz = cs.length();</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">        if (start &lt; 0) {</span>
+<span class="nc" id="L245">            start = 0;</span>
+        }
+<span class="nc bnc" id="L247" title="All 2 branches missed.">        if (searchChar &lt; Character.MIN_SUPPLEMENTARY_CODE_POINT) {</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">            for (int i = start; i &lt; sz; i++) {</span>
+<span class="nc bnc" id="L249" title="All 2 branches missed.">                if (cs.charAt(i) == searchChar) {</span>
+<span class="nc" id="L250">                    return i;</span>
+                }
+            }
+<span class="nc" id="L253">            return -1;</span>
+        }
+        //supplementary characters (LANG1300)
+<span class="nc bnc" id="L256" title="All 2 branches missed.">        if (searchChar &lt;= Character.MAX_CODE_POINT) {</span>
+<span class="nc" id="L257">            final char[] chars = Character.toChars(searchChar);</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">            for (int i = start; i &lt; sz - 1; i++) {</span>
+<span class="nc" id="L259">                final char high = cs.charAt(i);</span>
+<span class="nc" id="L260">                final char low = cs.charAt(i + 1);</span>
+<span class="nc bnc" id="L261" title="All 4 branches missed.">                if (high == chars[0] &amp;&amp; low == chars[1]) {</span>
+<span class="nc" id="L262">                    return i;</span>
+                }
+            }
+        }
+<span class="nc" id="L266">        return -1;</span>
+    }
+
+    /**
+     * Decides if the operating system matches.
+     * &lt;p&gt;
+     * This method is package private instead of private to support unit test invocation.
+     * &lt;/p&gt;
+     *
+     * @param osName
+     *            the actual OS name
+     * @param osNamePrefix
+     *            the prefix for the expected OS name
+     * @return true if matches, or false if not or can't determine
+     */
+    private static boolean isOsNameMatch(final String osName, final String osNamePrefix) {
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">        if (osName == null) {</span>
+<span class="nc" id="L283">            return false;</span>
+        }
+<span class="fc" id="L285">        return osName.toUpperCase(Locale.ROOT).startsWith(osNamePrefix.toUpperCase(Locale.ROOT));</span>
+    }
+
+    /**
+     * Null-safe replace.
+     *
+     * @param path the path to be changed, null ignored.
+     * @param oldChar the old character.
+     * @param newChar the new character.
+     * @return the new path.
+     */
+    private static String replace(final String path, final char oldChar, final char newChar) {
+<span class="fc bfc" id="L297" title="All 2 branches covered.">        return path == null ? null : path.replace(oldChar, newChar);</span>
+    }
+
+    private final int blockSize;
+    private final boolean casePreserving;
+    private final boolean caseSensitive;
+    private final int[] illegalFileNameChars;
+    private final int maxFileNameLength;
+    private final int maxPathLength;
+    private final String[] reservedFileNames;
+    private final boolean reservedFileNamesExtensions;
+    private final boolean supportsDriveLetter;
+    private final char nameSeparator;
+    private final char nameSeparatorOther;
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param blockSize file allocation block size in bytes.
+     * @param caseSensitive Whether this file system is case-sensitive.
+     * @param casePreserving Whether this file system is case-preserving.
+     * @param maxFileLength The maximum length for file names. The file name does not include folders.
+     * @param maxPathLength The maximum length of the path to a file. This can include folders.
+     * @param illegalFileNameChars Illegal characters for this file system.
+     * @param reservedFileNames The reserved file names.
+     * @param reservedFileNamesExtensions TODO
+     * @param supportsDriveLetter Whether this file system support driver letters.
+     * @param nameSeparator The name separator, '\\' on Windows, '/' on Linux.
+     */
+    FileSystem(final int blockSize, final boolean caseSensitive, final boolean casePreserving,
+        final int maxFileLength, final int maxPathLength, final int[] illegalFileNameChars,
+<span class="fc" id="L328">        final String[] reservedFileNames, final boolean reservedFileNamesExtensions, final boolean supportsDriveLetter, final char nameSeparator) {</span>
+<span class="fc" id="L329">        this.blockSize = blockSize;</span>
+<span class="fc" id="L330">        this.maxFileNameLength = maxFileLength;</span>
+<span class="fc" id="L331">        this.maxPathLength = maxPathLength;</span>
+<span class="fc" id="L332">        this.illegalFileNameChars = Objects.requireNonNull(illegalFileNameChars, &quot;illegalFileNameChars&quot;);</span>
+<span class="fc" id="L333">        this.reservedFileNames = Objects.requireNonNull(reservedFileNames, &quot;reservedFileNames&quot;);</span>
+<span class="fc" id="L334">        this.reservedFileNamesExtensions = reservedFileNamesExtensions;</span>
+<span class="fc" id="L335">        this.caseSensitive = caseSensitive;</span>
+<span class="fc" id="L336">        this.casePreserving = casePreserving;</span>
+<span class="fc" id="L337">        this.supportsDriveLetter = supportsDriveLetter;</span>
+<span class="fc" id="L338">        this.nameSeparator = nameSeparator;</span>
+<span class="fc" id="L339">        this.nameSeparatorOther = FilenameUtils.flipSeparator(nameSeparator);</span>
+<span class="fc" id="L340">    }</span>
+
+    /**
+     * Gets the file allocation block size in bytes.
+     * @return the file allocation block size in bytes.
+     *
+     * @since 2.12.0
+     */
+    public int getBlockSize() {
+<span class="fc" id="L349">        return blockSize;</span>
+    }
+
+    /**
+     * Gets a cloned copy of the illegal characters for this file system.
+     *
+     * @return the illegal characters for this file system.
+     */
+    public char[] getIllegalFileNameChars() {
+<span class="fc" id="L358">        final char[] chars = new char[illegalFileNameChars.length];</span>
+<span class="fc bfc" id="L359" title="All 2 branches covered.">        for (int i = 0; i &lt; illegalFileNameChars.length; i++) {</span>
+<span class="fc" id="L360">            chars[i] = (char) illegalFileNameChars[i];</span>
+        }
+<span class="fc" id="L362">        return chars;</span>
+    }
+
+    /**
+     * Gets a cloned copy of the illegal code points for this file system.
+     *
+     * @return the illegal code points for this file system.
+     * @since 2.12.0
+     */
+    public int[] getIllegalFileNameCodePoints() {
+<span class="nc" id="L372">        return this.illegalFileNameChars.clone();</span>
+    }
+
+    /**
+     * Gets the maximum length for file names. The file name does not include folders.
+     *
+     * @return the maximum length for file names.
+     */
+    public int getMaxFileNameLength() {
+<span class="nc" id="L381">        return maxFileNameLength;</span>
+    }
+
+    /**
+     * Gets the maximum length of the path to a file. This can include folders.
+     *
+     * @return the maximum length of the path to a file.
+     */
+    public int getMaxPathLength() {
+<span class="nc" id="L390">        return maxPathLength;</span>
+    }
+
+    /**
+     * Gets the name separator, '\\' on Windows, '/' on Linux.
+     *
+     * @return '\\' on Windows, '/' on Linux.
+     *
+     * @since 2.12.0
+     */
+    public char getNameSeparator() {
+<span class="nc" id="L401">        return nameSeparator;</span>
+    }
+
+    /**
+     * Gets a cloned copy of the reserved file names.
+     *
+     * @return the reserved file names.
+     */
+    public String[] getReservedFileNames() {
+<span class="fc" id="L410">        return reservedFileNames.clone();</span>
+    }
+
+    /**
+     * Tests whether this file system preserves case.
+     *
+     * @return Whether this file system preserves case.
+     */
+    public boolean isCasePreserving() {
+<span class="nc" id="L419">        return casePreserving;</span>
+    }
+
+    /**
+     * Tests whether this file system is case-sensitive.
+     *
+     * @return Whether this file system is case-sensitive.
+     */
+    public boolean isCaseSensitive() {
+<span class="nc" id="L428">        return caseSensitive;</span>
+    }
+
+    /**
+     * Tests if the given character is illegal in a file name, {@code false} otherwise.
+     *
+     * @param c
+     *            the character to test
+     * @return {@code true} if the given character is illegal in a file name, {@code false} otherwise.
+     */
+    private boolean isIllegalFileNameChar(final int c) {
+<span class="fc bfc" id="L439" title="All 2 branches covered.">        return Arrays.binarySearch(illegalFileNameChars, c) &gt;= 0;</span>
+    }
+
+    /**
+     * Tests if a candidate file name (without a path) such as {@code &quot;filename.ext&quot;} or {@code &quot;filename&quot;} is a
+     * potentially legal file name. If the file name length exceeds {@link #getMaxFileNameLength()}, or if it contains
+     * an illegal character then the check fails.
+     *
+     * @param candidate
+     *            a candidate file name (without a path) like {@code &quot;filename.ext&quot;} or {@code &quot;filename&quot;}
+     * @return {@code true} if the candidate name is legal
+     */
+    public boolean isLegalFileName(final CharSequence candidate) {
+<span class="pc bpc" id="L452" title="1 of 6 branches missed.">        if (candidate == null || candidate.length() == 0 || candidate.length() &gt; maxFileNameLength) {</span>
+<span class="fc" id="L453">            return false;</span>
+        }
+<span class="fc bfc" id="L455" title="All 2 branches covered.">        if (isReservedFileName(candidate)) {</span>
+<span class="fc" id="L456">            return false;</span>
+        }
+<span class="fc" id="L458">        return candidate.chars().noneMatch(this::isIllegalFileNameChar);</span>
+    }
+
+    /**
+     * Tests whether the given string is a reserved file name.
+     *
+     * @param candidate
+     *            the string to test
+     * @return {@code true} if the given string is a reserved file name.
+     */
+    public boolean isReservedFileName(final CharSequence candidate) {
+<span class="fc bfc" id="L469" title="All 2 branches covered.">        final CharSequence test = reservedFileNamesExtensions ? trimExtension(candidate) : candidate;</span>
+<span class="fc bfc" id="L470" title="All 2 branches covered.">        return Arrays.binarySearch(reservedFileNames, test) &gt;= 0;</span>
+    }
+
+    /**
+     * Converts all separators to the Windows separator of backslash.
+     *
+     * @param path the path to be changed, null ignored
+     * @return the updated path
+     * @since 2.12.0
+     */
+    public String normalizeSeparators(final String path) {
+<span class="fc" id="L481">        return replace(path, nameSeparatorOther, nameSeparator);</span>
+    }
+
+    /**
+     * Tests whether this file system support driver letters.
+     * &lt;p&gt;
+     * Windows supports driver letters as do other operating systems. Whether these other OS's still support Java like
+     * OS/2, is a different matter.
+     * &lt;/p&gt;
+     *
+     * @return whether this file system support driver letters.
+     * @since 2.9.0
+     * @see &lt;a href=&quot;https://en.wikipedia.org/wiki/Drive_letter_assignment&quot;&gt;Operating systems that use drive letter
+     *      assignment&lt;/a&gt;
+     */
+    public boolean supportsDriveLetter() {
+<span class="fc" id="L497">        return supportsDriveLetter;</span>
+    }
+
+    /**
+     * Converts a candidate file name (without a path) like {@code &quot;filename.ext&quot;} or {@code &quot;filename&quot;} to a legal file
+     * name. Illegal characters in the candidate name are replaced by the {@code replacement} character. If the file
+     * name length exceeds {@link #getMaxFileNameLength()}, then the name is truncated to
+     * {@link #getMaxFileNameLength()}.
+     *
+     * @param candidate
+     *            a candidate file name (without a path) like {@code &quot;filename.ext&quot;} or {@code &quot;filename&quot;}
+     * @param replacement
+     *            Illegal characters in the candidate name are replaced by this character
+     * @return a String without illegal characters
+     */
+    public String toLegalFileName(final String candidate, final char replacement) {
+<span class="fc bfc" id="L513" title="All 2 branches covered.">        if (isIllegalFileNameChar(replacement)) {</span>
+            // %s does not work properly with NUL
+<span class="fc" id="L515">            throw new IllegalArgumentException(String.format(&quot;The replacement character '%s' cannot be one of the %s illegal characters: %s&quot;,</span>
+<span class="pc bpc" id="L516" title="1 of 2 branches missed.">                replacement == '\0' ? &quot;\\0&quot; : replacement, name(), Arrays.toString(illegalFileNameChars)));</span>
+        }
+<span class="pc bpc" id="L518" title="1 of 2 branches missed.">        final String truncated = candidate.length() &gt; maxFileNameLength ? candidate.substring(0, maxFileNameLength) : candidate;</span>
+<span class="fc bfc" id="L519" title="All 2 branches covered.">        final int[] array = truncated.chars().map(i -&gt; isIllegalFileNameChar(i) ? replacement : i).toArray();</span>
+<span class="fc" id="L520">        return new String(array, 0, array.length);</span>
+    }
+
+    CharSequence trimExtension(final CharSequence cs) {
+<span class="fc" id="L524">        final int index = indexOf(cs, '.', 0);</span>
+<span class="pc bpc" id="L525" title="1 of 2 branches missed.">        return index &lt; 0 ? cs : cs.subSequence(0, index);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

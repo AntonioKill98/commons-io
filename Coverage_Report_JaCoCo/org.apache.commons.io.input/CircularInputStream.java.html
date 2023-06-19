@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CircularInputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">CircularInputStream.java</span></div><h1>CircularInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
+
+/**
+ * An {@link InputStream} that repeats provided bytes for given target byte count.
+ * &lt;p&gt;
+ * Closing this input stream has no effect. The methods in this class can be called after the stream has been closed
+ * without generating an {@link IOException}.
+ * &lt;/p&gt;
+ *
+ * @see InfiniteCircularInputStream
+ * @since 2.8.0
+ */
+public class CircularInputStream extends InputStream {
+
+    /**
+     * Throws an {@link IllegalArgumentException} if the input contains -1.
+     *
+     * @param repeatContent input to validate.
+     * @return the input.
+     */
+    private static byte[] validate(final byte[] repeatContent) {
+<span class="fc" id="L44">        Objects.requireNonNull(repeatContent, &quot;repeatContent&quot;);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for (final byte b : repeatContent) {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            if (b == IOUtils.EOF) {</span>
+<span class="fc" id="L47">                throw new IllegalArgumentException(&quot;repeatContent contains the end-of-stream marker &quot; + IOUtils.EOF);</span>
+            }
+        }
+<span class="fc" id="L50">        return repeatContent;</span>
+    }
+
+    private long byteCount;
+<span class="fc" id="L54">    private int position = -1;</span>
+    private final byte[] repeatedContent;
+    private final long targetByteCount;
+
+    /**
+     * Creates an instance from the specified array of bytes.
+     *
+     * @param repeatContent Input buffer to be repeated this buffer is not copied.
+     * @param targetByteCount How many bytes the read. A negative number means an infinite target count.
+     */
+<span class="fc" id="L64">    public CircularInputStream(final byte[] repeatContent, final long targetByteCount) {</span>
+<span class="fc" id="L65">        this.repeatedContent = validate(repeatContent);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (repeatContent.length == 0) {</span>
+<span class="fc" id="L67">            throw new IllegalArgumentException(&quot;repeatContent is empty.&quot;);</span>
+        }
+<span class="fc" id="L69">        this.targetByteCount = targetByteCount;</span>
+<span class="fc" id="L70">    }</span>
+
+    @Override
+    public int read() {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (targetByteCount &gt;= 0) {</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            if (byteCount == targetByteCount) {</span>
+<span class="fc" id="L76">                return IOUtils.EOF;</span>
+            }
+<span class="fc" id="L78">            byteCount++;</span>
+        }
+<span class="fc" id="L80">        position = (position + 1) % repeatedContent.length;</span>
+<span class="fc" id="L81">        return repeatedContent[position] &amp; 0xff;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

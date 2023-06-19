@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractByteArrayOutputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.output</a> &gt; <span class="el_source">AbstractByteArrayOutputStream.java</span></div><h1>AbstractByteArrayOutputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.output;
+
+import static org.apache.commons.io.IOUtils.EOF;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.SequenceInputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.ClosedInputStream;
+
+/**
+ * This is the base class for implementing an output stream in which the data
+ * is written into a byte array. The buffer automatically grows as data
+ * is written to it.
+ * &lt;p&gt;
+ * The data can be retrieved using {@code toByteArray()} and
+ * {@code toString()}.
+ * Closing an {@link AbstractByteArrayOutputStream} has no effect. The methods in
+ * this class can be called after the stream has been closed without
+ * generating an {@link IOException}.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * This is the base for an alternative implementation of the
+ * {@link java.io.ByteArrayOutputStream} class. The original implementation
+ * only allocates 32 bytes at the beginning. As this class is designed for
+ * heavy duty it starts at {@value #DEFAULT_SIZE} bytes. In contrast to the original it doesn't
+ * reallocate the whole memory block but allocates additional buffers. This
+ * way no buffers need to be garbage collected and the contents don't have
+ * to be copied to the new buffer. This class is designed to behave exactly
+ * like the original. The only exception is the deprecated
+ * {@link java.io.ByteArrayOutputStream#toString(int)} method that has been
+ * ignored.
+ * &lt;/p&gt;
+ *
+ * @since 2.7
+ */
+<span class="fc" id="L60">public abstract class AbstractByteArrayOutputStream extends OutputStream {</span>
+
+    /**
+     * Constructor for an InputStream subclass.
+     *
+     * @param &lt;T&gt; the type of the InputStream.
+     */
+    @FunctionalInterface
+    protected interface InputStreamConstructor&lt;T extends InputStream&gt; {
+
+        /**
+         * Constructs an InputStream subclass.
+         *
+         * @param buf the buffer
+         * @param offset the offset into the buffer
+         * @param length the length of the buffer
+         *
+         * @return the InputStream subclass.
+         */
+        T construct(final byte[] buf, final int offset, final int length);
+    }
+
+    static final int DEFAULT_SIZE = 1024;
+
+    /** The list of buffers, which grows and never reduces. */
+<span class="fc" id="L85">    private final List&lt;byte[]&gt; buffers = new ArrayList&lt;&gt;();</span>
+
+    /** The index of the current buffer. */
+    private int currentBufferIndex;
+
+    /** The total count of bytes in all the filled buffers. */
+    private int filledBufferSum;
+
+    /** The current buffer. */
+    private byte[] currentBuffer;
+
+    /** The total count of bytes written. */
+    protected int count;
+
+    /** Flag to indicate if the buffers can be reused after reset */
+<span class="fc" id="L100">    private boolean reuseBuffers = true;</span>
+
+    /**
+     * Does nothing.
+     *
+     * The methods in this class can be called after the stream has been closed without generating an {@link IOException}.
+     *
+     * @throws IOException never (this method should not declare this exception but it has to now due to backwards
+     *         compatibility)
+     */
+    @Override
+    public void close() throws IOException {
+        //nop
+<span class="fc" id="L113">    }</span>
+
+    /**
+     * Makes a new buffer available either by allocating
+     * a new one or re-cycling an existing one.
+     *
+     * @param newCount  the size of the buffer if one is created
+     */
+    protected void needNewBuffer(final int newCount) {
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (currentBufferIndex &lt; buffers.size() - 1) {</span>
+            // Recycling old buffer
+<span class="fc" id="L124">            filledBufferSum += currentBuffer.length;</span>
+
+<span class="fc" id="L126">            currentBufferIndex++;</span>
+<span class="fc" id="L127">            currentBuffer = buffers.get(currentBufferIndex);</span>
+        } else {
+            // Creating new buffer
+            final int newBufferSize;
+<span class="fc bfc" id="L131" title="All 2 branches covered.">            if (currentBuffer == null) {</span>
+<span class="fc" id="L132">                newBufferSize = newCount;</span>
+<span class="fc" id="L133">                filledBufferSum = 0;</span>
+            } else {
+<span class="fc" id="L135">                newBufferSize = Math.max(currentBuffer.length &lt;&lt; 1, newCount - filledBufferSum);</span>
+<span class="fc" id="L136">                filledBufferSum += currentBuffer.length;</span>
+            }
+
+<span class="fc" id="L139">            currentBufferIndex++;</span>
+<span class="fc" id="L140">            currentBuffer = IOUtils.byteArray(newBufferSize);</span>
+<span class="fc" id="L141">            buffers.add(currentBuffer);</span>
+        }
+<span class="fc" id="L143">    }</span>
+
+    /**
+     * @see java.io.ByteArrayOutputStream#reset()
+     */
+    public abstract void reset();
+
+    /**
+     * @see java.io.ByteArrayOutputStream#reset()
+     */
+    protected void resetImpl() {
+<span class="fc" id="L154">        count = 0;</span>
+<span class="fc" id="L155">        filledBufferSum = 0;</span>
+<span class="fc" id="L156">        currentBufferIndex = 0;</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        if (reuseBuffers) {</span>
+<span class="fc" id="L158">            currentBuffer = buffers.get(currentBufferIndex);</span>
+        } else {
+            //Throw away old buffers
+<span class="fc" id="L161">            currentBuffer = null;</span>
+<span class="fc" id="L162">            final int size = buffers.get(0).length;</span>
+<span class="fc" id="L163">            buffers.clear();</span>
+<span class="fc" id="L164">            needNewBuffer(size);</span>
+<span class="fc" id="L165">            reuseBuffers = true;</span>
+        }
+<span class="fc" id="L167">    }</span>
+
+    /**
+     * Returns the current size of the byte array.
+     *
+     * @return the current size of the byte array
+     */
+    public abstract int size();
+
+    /**
+     * Gets the current contents of this byte stream as a byte array.
+     * The result is independent of this stream.
+     *
+     * @return the current contents of this output stream, as a byte array
+     * @see java.io.ByteArrayOutputStream#toByteArray()
+     */
+    public abstract byte[] toByteArray();
+
+    /**
+     * Gets the current contents of this byte stream as a byte array.
+     * The result is independent of this stream.
+     *
+     * @return the current contents of this output stream, as a byte array
+     * @see java.io.ByteArrayOutputStream#toByteArray()
+     */
+    protected byte[] toByteArrayImpl() {
+<span class="fc" id="L193">        int remaining = count;</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">        if (remaining == 0) {</span>
+<span class="fc" id="L195">            return IOUtils.EMPTY_BYTE_ARRAY;</span>
+        }
+<span class="fc" id="L197">        final byte[] newBuf = IOUtils.byteArray(remaining);</span>
+<span class="fc" id="L198">        int pos = 0;</span>
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">        for (final byte[] buf : buffers) {</span>
+<span class="fc" id="L200">            final int c = Math.min(buf.length, remaining);</span>
+<span class="fc" id="L201">            System.arraycopy(buf, 0, newBuf, pos, c);</span>
+<span class="fc" id="L202">            pos += c;</span>
+<span class="fc" id="L203">            remaining -= c;</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">            if (remaining == 0) {</span>
+<span class="fc" id="L205">                break;</span>
+            }
+<span class="fc" id="L207">        }</span>
+<span class="fc" id="L208">        return newBuf;</span>
+    }
+
+    /**
+     * Gets the current contents of this byte stream as an Input Stream. The
+     * returned stream is backed by buffers of {@code this} stream,
+     * avoiding memory allocation and copy, thus saving space and time.&lt;br&gt;
+     *
+     * @return the current contents of this output stream.
+     * @see java.io.ByteArrayOutputStream#toByteArray()
+     * @see #reset()
+     * @since 2.5
+     */
+    public abstract InputStream toInputStream();
+
+    /**
+     * Gets the current contents of this byte stream as an Input Stream. The
+     * returned stream is backed by buffers of {@code this} stream,
+     * avoiding memory allocation and copy, thus saving space and time.&lt;br&gt;
+     *
+     * @param &lt;T&gt; the type of the InputStream which makes up
+     *            the {@link SequenceInputStream}.
+     * @param isConstructor A constructor for an InputStream which makes
+     *                     up the {@link SequenceInputStream}.
+     *
+     * @return the current contents of this output stream.
+     * @see java.io.ByteArrayOutputStream#toByteArray()
+     * @see #reset()
+     * @since 2.7
+     */
+    @SuppressWarnings(&quot;resource&quot;) // The result InputStream MUST be managed by the call site.
+    protected &lt;T extends InputStream&gt; InputStream toInputStream(
+            final InputStreamConstructor&lt;T&gt; isConstructor) {
+<span class="fc" id="L241">        int remaining = count;</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">        if (remaining == 0) {</span>
+<span class="fc" id="L243">            return ClosedInputStream.INSTANCE;</span>
+        }
+<span class="fc" id="L245">        final List&lt;T&gt; list = new ArrayList&lt;&gt;(buffers.size());</span>
+<span class="pc bpc" id="L246" title="1 of 2 branches missed.">        for (final byte[] buf : buffers) {</span>
+<span class="fc" id="L247">            final int c = Math.min(buf.length, remaining);</span>
+<span class="fc" id="L248">            list.add(isConstructor.construct(buf, 0, c));</span>
+<span class="fc" id="L249">            remaining -= c;</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">            if (remaining == 0) {</span>
+<span class="fc" id="L251">                break;</span>
+            }
+<span class="fc" id="L253">        }</span>
+<span class="fc" id="L254">        reuseBuffers = false;</span>
+<span class="fc" id="L255">        return new SequenceInputStream(Collections.enumeration(list));</span>
+    }
+
+    /**
+     * Gets the current contents of this byte stream as a string
+     * using the platform default charset.
+     * @return the contents of the byte array as a String
+     * @see java.io.ByteArrayOutputStream#toString()
+     * @deprecated 2.5 use {@link #toString(String)} instead
+     */
+    @Override
+    @Deprecated
+    public String toString() {
+        // make explicit the use of the default charset
+<span class="fc" id="L269">        return new String(toByteArray(), Charset.defaultCharset());</span>
+    }
+
+    /**
+     * Gets the current contents of this byte stream as a string
+     * using the specified encoding.
+     *
+     * @param charset  the character encoding
+     * @return the string converted from the byte array
+     * @see java.io.ByteArrayOutputStream#toString(String)
+     * @since 2.5
+     */
+    public String toString(final Charset charset) {
+<span class="fc" id="L282">        return new String(toByteArray(), charset);</span>
+    }
+
+    /**
+     * Gets the current contents of this byte stream as a string
+     * using the specified encoding.
+     *
+     * @param enc  the name of the character encoding
+     * @return the string converted from the byte array
+     * @throws UnsupportedEncodingException if the encoding is not supported
+     * @see java.io.ByteArrayOutputStream#toString(String)
+     */
+    public String toString(final String enc) throws UnsupportedEncodingException {
+<span class="fc" id="L295">        return new String(toByteArray(), enc);</span>
+    }
+
+    @Override
+    public abstract void write(final byte[] b, final int off, final int len);
+
+    /**
+     * Writes the entire contents of the specified input stream to this
+     * byte stream. Bytes from the input stream are read directly into the
+     * internal buffer of this stream.
+     *
+     * @param in the input stream to read from
+     * @return total number of bytes read from the input stream
+     *         (and written to this stream)
+     * @throws IOException if an I/O error occurs while reading the input stream
+     * @since 1.4
+     */
+    public abstract int write(final InputStream in) throws IOException;
+
+    @Override
+    public abstract void write(final int b);
+
+    /**
+     * Writes the bytes to the byte array.
+     * @param b the bytes to write
+     * @param off The start offset
+     * @param len The number of bytes to write
+     */
+    protected void writeImpl(final byte[] b, final int off, final int len) {
+<span class="fc" id="L324">        final int newCount = count + len;</span>
+<span class="fc" id="L325">        int remaining = len;</span>
+<span class="fc" id="L326">        int inBufferPos = count - filledBufferSum;</span>
+<span class="fc bfc" id="L327" title="All 2 branches covered.">        while (remaining &gt; 0) {</span>
+<span class="fc" id="L328">            final int part = Math.min(remaining, currentBuffer.length - inBufferPos);</span>
+<span class="fc" id="L329">            System.arraycopy(b, off + len - remaining, currentBuffer, inBufferPos, part);</span>
+<span class="fc" id="L330">            remaining -= part;</span>
+<span class="fc bfc" id="L331" title="All 2 branches covered.">            if (remaining &gt; 0) {</span>
+<span class="fc" id="L332">                needNewBuffer(newCount);</span>
+<span class="fc" id="L333">                inBufferPos = 0;</span>
+            }
+<span class="fc" id="L335">        }</span>
+<span class="fc" id="L336">        count = newCount;</span>
+<span class="fc" id="L337">    }</span>
+
+    /**
+     * Writes the entire contents of the specified input stream to this
+     * byte stream. Bytes from the input stream are read directly into the
+     * internal buffer of this stream.
+     *
+     * @param in the input stream to read from
+     * @return total number of bytes read from the input stream
+     *         (and written to this stream)
+     * @throws IOException if an I/O error occurs while reading the input stream
+     * @since 2.7
+     */
+    protected int writeImpl(final InputStream in) throws IOException {
+<span class="fc" id="L351">        int readCount = 0;</span>
+<span class="fc" id="L352">        int inBufferPos = count - filledBufferSum;</span>
+<span class="fc" id="L353">        int n = in.read(currentBuffer, inBufferPos, currentBuffer.length - inBufferPos);</span>
+<span class="fc bfc" id="L354" title="All 2 branches covered.">        while (n != EOF) {</span>
+<span class="fc" id="L355">            readCount += n;</span>
+<span class="fc" id="L356">            inBufferPos += n;</span>
+<span class="fc" id="L357">            count += n;</span>
+<span class="fc bfc" id="L358" title="All 2 branches covered.">            if (inBufferPos == currentBuffer.length) {</span>
+<span class="fc" id="L359">                needNewBuffer(currentBuffer.length);</span>
+<span class="fc" id="L360">                inBufferPos = 0;</span>
+            }
+<span class="fc" id="L362">            n = in.read(currentBuffer, inBufferPos, currentBuffer.length - inBufferPos);</span>
+        }
+<span class="fc" id="L364">        return readCount;</span>
+    }
+
+    /**
+     * Write a byte to byte array.
+     * @param b the byte to write
+     */
+    protected void writeImpl(final int b) {
+<span class="fc" id="L372">        int inBufferPos = count - filledBufferSum;</span>
+<span class="fc bfc" id="L373" title="All 2 branches covered.">        if (inBufferPos == currentBuffer.length) {</span>
+<span class="fc" id="L374">            needNewBuffer(count + 1);</span>
+<span class="fc" id="L375">            inBufferPos = 0;</span>
+        }
+<span class="fc" id="L377">        currentBuffer[inBufferPos] = (byte) b;</span>
+<span class="fc" id="L378">        count++;</span>
+<span class="fc" id="L379">    }</span>
+
+    /**
+     * Writes the entire contents of this byte stream to the
+     * specified output stream.
+     *
+     * @param out  the output stream to write to
+     * @throws IOException if an I/O error occurs, such as if the stream is closed
+     * @see java.io.ByteArrayOutputStream#writeTo(OutputStream)
+     */
+    public abstract void writeTo(final OutputStream out) throws IOException;
+
+    /**
+     * Writes the entire contents of this byte stream to the
+     * specified output stream.
+     *
+     * @param out  the output stream to write to
+     * @throws IOException if an I/O error occurs, such as if the stream is closed
+     * @see java.io.ByteArrayOutputStream#writeTo(OutputStream)
+     */
+    protected void writeToImpl(final OutputStream out) throws IOException {
+<span class="fc" id="L400">        int remaining = count;</span>
+<span class="pc bpc" id="L401" title="1 of 2 branches missed.">        for (final byte[] buf : buffers) {</span>
+<span class="fc" id="L402">            final int c = Math.min(buf.length, remaining);</span>
+<span class="fc" id="L403">            out.write(buf, 0, c);</span>
+<span class="fc" id="L404">            remaining -= c;</span>
+<span class="fc bfc" id="L405" title="All 2 branches covered.">            if (remaining == 0) {</span>
+<span class="fc" id="L406">                break;</span>
+            }
+<span class="fc" id="L408">        }</span>
+<span class="fc" id="L409">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

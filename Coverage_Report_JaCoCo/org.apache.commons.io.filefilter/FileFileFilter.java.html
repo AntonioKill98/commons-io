@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileFileFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.filefilter</a> &gt; <span class="el_source">FileFileFilter.java</span></div><h1>FileFileFilter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.filefilter;
+
+import java.io.File;
+import java.io.Serializable;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+
+/**
+ * This filter accepts {@link File}s that are files (not directories).
+ * &lt;p&gt;
+ * For example, here is how to print out a list of the real files
+ * within the current directory:
+ * &lt;/p&gt;
+ * &lt;h2&gt;Using Classic IO&lt;/h2&gt;
+ * &lt;pre&gt;
+ * File dir = FileUtils.current();
+ * String[] files = dir.list(FileFileFilter.INSTANCE);
+ * for (String file : files) {
+ *     System.out.println(file);
+ * }
+ * &lt;/pre&gt;
+ *
+ * &lt;h2&gt;Using NIO&lt;/h2&gt;
+ * &lt;pre&gt;
+ * final Path dir = PathUtils.current();
+ * final AccumulatorPathVisitor visitor = AccumulatorPathVisitor.withLongCounters(FileFileFilter.INSTANCE);
+ * //
+ * // Walk one dir
+ * Files.&lt;b&gt;walkFileTree&lt;/b&gt;(dir, Collections.emptySet(), 1, visitor);
+ * System.out.println(visitor.getPathCounters());
+ * System.out.println(visitor.getFileList());
+ * //
+ * visitor.getPathCounters().reset();
+ * //
+ * // Walk dir tree
+ * Files.&lt;b&gt;walkFileTree&lt;/b&gt;(dir, visitor);
+ * System.out.println(visitor.getPathCounters());
+ * System.out.println(visitor.getDirList());
+ * System.out.println(visitor.getFileList());
+ * &lt;/pre&gt;
+ *
+ * @since 1.3
+ * @see FileFilterUtils#fileFileFilter()
+ */
+public class FileFileFilter extends AbstractFileFilter implements Serializable {
+
+    /**
+     * Singleton instance of file filter.
+     *
+     * @since 2.9.0
+     */
+<span class="fc" id="L70">    public static final IOFileFilter INSTANCE = new FileFileFilter();</span>
+
+    /**
+     * Singleton instance of file filter.
+     *
+     * @deprecated Use {@link #INSTANCE}.
+     */
+    @Deprecated
+<span class="fc" id="L78">    public static final IOFileFilter FILE = INSTANCE;</span>
+
+    private static final long serialVersionUID = 5345244090827540862L;
+
+    /**
+     * Restrictive constructor.
+     */
+<span class="fc" id="L85">    protected FileFileFilter() {</span>
+<span class="fc" id="L86">    }</span>
+
+    /**
+     * Checks to see if the file is a file.
+     *
+     * @param file  the File to check
+     * @return true if the file is a file
+     */
+    @Override
+    public boolean accept(final File file) {
+<span class="fc" id="L96">        return file.isFile();</span>
+    }
+
+    /**
+     * Checks to see if the file is a file.
+     * @param file  the File to check
+     *
+     * @return true if the file is a file
+     * @since 2.9.0
+     */
+    @Override
+    public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {
+<span class="fc" id="L108">        return toFileVisitResult(Files.isRegularFile(file));</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

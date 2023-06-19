@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MagicNumberFileFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.filefilter</a> &gt; <span class="el_source">MagicNumberFileFilter.java</span></div><h1>MagicNumberFileFilter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.filefilter;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
+import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.RandomAccessFileMode;
+
+/**
+ * &lt;p&gt;
+ * File filter for matching files containing a &quot;magic number&quot;. A magic number
+ * is a unique series of bytes common to all files of a specific file format.
+ * For instance, all Java class files begin with the bytes
+ * {@code 0xCAFEBABE}.
+ * &lt;/p&gt;
+ * &lt;h2&gt;Using Classic IO&lt;/h2&gt;
+ * &lt;pre&gt;
+ * File dir = FileUtils.current();
+ * MagicNumberFileFilter javaClassFileFilter =
+ *     MagicNumberFileFilter(new byte[] {(byte) 0xCA, (byte) 0xFE,
+ *       (byte) 0xBA, (byte) 0xBE});
+ * String[] javaClassFiles = dir.list(javaClassFileFilter);
+ * for (String javaClassFile : javaClassFiles) {
+ *     System.out.println(javaClassFile);
+ * }
+ * &lt;/pre&gt;
+ *
+ * &lt;p&gt;
+ * Sometimes, such as in the case of TAR files, the
+ * magic number will be offset by a certain number of bytes in the file. In the
+ * case of TAR archive files, this offset is 257 bytes.
+ * &lt;/p&gt;
+ *
+ * &lt;pre&gt;
+ * File dir = FileUtils.current();
+ * MagicNumberFileFilter tarFileFilter =
+ *     MagicNumberFileFilter(&quot;ustar&quot;, 257);
+ * String[] tarFiles = dir.list(tarFileFilter);
+ * for (String tarFile : tarFiles) {
+ *     System.out.println(tarFile);
+ * }
+ * &lt;/pre&gt;
+ * &lt;h2&gt;Using NIO&lt;/h2&gt;
+ * &lt;pre&gt;
+ * final Path dir = PathUtils.current();
+ * final AccumulatorPathVisitor visitor = AccumulatorPathVisitor.withLongCounters(MagicNumberFileFilter(&quot;ustar&quot;, 257));
+ * //
+ * // Walk one dir
+ * Files.&lt;b&gt;walkFileTree&lt;/b&gt;(dir, Collections.emptySet(), 1, visitor);
+ * System.out.println(visitor.getPathCounters());
+ * System.out.println(visitor.getFileList());
+ * //
+ * visitor.getPathCounters().reset();
+ * //
+ * // Walk dir tree
+ * Files.&lt;b&gt;walkFileTree&lt;/b&gt;(dir, visitor);
+ * System.out.println(visitor.getPathCounters());
+ * System.out.println(visitor.getDirList());
+ * System.out.println(visitor.getFileList());
+ * &lt;/pre&gt;
+ *
+ * @since 2.0
+ * @see FileFilterUtils#magicNumberFileFilter(byte[])
+ * @see FileFilterUtils#magicNumberFileFilter(String)
+ * @see FileFilterUtils#magicNumberFileFilter(byte[], long)
+ * @see FileFilterUtils#magicNumberFileFilter(String, long)
+ */
+public class MagicNumberFileFilter extends AbstractFileFilter implements
+        Serializable {
+
+    /**
+     * The serialization version unique identifier.
+     */
+    private static final long serialVersionUID = -547733176983104172L;
+
+    /**
+     * The magic number to compare against the file's bytes at the provided
+     * offset.
+     */
+    private final byte[] magicNumbers;
+
+    /**
+     * The offset (in bytes) within the files that the magic number's bytes
+     * should appear.
+     */
+    private final long byteOffset;
+
+    /**
+     * &lt;p&gt;
+     * Constructs a new MagicNumberFileFilter and associates it with the magic
+     * number to test for in files. This constructor assumes a starting offset
+     * of {@code 0}.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * It is important to note that &lt;em&gt;the array is not cloned&lt;/em&gt; and that
+     * any changes to the magic number array after construction will affect the
+     * behavior of this file filter.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * MagicNumberFileFilter javaClassFileFilter =
+     *     MagicNumberFileFilter(new byte[] {(byte) 0xCA, (byte) 0xFE,
+     *       (byte) 0xBA, (byte) 0xBE});
+     * &lt;/pre&gt;
+     *
+     * @param magicNumber the magic number to look for in the file.
+     *
+     * @throws IllegalArgumentException if {@code magicNumber} is
+     *         {@code null}, or contains no bytes.
+     */
+    public MagicNumberFileFilter(final byte[] magicNumber) {
+<span class="nc" id="L140">        this(magicNumber, 0);</span>
+<span class="nc" id="L141">    }</span>
+
+    /**
+     * &lt;p&gt;
+     * Constructs a new MagicNumberFileFilter and associates it with the magic
+     * number to test for in files and the byte offset location in the file to
+     * to look for that magic number.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * MagicNumberFileFilter tarFileFilter =
+     *     MagicNumberFileFilter(new byte[] {0x75, 0x73, 0x74, 0x61, 0x72}, 257);
+     * &lt;/pre&gt;
+     *
+     * &lt;pre&gt;
+     * MagicNumberFileFilter javaClassFileFilter =
+     *     MagicNumberFileFilter(new byte[] {0xCA, 0xFE, 0xBA, 0xBE}, 0);
+     * &lt;/pre&gt;
+     *
+     * @param magicNumbers the magic number to look for in the file.
+     * @param offset the byte offset in the file to start comparing bytes.
+     *
+     * @throws IllegalArgumentException if {@code magicNumber}
+     *         contains no bytes, or {@code offset}
+     *         is a negative number.
+     */
+<span class="nc" id="L167">    public MagicNumberFileFilter(final byte[] magicNumbers, final long offset) {</span>
+<span class="nc" id="L168">        Objects.requireNonNull(magicNumbers, &quot;magicNumbers&quot;);</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">        if (magicNumbers.length == 0) {</span>
+<span class="nc" id="L170">            throw new IllegalArgumentException(&quot;The magic number must contain at least one byte&quot;);</span>
+        }
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (offset &lt; 0) {</span>
+<span class="nc" id="L173">            throw new IllegalArgumentException(&quot;The offset cannot be negative&quot;);</span>
+        }
+
+<span class="nc" id="L176">        this.magicNumbers = magicNumbers.clone();</span>
+<span class="nc" id="L177">        this.byteOffset = offset;</span>
+<span class="nc" id="L178">    }</span>
+
+    /**
+     * &lt;p&gt;
+     * Constructs a new MagicNumberFileFilter and associates it with the magic
+     * number to test for in files. This constructor assumes a starting offset
+     * of {@code 0}.
+     * &lt;/p&gt;
+     *
+     * Example usage:
+     * &lt;pre&gt;
+     * {@code
+     * MagicNumberFileFilter xmlFileFilter =
+     *     MagicNumberFileFilter(&quot;&lt;?xml&quot;);
+     * }
+     * &lt;/pre&gt;
+     *
+     * @param magicNumber the magic number to look for in the file.
+     *        The string is converted to bytes using the platform default charset.
+     *
+     * @throws IllegalArgumentException if {@code magicNumber} is
+     *         {@code null} or the empty String.
+     */
+    public MagicNumberFileFilter(final String magicNumber) {
+<span class="nc" id="L202">        this(magicNumber, 0);</span>
+<span class="nc" id="L203">    }</span>
+
+    /**
+     * &lt;p&gt;
+     * Constructs a new MagicNumberFileFilter and associates it with the magic
+     * number to test for in files and the byte offset location in the file to
+     * to look for that magic number.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * MagicNumberFileFilter tarFileFilter =
+     *     MagicNumberFileFilter(&quot;ustar&quot;, 257);
+     * &lt;/pre&gt;
+     *
+     * @param magicNumber the magic number to look for in the file.
+     *        The string is converted to bytes using the platform default charset.
+     * @param offset the byte offset in the file to start comparing bytes.
+     *
+     * @throws IllegalArgumentException if {@code magicNumber} is
+     *         the empty String, or {@code offset} is
+     *         a negative number.
+     */
+<span class="nc" id="L225">    public MagicNumberFileFilter(final String magicNumber, final long offset) {</span>
+<span class="nc" id="L226">        Objects.requireNonNull(magicNumber, &quot;magicNumber&quot;);</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        if (magicNumber.isEmpty()) {</span>
+<span class="nc" id="L228">            throw new IllegalArgumentException(&quot;The magic number must contain at least one byte&quot;);</span>
+        }
+<span class="nc bnc" id="L230" title="All 2 branches missed.">        if (offset &lt; 0) {</span>
+<span class="nc" id="L231">            throw new IllegalArgumentException(&quot;The offset cannot be negative&quot;);</span>
+        }
+
+<span class="nc" id="L234">        this.magicNumbers = magicNumber.getBytes(Charset.defaultCharset()); // explicitly uses the platform default charset</span>
+<span class="nc" id="L235">        this.byteOffset = offset;</span>
+<span class="nc" id="L236">    }</span>
+
+    /**
+     * &lt;p&gt;
+     * Accepts the provided file if the file contains the file filter's magic
+     * number at the specified offset.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * If any {@link IOException}s occur while reading the file, the file will
+     * be rejected.
+     * &lt;/p&gt;
+     *
+     * @param file the file to accept or reject.
+     *
+     * @return {@code true} if the file contains the filter's magic number
+     *         at the specified offset, {@code false} otherwise.
+     */
+    @Override
+    public boolean accept(final File file) {
+<span class="nc bnc" id="L256" title="All 6 branches missed.">        if (file != null &amp;&amp; file.isFile() &amp;&amp; file.canRead()) {</span>
+            try {
+<span class="nc" id="L258">                try (RandomAccessFile randomAccessFile = RandomAccessFileMode.READ_ONLY.create(file)) {</span>
+<span class="nc" id="L259">                    final byte[] fileBytes = IOUtils.byteArray(this.magicNumbers.length);</span>
+<span class="nc" id="L260">                    randomAccessFile.seek(byteOffset);</span>
+<span class="nc" id="L261">                    final int read = randomAccessFile.read(fileBytes);</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">                    if (read != magicNumbers.length) {</span>
+<span class="nc" id="L263">                        return false;</span>
+                    }
+<span class="nc" id="L265">                    return Arrays.equals(this.magicNumbers, fileBytes);</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">                }</span>
+            }
+<span class="nc" id="L268">            catch (final IOException ignored) {</span>
+                // Do nothing, fall through and do not accept file
+            }
+        }
+
+<span class="nc" id="L273">        return false;</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Accepts the provided file if the file contains the file filter's magic
+     * number at the specified offset.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * If any {@link IOException}s occur while reading the file, the file will
+     * be rejected.
+     * &lt;/p&gt;
+     * @param file the file to accept or reject.
+     *
+     * @return {@code true} if the file contains the filter's magic number
+     *         at the specified offset, {@code false} otherwise.
+     * @since 2.9.0
+     */
+    @Override
+    public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {
+<span class="nc bnc" id="L294" title="All 6 branches missed.">        if (file != null &amp;&amp; Files.isRegularFile(file) &amp;&amp; Files.isReadable(file)) {</span>
+            try {
+<span class="nc" id="L296">                try (FileChannel fileChannel = FileChannel.open(file)) {</span>
+<span class="nc" id="L297">                    final ByteBuffer byteBuffer = ByteBuffer.allocate(this.magicNumbers.length);</span>
+<span class="nc" id="L298">                    final int read = fileChannel.read(byteBuffer);</span>
+<span class="nc bnc" id="L299" title="All 2 branches missed.">                    if (read != magicNumbers.length) {</span>
+<span class="nc" id="L300">                        return FileVisitResult.TERMINATE;</span>
+                    }
+<span class="nc" id="L302">                    return toFileVisitResult(Arrays.equals(this.magicNumbers, byteBuffer.array()));</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">                }</span>
+            }
+<span class="nc" id="L305">            catch (final IOException ignored) {</span>
+                // Do nothing, fall through and do not accept file
+            }
+        }
+<span class="nc" id="L309">        return FileVisitResult.TERMINATE;</span>
+    }
+
+    /**
+     * Returns a String representation of the file filter, which includes the
+     * magic number bytes and byte offset.
+     *
+     * @return a String representation of the file filter.
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L320">        final StringBuilder builder = new StringBuilder(super.toString());</span>
+<span class="nc" id="L321">        builder.append(&quot;(&quot;);</span>
+<span class="nc" id="L322">        builder.append(new String(magicNumbers, Charset.defaultCharset()));// TODO perhaps use hex if value is not</span>
+                                                                           // printable
+<span class="nc" id="L324">        builder.append(&quot;,&quot;);</span>
+<span class="nc" id="L325">        builder.append(this.byteOffset);</span>
+<span class="nc" id="L326">        builder.append(&quot;)&quot;);</span>
+<span class="nc" id="L327">        return builder.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CircularBufferInputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input.buffer</a> &gt; <span class="el_source">CircularBufferInputStream.java</span></div><h1>CircularBufferInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input.buffer;
+
+import static org.apache.commons.io.IOUtils.EOF;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
+
+/**
+ * Implements a buffered input stream, which is internally based on a {@link CircularByteBuffer}. Unlike the
+ * {@link java.io.BufferedInputStream}, this one doesn't need to reallocate byte arrays internally.
+ */
+public class CircularBufferInputStream extends InputStream {
+
+    /** What we are streaming, used to fill the internal buffer. */
+    protected final InputStream in;
+
+    /** Internal buffer. */
+    protected final CircularByteBuffer buffer;
+
+    /** Internal buffer size. */
+    protected final int bufferSize;
+
+    /** Whether we've seen the input stream EOF. */
+    private boolean eof;
+
+    /**
+     * Creates a new instance, which filters the given input stream, and uses a reasonable default buffer size
+     * ({@link IOUtils#DEFAULT_BUFFER_SIZE}).
+     *
+     * @param inputStream The input stream, which is being buffered.
+     */
+    public CircularBufferInputStream(final InputStream inputStream) {
+<span class="fc" id="L52">        this(inputStream, IOUtils.DEFAULT_BUFFER_SIZE);</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Creates a new instance, which filters the given input stream, and uses the given buffer size.
+     *
+     * @param inputStream The input stream, which is being buffered.
+     * @param bufferSize The size of the {@link CircularByteBuffer}, which is used internally.
+     */
+<span class="fc" id="L61">    public CircularBufferInputStream(final InputStream inputStream, final int bufferSize) {</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (bufferSize &lt;= 0) {</span>
+<span class="nc" id="L63">            throw new IllegalArgumentException(&quot;Invalid bufferSize: &quot; + bufferSize);</span>
+        }
+<span class="fc" id="L65">        this.in = Objects.requireNonNull(inputStream, &quot;inputStream&quot;);</span>
+<span class="fc" id="L66">        this.buffer = new CircularByteBuffer(bufferSize);</span>
+<span class="fc" id="L67">        this.bufferSize = bufferSize;</span>
+<span class="fc" id="L68">        this.eof = false;</span>
+<span class="fc" id="L69">    }</span>
+
+    @Override
+    public void close() throws IOException {
+<span class="fc" id="L73">        in.close();</span>
+<span class="fc" id="L74">        eof = true;</span>
+<span class="fc" id="L75">        buffer.clear();</span>
+<span class="fc" id="L76">    }</span>
+
+    /**
+     * Fills the buffer with the contents of the input stream.
+     *
+     * @throws IOException in case of an error while reading from the input stream.
+     */
+    protected void fillBuffer() throws IOException {
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (eof) {</span>
+<span class="fc" id="L85">            return;</span>
+        }
+<span class="fc" id="L87">        int space = buffer.getSpace();</span>
+<span class="fc" id="L88">        final byte[] buf = IOUtils.byteArray(space);</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        while (space &gt; 0) {</span>
+<span class="fc" id="L90">            final int res = in.read(buf, 0, space);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            if (res == EOF) {</span>
+<span class="fc" id="L92">                eof = true;</span>
+<span class="fc" id="L93">                return;</span>
+            }
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">            if (res &gt; 0) {</span>
+<span class="fc" id="L96">                buffer.add(buf, 0, res);</span>
+<span class="fc" id="L97">                space -= res;</span>
+            }
+<span class="fc" id="L99">        }</span>
+<span class="fc" id="L100">    }</span>
+
+    /**
+     * Fills the buffer from the input stream until the given number of bytes have been added to the buffer.
+     *
+     * @param count number of byte to fill into the buffer
+     * @return true if the buffer has bytes
+     * @throws IOException in case of an error while reading from the input stream.
+     */
+    protected boolean haveBytes(final int count) throws IOException {
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (buffer.getCurrentNumberOfBytes() &lt; count) {</span>
+<span class="fc" id="L111">            fillBuffer();</span>
+        }
+<span class="fc" id="L113">        return buffer.hasBytes();</span>
+    }
+
+    @Override
+    public int read() throws IOException {
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (!haveBytes(1)) {</span>
+<span class="fc" id="L119">            return EOF;</span>
+        }
+<span class="fc" id="L121">        return buffer.read() &amp; 0xFF; // return unsigned byte</span>
+    }
+
+    @Override
+    public int read(final byte[] buffer) throws IOException {
+<span class="nc" id="L126">        return read(buffer, 0, buffer.length);</span>
+    }
+
+    @Override
+    public int read(final byte[] targetBuffer, final int offset, final int length) throws IOException {
+<span class="fc" id="L131">        Objects.requireNonNull(targetBuffer, &quot;targetBuffer&quot;);</span>
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">        if (offset &lt; 0) {</span>
+<span class="nc" id="L133">            throw new IllegalArgumentException(&quot;Offset must not be negative&quot;);</span>
+        }
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if (length &lt; 0) {</span>
+<span class="nc" id="L136">            throw new IllegalArgumentException(&quot;Length must not be negative&quot;);</span>
+        }
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">        if (!haveBytes(length)) {</span>
+<span class="nc" id="L139">            return EOF;</span>
+        }
+<span class="fc" id="L141">        final int result = Math.min(length, buffer.getCurrentNumberOfBytes());</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        for (int i = 0; i &lt; result; i++) {</span>
+<span class="fc" id="L143">            targetBuffer[offset + i] = buffer.read();</span>
+        }
+<span class="fc" id="L145">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

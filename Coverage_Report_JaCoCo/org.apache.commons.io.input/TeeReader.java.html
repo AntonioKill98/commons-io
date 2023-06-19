@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TeeReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">TeeReader.java</span></div><h1>TeeReader.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input;
+
+import static org.apache.commons.io.IOUtils.EOF;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.CharBuffer;
+
+/**
+ * Reader proxy that transparently writes a copy of all characters read from the proxied reader to a given Reader. Using
+ * {@link #skip(long)} or {@link #mark(int)}/{@link #reset()} on the reader will result on some characters from the
+ * reader being skipped or duplicated in the writer.
+ * &lt;p&gt;
+ * The proxied reader is closed when the {@link #close()} method is called on this proxy. You may configure whether the
+ * reader closes the writer.
+ * &lt;/p&gt;
+ *
+ * @since 2.7
+ */
+public class TeeReader extends ProxyReader {
+
+    /**
+     * The writer that will receive a copy of all characters read from the proxied reader.
+     */
+    private final Writer branch;
+
+    /**
+     * Flag for closing the associated writer when this reader is closed.
+     */
+    private final boolean closeBranch;
+
+    /**
+     * Creates a TeeReader that proxies the given {@link Reader} and copies all read characters to the given
+     * {@link Writer}. The given writer will not be closed when this reader gets closed.
+     *
+     * @param input  reader to be proxied
+     * @param branch writer that will receive a copy of all characters read
+     */
+    public TeeReader(final Reader input, final Writer branch) {
+<span class="fc" id="L57">        this(input, branch, false);</span>
+<span class="fc" id="L58">    }</span>
+
+    /**
+     * Creates a TeeReader that proxies the given {@link Reader} and copies all read characters to the given
+     * {@link Writer}. The given writer will be closed when this reader gets closed if the closeBranch parameter is
+     * {@code true}.
+     *
+     * @param input       reader to be proxied
+     * @param branch      writer that will receive a copy of all characters read
+     * @param closeBranch flag for closing also the writer when this reader is closed
+     */
+    public TeeReader(final Reader input, final Writer branch, final boolean closeBranch) {
+<span class="fc" id="L70">        super(input);</span>
+<span class="fc" id="L71">        this.branch = branch;</span>
+<span class="fc" id="L72">        this.closeBranch = closeBranch;</span>
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * Closes the proxied reader and, if so configured, the associated writer. An exception thrown from the reader will
+     * not prevent closing of the writer.
+     *
+     * @throws IOException if either the reader or writer could not be closed
+     */
+    @Override
+    public void close() throws IOException {
+        try {
+<span class="fc" id="L84">            super.close();</span>
+        } finally {
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            if (closeBranch) {</span>
+<span class="fc" id="L87">                branch.close();</span>
+            }
+        }
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * Reads a single character from the proxied reader and writes it to the associated writer.
+     *
+     * @return next character from the reader, or -1 if the reader has ended
+     * @throws IOException if the reader could not be read (or written)
+     */
+    @Override
+    public int read() throws IOException {
+<span class="fc" id="L100">        final int ch = super.read();</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (ch != EOF) {</span>
+<span class="fc" id="L102">            branch.write(ch);</span>
+        }
+<span class="fc" id="L104">        return ch;</span>
+    }
+
+    /**
+     * Reads characters from the proxied reader and writes the read characters to the associated writer.
+     *
+     * @param chr character buffer
+     * @return number of characters read, or -1 if the reader has ended
+     * @throws IOException if the reader could not be read (or written)
+     */
+    @Override
+    public int read(final char[] chr) throws IOException {
+<span class="fc" id="L116">        final int n = super.read(chr);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (n != EOF) {</span>
+<span class="fc" id="L118">            branch.write(chr, 0, n);</span>
+        }
+<span class="fc" id="L120">        return n;</span>
+    }
+
+    /**
+     * Reads characters from the proxied reader and writes the read characters to the associated writer.
+     *
+     * @param chr character buffer
+     * @param st  start offset within the buffer
+     * @param end maximum number of characters to read
+     * @return number of characters read, or -1 if the reader has ended
+     * @throws IOException if the reader could not be read (or written)
+     */
+    @Override
+    public int read(final char[] chr, final int st, final int end) throws IOException {
+<span class="fc" id="L134">        final int n = super.read(chr, st, end);</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        if (n != EOF) {</span>
+<span class="fc" id="L136">            branch.write(chr, st, n);</span>
+        }
+<span class="fc" id="L138">        return n;</span>
+    }
+
+    /**
+     * Reads characters from the proxied reader and writes the read characters to the associated writer.
+     *
+     * @param target character buffer
+     * @return number of characters read, or -1 if the reader has ended
+     * @throws IOException if the reader could not be read (or written)
+     */
+    @Override
+    public int read(final CharBuffer target) throws IOException {
+<span class="fc" id="L150">        final int originalPosition = target.position();</span>
+<span class="fc" id="L151">        final int n = super.read(target);</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (n != EOF) {</span>
+            // Appending can only be done after resetting the CharBuffer to the
+            // right position and limit.
+<span class="fc" id="L155">            final int newPosition = target.position();</span>
+<span class="fc" id="L156">            final int newLimit = target.limit();</span>
+            try {
+<span class="fc" id="L158">                target.position(originalPosition).limit(newPosition);</span>
+<span class="fc" id="L159">                branch.append(target);</span>
+            } finally {
+                // Reset the CharBuffer as if the appending never happened.
+<span class="fc" id="L162">                target.position(newPosition).limit(newLimit);</span>
+            }
+        }
+<span class="fc" id="L165">        return n;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

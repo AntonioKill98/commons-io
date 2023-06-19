@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractCharacterFilterReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">AbstractCharacterFilterReader.java</span></div><h1>AbstractCharacterFilterReader.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input;
+
+import static org.apache.commons.io.IOUtils.EOF;
+
+import java.io.FilterReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.function.IntPredicate;
+
+/**
+ * A filter reader that filters out characters where subclasses decide which characters to filter out.
+ */
+public abstract class AbstractCharacterFilterReader extends FilterReader {
+
+    /**
+     * Skips nothing.
+     *
+     * @since 2.9.0
+     */
+<span class="pc" id="L36">    protected static final IntPredicate SKIP_NONE = ch -&gt; false;</span>
+
+    private final IntPredicate skip;
+
+    /**
+     * Constructs a new reader.
+     *
+     * @param reader the reader to filter
+     */
+    protected AbstractCharacterFilterReader(final Reader reader) {
+<span class="nc" id="L46">        this(reader, SKIP_NONE);</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * Constructs a new reader.
+     *
+     * @param reader the reader to filter.
+     * @param skip Skip test.
+     * @since 2.9.0
+     */
+    protected AbstractCharacterFilterReader(final Reader reader, final IntPredicate skip) {
+<span class="fc" id="L57">        super(reader);</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        this.skip = skip == null ? SKIP_NONE : skip;</span>
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * Returns true if the given character should be filtered out, false to keep the character.
+     *
+     * @param ch the character to test.
+     * @return true if the given character should be filtered out, false to keep the character.
+     */
+    protected boolean filter(final int ch) {
+<span class="fc" id="L68">        return skip.test(ch);</span>
+    }
+
+    @Override
+    public int read() throws IOException {
+        int ch;
+        do {
+<span class="fc" id="L75">            ch = in.read();</span>
+<span class="fc bfc" id="L76" title="All 4 branches covered.">        } while (ch != EOF &amp;&amp; filter(ch));</span>
+<span class="fc" id="L77">        return ch;</span>
+    }
+
+    @Override
+    public int read(final char[] cbuf, final int off, final int len) throws IOException {
+<span class="fc" id="L82">        final int read = super.read(cbuf, off, len);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (read == EOF) {</span>
+<span class="fc" id="L84">            return EOF;</span>
+        }
+<span class="fc" id="L86">        int pos = off - 1;</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (int readPos = off; readPos &lt; off + read; readPos++) {</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            if (filter(cbuf[readPos])) {</span>
+<span class="fc" id="L89">                continue;</span>
+            }
+<span class="fc" id="L91">            pos++;</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            if (pos &lt; readPos) {</span>
+<span class="fc" id="L93">                cbuf[pos] = cbuf[readPos];</span>
+            }
+        }
+<span class="fc" id="L96">        return pos - off + 1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

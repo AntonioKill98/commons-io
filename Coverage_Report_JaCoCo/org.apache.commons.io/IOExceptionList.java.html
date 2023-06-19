@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IOExceptionList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io</a> &gt; <span class="el_source">IOExceptionList.java</span></div><h1>IOExceptionList.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * An IOException based on a list of Throwable causes.
+ * &lt;p&gt;
+ * The first exception in the list is used as this exception's cause and is accessible with the usual
+ * {@link #getCause()} while the complete list is accessible with {@link #getCauseList()}.
+ * &lt;/p&gt;
+ *
+ * @since 2.7
+ */
+public class IOExceptionList extends IOException implements Iterable&lt;Throwable&gt; {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Throws this exception if the list is not null or empty.
+     *
+     * @param causeList The list to test.
+     * @param message The detail message, see {@link #getMessage()}.
+     * @throws IOExceptionList if the list is not null or empty.
+     * @since 2.12.0
+     */
+    public static void checkEmpty(final List&lt;? extends Throwable&gt; causeList, final Object message) throws IOExceptionList {
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (!isEmpty(causeList)) {</span>
+<span class="fc" id="L49">            throw new IOExceptionList(Objects.toString(message, null), causeList);</span>
+        }
+<span class="fc" id="L51">    }</span>
+
+    private static boolean isEmpty(final List&lt;? extends Throwable&gt; causeList) {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        return size(causeList) == 0;</span>
+    }
+
+    private static int size(final List&lt;? extends Throwable&gt; causeList) {
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        return causeList != null ? causeList.size() : 0;</span>
+    }
+
+    private static String toMessage(final List&lt;? extends Throwable&gt; causeList) {
+<span class="fc" id="L62">        return String.format(&quot;%,d exception(s): %s&quot;, size(causeList), causeList);</span>
+    }
+
+    private final List&lt;? extends Throwable&gt; causeList;
+
+    /**
+     * Creates a new exception caused by a list of exceptions.
+     *
+     * @param causeList a list of cause exceptions.
+     */
+    public IOExceptionList(final List&lt;? extends Throwable&gt; causeList) {
+<span class="fc" id="L73">        this(toMessage(causeList), causeList);</span>
+<span class="fc" id="L74">    }</span>
+
+    /**
+     * Creates a new exception caused by a list of exceptions.
+     *
+     * @param message The detail message, see {@link #getMessage()}.
+     * @param causeList a list of cause exceptions.
+     * @since 2.9.0
+     */
+    public IOExceptionList(final String message, final List&lt;? extends Throwable&gt; causeList) {
+<span class="fc bfc" id="L84" title="All 4 branches covered.">        super(message != null ? message : toMessage(causeList), isEmpty(causeList) ? null : causeList.get(0));</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        this.causeList = causeList == null ? Collections.emptyList() : causeList;</span>
+<span class="fc" id="L86">    }</span>
+
+    /**
+     * Gets the cause exception at the given index.
+     *
+     * @param &lt;T&gt; type of exception to return.
+     * @param index index in the cause list.
+     * @return The list of causes.
+     */
+    public &lt;T extends Throwable&gt; T getCause(final int index) {
+<span class="fc" id="L96">        return (T) causeList.get(index);</span>
+    }
+
+    /**
+     * Gets the cause exception at the given index.
+     *
+     * @param &lt;T&gt; type of exception to return.
+     * @param index index in the cause list.
+     * @param clazz type of exception to return.
+     * @return The list of causes.
+     */
+    public &lt;T extends Throwable&gt; T getCause(final int index, final Class&lt;T&gt; clazz) {
+<span class="fc" id="L108">        return clazz.cast(getCause(index));</span>
+    }
+
+    /**
+     * Gets the cause list.
+     *
+     * @param &lt;T&gt; type of exception to return.
+     * @return The list of causes.
+     */
+    public &lt;T extends Throwable&gt; List&lt;T&gt; getCauseList() {
+<span class="fc" id="L118">        return (List&lt;T&gt;) causeList;</span>
+    }
+
+    /**
+     * Works around Throwable and Generics, may fail at runtime depending on the argument value.
+     *
+     * @param &lt;T&gt; type of exception to return.
+     * @param clazz the target type
+     * @return The list of causes.
+     */
+    public &lt;T extends Throwable&gt; List&lt;T&gt; getCauseList(final Class&lt;T&gt; clazz) {
+<span class="fc" id="L129">        return (List&lt;T&gt;) causeList;</span>
+    }
+
+    @Override
+    public Iterator&lt;Throwable&gt; iterator() {
+<span class="fc" id="L134">        return getCauseList().iterator();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

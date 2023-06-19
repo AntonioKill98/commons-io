@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TeeOutputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.output</a> &gt; <span class="el_source">TeeOutputStream.java</span></div><h1>TeeOutputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.output;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
+/**
+ * Classic splitter of {@link OutputStream}. Named after the Unix 'tee' command. It allows a stream to be branched off
+ * so there are now two streams.
+ */
+public class TeeOutputStream extends ProxyOutputStream {
+
+    /**
+     * The second OutputStream to write to.
+     *
+     * TODO Make private and final in 3.0.
+     */
+    protected OutputStream branch;
+
+    /**
+     * Constructs a TeeOutputStream.
+     *
+     * @param out    the main OutputStream
+     * @param branch the second OutputStream
+     */
+    public TeeOutputStream(final OutputStream out, final OutputStream branch) {
+<span class="fc" id="L42">        super(out);</span>
+<span class="fc" id="L43">        this.branch = branch;</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Closes both output streams.
+     * &lt;p&gt;
+     * If closing the main output stream throws an exception, attempt to close the branch output stream.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * If closing the main and branch output streams both throw exceptions, which exceptions is thrown by this method is
+     * currently unspecified and subject to change.
+     * &lt;/p&gt;
+     *
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public void close() throws IOException {
+        try {
+<span class="fc" id="L62">            super.close();</span>
+        } finally {
+<span class="fc" id="L64">            this.branch.close();</span>
+        }
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Flushes both streams.
+     *
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public void flush() throws IOException {
+<span class="fc" id="L75">        super.flush();</span>
+<span class="fc" id="L76">        this.branch.flush();</span>
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * Writes the bytes to both streams.
+     *
+     * @param b the bytes to write
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public synchronized void write(final byte[] b) throws IOException {
+<span class="fc" id="L87">        super.write(b);</span>
+<span class="fc" id="L88">        this.branch.write(b);</span>
+<span class="fc" id="L89">    }</span>
+
+    /**
+     * Writes the specified bytes to both streams.
+     *
+     * @param b   the bytes to write
+     * @param off The start offset
+     * @param len The number of bytes to write
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public synchronized void write(final byte[] b, final int off, final int len) throws IOException {
+<span class="fc" id="L101">        super.write(b, off, len);</span>
+<span class="fc" id="L102">        this.branch.write(b, off, len);</span>
+<span class="fc" id="L103">    }</span>
+
+    /**
+     * Writes a byte to both streams.
+     *
+     * @param b the byte to write
+     * @throws IOException if an I/O error occurs.
+     */
+    @Override
+    public synchronized void write(final int b) throws IOException {
+<span class="fc" id="L113">        super.write(b);</span>
+<span class="fc" id="L114">        this.branch.write(b);</span>
+<span class="fc" id="L115">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

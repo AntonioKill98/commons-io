@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BufferedFileChannelInputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">BufferedFileChannelInputStream.java</span></div><h1>BufferedFileChannelInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input;
+
+import static org.apache.commons.io.IOUtils.EOF;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.build.AbstractStreamBuilder;
+import org.apache.commons.io.output.DeferredFileOutputStream;
+
+/**
+ * {@link InputStream} implementation which uses direct buffer to read a file to avoid extra copy of data between Java
+ * and native memory which happens when using {@link java.io.BufferedInputStream}. Unfortunately, this is not something
+ * already available in JDK, {@code sun.nio.ch.ChannelInputStream} supports reading a file using NIO, but does not
+ * support buffering.
+ * &lt;p&gt;
+ * This class was ported and adapted from Apache Spark commit 933dc6cb7b3de1d8ccaf73d124d6eb95b947ed19 where it was
+ * called {@code NioBufferedFileInputStream}.
+ * &lt;/p&gt;
+ *
+ * @since 2.9.0
+ */
+public final class BufferedFileChannelInputStream extends InputStream {
+
+    /**
+     * Builds a new {@link DeferredFileOutputStream} instance.
+     * &lt;p&gt;
+     * Using File IO:
+     * &lt;/p&gt;
+     * &lt;pre&gt;{@code
+     * BufferedFileChannelInputStream s = BufferedFileChannelInputStream.builder()
+     *   .setFile(file)
+     *   .setBufferSize(4096)
+     *   .get()}
+     * &lt;/pre&gt;
+     * &lt;p&gt;
+     * Using NIO Path:
+     * &lt;/p&gt;
+     * &lt;pre&gt;{@code
+     * BufferedFileChannelInputStream s = BufferedFileChannelInputStream.builder()
+     *   .setPath(path)
+     *   .setBufferSize(4096)
+     *   .get()}
+     * &lt;/pre&gt;
+     *
+     * @since 2.12.02
+     */
+<span class="fc" id="L68">    public static class Builder extends AbstractStreamBuilder&lt;BufferedFileChannelInputStream, Builder&gt; {</span>
+
+        @Override
+        public BufferedFileChannelInputStream get() throws IOException {
+<span class="fc" id="L72">            return new BufferedFileChannelInputStream(getOrigin().getPath(), getBufferSize());</span>
+        }
+
+    }
+
+    /**
+     * Constructs a new {@link Builder}.
+     *
+     * @return a new {@link Builder}.
+     * @since 2.12.0
+     */
+    public static Builder builder() {
+<span class="fc" id="L84">        return new Builder();</span>
+    }
+
+    private final ByteBuffer byteBuffer;
+
+    private final FileChannel fileChannel;
+
+    /**
+     * Constructs a new instance for the given File.
+     *
+     * @param file The file to stream.
+     * @throws IOException If an I/O error occurs
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public BufferedFileChannelInputStream(final File file) throws IOException {
+<span class="nc" id="L100">        this(file, IOUtils.DEFAULT_BUFFER_SIZE);</span>
+<span class="nc" id="L101">    }</span>
+
+    /**
+     * Constructs a new instance for the given File and buffer size.
+     *
+     * @param file The file to stream.
+     * @param bufferSize buffer size.
+     * @throws IOException If an I/O error occurs
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public BufferedFileChannelInputStream(final File file, final int bufferSize) throws IOException {
+<span class="nc" id="L113">        this(file.toPath(), bufferSize);</span>
+<span class="nc" id="L114">    }</span>
+
+    /**
+     * Constructs a new instance for the given Path.
+     *
+     * @param path The path to stream.
+     * @throws IOException If an I/O error occurs
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public BufferedFileChannelInputStream(final Path path) throws IOException {
+<span class="fc" id="L125">        this(path, IOUtils.DEFAULT_BUFFER_SIZE);</span>
+<span class="fc" id="L126">    }</span>
+
+    /**
+     * Constructs a new instance for the given Path and buffer size.
+     *
+     * @param path The path to stream.
+     * @param bufferSize buffer size.
+     * @throws IOException If an I/O error occurs
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+<span class="fc" id="L137">    public BufferedFileChannelInputStream(final Path path, final int bufferSize) throws IOException {</span>
+<span class="fc" id="L138">        Objects.requireNonNull(path, &quot;path&quot;);</span>
+<span class="fc" id="L139">        fileChannel = FileChannel.open(path, StandardOpenOption.READ);</span>
+<span class="fc" id="L140">        byteBuffer = ByteBuffer.allocateDirect(bufferSize);</span>
+<span class="fc" id="L141">        byteBuffer.flip();</span>
+<span class="fc" id="L142">    }</span>
+
+    @Override
+    public synchronized int available() throws IOException {
+<span class="nc" id="L146">        return byteBuffer.remaining();</span>
+    }
+
+    /**
+     * Attempts to clean up a ByteBuffer if it is direct or memory-mapped. This uses an *unsafe* Sun API that will cause
+     * errors if one attempts to read from the disposed buffer. However, neither the bytes allocated to direct buffers nor
+     * file descriptors opened for memory-mapped buffers put pressure on the garbage collector. Waiting for garbage
+     * collection may lead to the depletion of off-heap memory or huge numbers of open files. There's unfortunately no
+     * standard API to manually dispose of these kinds of buffers.
+     *
+     * @param buffer the buffer to clean.
+     */
+    private void clean(final ByteBuffer buffer) {
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">        if (buffer.isDirect()) {</span>
+<span class="fc" id="L160">            cleanDirectBuffer(buffer);</span>
+        }
+<span class="fc" id="L162">    }</span>
+
+    /**
+     * In Java 8, the type of {@code sun.nio.ch.DirectBuffer.cleaner()} was {@code sun.misc.Cleaner}, and it was possible to
+     * access the method {@code sun.misc.Cleaner.clean()} to invoke it. The type changed to {@code jdk.internal.ref.Cleaner}
+     * in later JDKs, and the {@code clean()} method is not accessible even with reflection. However {@code sun.misc.Unsafe}
+     * added an {@code invokeCleaner()} method in JDK 9+ and this is still accessible with reflection.
+     *
+     * @param buffer the buffer to clean. must be a DirectBuffer.
+     */
+    private void cleanDirectBuffer(final ByteBuffer buffer) {
+<span class="pc bpc" id="L173" title="1 of 2 branches missed.">        if (ByteBufferCleaner.isSupported()) {</span>
+<span class="fc" id="L174">            ByteBufferCleaner.clean(buffer);</span>
+        }
+<span class="fc" id="L176">    }</span>
+
+    @Override
+    public synchronized void close() throws IOException {
+        try {
+<span class="fc" id="L181">            fileChannel.close();</span>
+        } finally {
+<span class="fc" id="L183">            clean(byteBuffer);</span>
+        }
+<span class="fc" id="L185">    }</span>
+
+    @Override
+    public synchronized int read() throws IOException {
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        if (!refill()) {</span>
+<span class="fc" id="L190">            return EOF;</span>
+        }
+<span class="fc" id="L192">        return byteBuffer.get() &amp; 0xFF;</span>
+    }
+
+    @Override
+    public synchronized int read(final byte[] b, final int offset, int len) throws IOException {
+<span class="pc bpc" id="L197" title="4 of 8 branches missed.">        if (offset &lt; 0 || len &lt; 0 || offset + len &lt; 0 || offset + len &gt; b.length) {</span>
+<span class="nc" id="L198">            throw new IndexOutOfBoundsException();</span>
+        }
+<span class="fc bfc" id="L200" title="All 2 branches covered.">        if (!refill()) {</span>
+<span class="fc" id="L201">            return EOF;</span>
+        }
+<span class="fc" id="L203">        len = Math.min(len, byteBuffer.remaining());</span>
+<span class="fc" id="L204">        byteBuffer.get(b, offset, len);</span>
+<span class="fc" id="L205">        return len;</span>
+    }
+
+    /**
+     * Checks whether data is left to be read from the input stream.
+     *
+     * @return true if data is left, false otherwise
+     * @throws IOException if an I/O error occurs.
+     */
+    private boolean refill() throws IOException {
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        if (!byteBuffer.hasRemaining()) {</span>
+<span class="fc" id="L216">            byteBuffer.clear();</span>
+<span class="fc" id="L217">            int nRead = 0;</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">            while (nRead == 0) {</span>
+<span class="fc" id="L219">                nRead = fileChannel.read(byteBuffer);</span>
+            }
+<span class="fc" id="L221">            byteBuffer.flip();</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">            return nRead &gt;= 0;</span>
+        }
+<span class="fc" id="L224">        return true;</span>
+    }
+
+    @Override
+    public synchronized long skip(final long n) throws IOException {
+<span class="fc bfc" id="L229" title="All 2 branches covered.">        if (n &lt;= 0L) {</span>
+<span class="fc" id="L230">            return 0L;</span>
+        }
+<span class="fc bfc" id="L232" title="All 2 branches covered.">        if (byteBuffer.remaining() &gt;= n) {</span>
+            // The buffered content is enough to skip
+<span class="fc" id="L234">            byteBuffer.position(byteBuffer.position() + (int) n);</span>
+<span class="fc" id="L235">            return n;</span>
+        }
+<span class="fc" id="L237">        final long skippedFromBuffer = byteBuffer.remaining();</span>
+<span class="fc" id="L238">        final long toSkipFromFileChannel = n - skippedFromBuffer;</span>
+        // Discard everything we have read in the buffer.
+<span class="fc" id="L240">        byteBuffer.position(0);</span>
+<span class="fc" id="L241">        byteBuffer.flip();</span>
+<span class="fc" id="L242">        return skippedFromBuffer + skipFromFileChannel(toSkipFromFileChannel);</span>
+    }
+
+    private long skipFromFileChannel(final long n) throws IOException {
+<span class="fc" id="L246">        final long currentFilePosition = fileChannel.position();</span>
+<span class="fc" id="L247">        final long size = fileChannel.size();</span>
+<span class="fc bfc" id="L248" title="All 2 branches covered.">        if (n &gt; size - currentFilePosition) {</span>
+<span class="fc" id="L249">            fileChannel.position(size);</span>
+<span class="fc" id="L250">            return size - currentFilePosition;</span>
+        }
+<span class="fc" id="L252">        fileChannel.position(currentFilePosition + n);</span>
+<span class="fc" id="L253">        return n;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>QueueOutputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.output</a> &gt; <span class="el_source">QueueOutputStream.java</span></div><h1>QueueOutputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.output;
+
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.util.Objects;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+import org.apache.commons.io.input.QueueInputStream;
+
+/**
+ * Simple alternative to JDK {@link java.io.PipedOutputStream}; queue input stream provides what's written in queue
+ * output stream.
+ * &lt;p&gt;
+ * Example usage:
+ * &lt;/p&gt;
+ *
+ * &lt;pre&gt;
+ * QueueOutputStream outputStream = new QueueOutputStream();
+ * QueueInputStream inputStream = outputStream.newPipeInputStream();
+ *
+ * outputStream.write(&quot;hello world&quot;.getBytes(UTF_8));
+ * inputStream.read();
+ * &lt;/pre&gt;
+ *
+ * Unlike JDK {@link PipedInputStream} and {@link PipedOutputStream}, queue input/output streams may be used safely in a
+ * single thread or multiple threads. Also, unlike JDK classes, no special meaning is attached to initial or current
+ * thread. Instances can be used longer after initial threads exited.
+ * &lt;p&gt;
+ * Closing a {@link QueueOutputStream} has no effect. The methods in this class can be called after the stream has been
+ * closed without generating an {@link IOException}.
+ * &lt;/p&gt;
+ *
+ * @see QueueInputStream
+ * @since 2.9.0
+ */
+public class QueueOutputStream extends OutputStream {
+
+    private final BlockingQueue&lt;Integer&gt; blockingQueue;
+
+    /**
+     * Constructs a new instance with no limit to internal buffer size.
+     */
+    public QueueOutputStream() {
+<span class="fc" id="L64">        this(new LinkedBlockingQueue&lt;&gt;());</span>
+<span class="fc" id="L65">    }</span>
+
+    /**
+     * Constructs a new instance with given buffer.
+     *
+     * @param blockingQueue backing queue for the stream
+     */
+<span class="fc" id="L72">    public QueueOutputStream(final BlockingQueue&lt;Integer&gt; blockingQueue) {</span>
+<span class="fc" id="L73">        this.blockingQueue = Objects.requireNonNull(blockingQueue, &quot;blockingQueue&quot;);</span>
+<span class="fc" id="L74">    }</span>
+
+    /**
+     * Creates a new QueueInputStream instance connected to this. Writes to this output stream will be visible to the
+     * input stream.
+     *
+     * @return QueueInputStream connected to this stream
+     */
+    public QueueInputStream newQueueInputStream() {
+<span class="fc" id="L83">        return new QueueInputStream(blockingQueue);</span>
+    }
+
+    /**
+     * Writes a single byte.
+     *
+     * @throws InterruptedIOException if the thread is interrupted while writing to the queue.
+     */
+    @Override
+    public void write(final int b) throws InterruptedIOException {
+        try {
+<span class="fc" id="L94">            blockingQueue.put(0xFF &amp; b);</span>
+<span class="fc" id="L95">        } catch (final InterruptedException e) {</span>
+<span class="fc" id="L96">            Thread.currentThread().interrupt();</span>
+<span class="fc" id="L97">            final InterruptedIOException interruptedIoException = new InterruptedIOException();</span>
+<span class="fc" id="L98">            interruptedIoException.initCause(e);</span>
+<span class="fc" id="L99">            throw interruptedIoException;</span>
+<span class="fc" id="L100">        }</span>
+<span class="fc" id="L101">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

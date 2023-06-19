@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IOBinaryOperator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.function</a> &gt; <span class="el_source">IOBinaryOperator.java</span></div><h1>IOBinaryOperator.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.function;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.util.Objects;
+import java.util.function.BinaryOperator;
+
+/**
+ * Like {@link BinaryOperator} but throws {@link IOException}.
+ *
+ * @param &lt;T&gt; the type of the operands and result of the operator.
+ *
+ * @see IOBiFunction
+ * @see BinaryOperator
+ * @since 2.12.0
+ */
+@FunctionalInterface
+public interface IOBinaryOperator&lt;T&gt; extends IOBiFunction&lt;T, T, T&gt; {
+
+    /**
+     * Creates a {@link IOBinaryOperator} which returns the lesser of two elements according to the specified
+     * {@code Comparator}.
+     *
+     * @param &lt;T&gt; the type of the input arguments of the comparator
+     * @param comparator a {@code Comparator} for comparing the two values
+     * @return a {@code BinaryOperator} which returns the lesser of its operands, according to the supplied
+     *         {@code Comparator}
+     * @throws NullPointerException if the argument is null
+     */
+    static &lt;T&gt; IOBinaryOperator&lt;T&gt; minBy(final IOComparator&lt;? super T&gt; comparator) {
+<span class="fc" id="L48">        Objects.requireNonNull(comparator);</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        return (a, b) -&gt; comparator.compare(a, b) &lt;= 0 ? a : b;</span>
+    }
+
+    /**
+     * Creates a {@link IOBinaryOperator} which returns the greater of two elements according to the specified
+     * {@code Comparator}.
+     *
+     * @param &lt;T&gt; the type of the input arguments of the comparator
+     * @param comparator a {@code Comparator} for comparing the two values
+     * @return a {@code BinaryOperator} which returns the greater of its operands, according to the supplied
+     *         {@code Comparator}
+     * @throws NullPointerException if the argument is null
+     */
+    static &lt;T&gt; IOBinaryOperator&lt;T&gt; maxBy(final IOComparator&lt;? super T&gt; comparator) {
+<span class="fc" id="L63">        Objects.requireNonNull(comparator);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        return (a, b) -&gt; comparator.compare(a, b) &gt;= 0 ? a : b;</span>
+    }
+
+    /**
+     * Creates a {@link BinaryOperator} for this instance that throws {@link UncheckedIOException} instead of
+     * {@link IOException}.
+     *
+     * @return an unchecked BiFunction.
+     */
+    default BinaryOperator&lt;T&gt; asBinaryOperator() {
+<span class="fc" id="L74">        return (t, u) -&gt; Uncheck.apply(this, t, u);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

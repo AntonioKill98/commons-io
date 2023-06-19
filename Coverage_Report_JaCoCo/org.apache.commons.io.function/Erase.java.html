@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Erase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.function</a> &gt; <span class="el_source">Erase.java</span></div><h1>Erase.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.function;
+
+import java.io.IOException;
+
+/**
+ * Erases {@link IOException} for the compiler but still throws that exception at runtime.
+ */
+final class Erase {
+
+    /**
+     * Delegates to the given {@link IOBiConsumer} but erases its {@link IOException} for the compiler, while still throwing
+     * the exception at runtime.
+     *
+     * @param &lt;T&gt; See delegate.
+     * @param &lt;U&gt; See delegate.
+     * @param consumer See delegate.
+     * @param t See delegate.
+     * @param u See delegate.
+     * @see IOBiConsumer
+     */
+    static &lt;T, U&gt; void accept(final IOBiConsumer&lt;T, U&gt; consumer, final T t, final U u) {
+        try {
+<span class="fc" id="L39">            consumer.accept(t, u);</span>
+<span class="fc" id="L40">        } catch (final IOException ex) {</span>
+<span class="nc" id="L41">            rethrow(ex); // throws IOException</span>
+<span class="fc" id="L42">        }</span>
+<span class="fc" id="L43">    }</span>
+
+    /**
+     * Delegates to the given {@link IOConsumer} but erases its {@link IOException} for the compiler, while still throwing
+     * the exception at runtime.
+     *
+     * @param &lt;T&gt; See delegate.
+     * @param consumer See delegate.
+     * @param t See delegate.
+     * @see IOConsumer
+     */
+    static &lt;T&gt; void accept(final IOConsumer&lt;T&gt; consumer, final T t) {
+        try {
+<span class="fc" id="L56">            consumer.accept(t);</span>
+<span class="fc" id="L57">        } catch (final IOException ex) {</span>
+<span class="nc" id="L58">            rethrow(ex); // throws IOException</span>
+<span class="fc" id="L59">        }</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Delegates to the given {@link IOBiFunction} but erases its {@link IOException} for the compiler, while still throwing
+     * the exception at runtime.
+     *
+     * @param &lt;T&gt; See delegate.
+     * @param &lt;U&gt; See delegate.
+     * @param &lt;R&gt; See delegate.
+     * @param mapper See delegate.
+     * @param t See delegate.
+     * @param u See delegate.
+     * @return See delegate.
+     * @see IOBiFunction
+     */
+    static &lt;T, U, R&gt; R apply(final IOBiFunction&lt;? super T, ? super U, ? extends R&gt; mapper, final T t, final U u) {
+        try {
+<span class="fc" id="L77">            return mapper.apply(t, u);</span>
+<span class="fc" id="L78">        } catch (final IOException e) {</span>
+<span class="nc" id="L79">            throw rethrow(e); // throws IOException</span>
+        }
+    }
+
+    /**
+     * Delegates to the given {@link IOFunction} but erases its {@link IOException} for the compiler, while still throwing
+     * the exception at runtime.
+     *
+     * @param &lt;T&gt; See delegate.
+     * @param &lt;R&gt; See delegate.
+     * @param mapper See delegate.
+     * @param t See delegate.
+     * @return See delegate.
+     * @see IOFunction
+     */
+    static &lt;T, R&gt; R apply(final IOFunction&lt;? super T, ? extends R&gt; mapper, final T t) {
+        try {
+<span class="fc" id="L96">            return mapper.apply(t);</span>
+<span class="fc" id="L97">        } catch (final IOException e) {</span>
+<span class="nc" id="L98">            throw rethrow(e); // throws IOException</span>
+        }
+    }
+
+    /**
+     * Delegates to the given {@link IOComparator} but erases its {@link IOException} for the compiler, while still throwing
+     * the exception at runtime.
+     *
+     * @param &lt;T&gt; See delegate.
+     * @param comparator See delegate.
+     * @param t See delegate.
+     * @param u See delegate.
+     * @return See delegate.
+     * @see IOComparator
+     */
+    static &lt;T&gt; int compare(final IOComparator&lt;? super T&gt; comparator, final T t, final T u) {
+        try {
+<span class="fc" id="L115">            return comparator.compare(t, u);</span>
+<span class="fc" id="L116">        } catch (final IOException e) {</span>
+<span class="nc" id="L117">            throw rethrow(e); // throws IOException</span>
+        }
+    }
+
+    /**
+     * Delegates to the given {@link IOSupplier} but erases its {@link IOException} for the compiler, while still throwing
+     * the exception at runtime.
+     *
+     * @param &lt;T&gt; See delegate.
+     * @param supplier See delegate.
+     * @return See delegate.
+     * @see IOSupplier
+     */
+    static &lt;T&gt; T get(final IOSupplier&lt;T&gt; supplier) {
+        try {
+<span class="fc" id="L132">            return supplier.get();</span>
+<span class="fc" id="L133">        } catch (final IOException e) {</span>
+<span class="nc" id="L134">            throw rethrow(e); // throws IOException</span>
+        }
+    }
+
+    /**
+     * Throws the given throwable.
+     *
+     * @param &lt;T&gt; The throwable cast type.
+     * @param throwable The throwable to rethrow.
+     * @return nothing because we throw.
+     * @throws T Always thrown.
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    static &lt;T extends Throwable&gt; RuntimeException rethrow(final Throwable throwable) throws T {
+<span class="fc" id="L148">        throw (T) throwable;</span>
+    }
+
+    /**
+     * Delegates to the given {@link IORunnable} but erases its {@link IOException} for the compiler, while still throwing
+     * the exception at runtime.
+     *
+     * @param runnable See delegate.
+     * @see IORunnable
+     */
+    static void run(final IORunnable runnable) {
+        try {
+<span class="fc" id="L160">            runnable.run();</span>
+<span class="fc" id="L161">        } catch (final IOException e) {</span>
+<span class="nc" id="L162">            throw rethrow(e); // throws IOException</span>
+<span class="fc" id="L163">        }</span>
+<span class="fc" id="L164">    }</span>
+
+    /**
+     * Delegates to the given {@link IOPredicate} but erases its {@link IOException} for the compiler, while still throwing
+     * the exception at runtime.
+     *
+     * @param &lt;T&gt; See delegate.
+     * @param predicate See delegate.
+     * @param t See delegate.
+     * @return See delegate.
+     * @see IOPredicate
+     */
+    static &lt;T&gt; boolean test(final IOPredicate&lt;? super T&gt; predicate, final T t) {
+        try {
+<span class="fc" id="L178">            return predicate.test(t);</span>
+<span class="fc" id="L179">        } catch (final IOException e) {</span>
+<span class="nc" id="L180">            throw rethrow(e); // throws IOException</span>
+        }
+    }
+
+    /** No instances. */
+    private Erase() {
+        // No instances.
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

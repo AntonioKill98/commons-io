@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IOStreams.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.function</a> &gt; <span class="el_source">IOStreams.java</span></div><h1>IOStreams.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.function;
+
+import java.io.IOException;
+import java.util.function.BiFunction;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import org.apache.commons.io.IOExceptionList;
+import org.apache.commons.io.IOIndexedException;
+
+/**
+ * Keep this code package-private for now.
+ */
+final class IOStreams {
+
+<span class="fc" id="L33">    static final Object NONE = new Object();</span>
+
+    static &lt;T&gt; void forAll(final Stream&lt;T&gt; stream, final IOConsumer&lt;T&gt; action) throws IOExceptionList {
+<span class="pc" id="L36">        forAll(stream, action, (i, e) -&gt; e);</span>
+<span class="fc" id="L37">    }</span>
+
+    @SuppressWarnings(&quot;resource&quot;) // adapt()
+    static &lt;T&gt; void forAll(final Stream&lt;T&gt; stream, final IOConsumer&lt;T&gt; action, final BiFunction&lt;Integer, IOException, IOException&gt; exSupplier)
+        throws IOExceptionList {
+<span class="fc" id="L42">        IOStream.adapt(stream).forAll(action, IOIndexedException::new);</span>
+<span class="fc" id="L43">    }</span>
+
+    @SuppressWarnings(&quot;unused&quot;) // IOStreams.rethrow() throws
+    static &lt;T&gt; void forEach(final Stream&lt;T&gt; stream, final IOConsumer&lt;T&gt; action) throws IOException {
+<span class="fc" id="L47">        final IOConsumer&lt;T&gt; actualAction = toIOConsumer(action);</span>
+<span class="fc" id="L48">        of(stream).forEach(e -&gt; Erase.accept(actualAction, e));</span>
+<span class="fc" id="L49">    }</span>
+
+    /**
+     * Null-safe version of {@link StreamSupport#stream(java.util.Spliterator, boolean)}.
+     *
+     * Copied from Apache Commons Lang.
+     *
+     * @param &lt;T&gt; the type of stream elements.
+     * @param values the elements of the new stream, may be {@code null}.
+     * @return the new stream on {@code values} or {@link Stream#empty()}.
+     */
+    static &lt;T&gt; Stream&lt;T&gt; of(final Iterable&lt;T&gt; values) {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        return values == null ? Stream.empty() : StreamSupport.stream(values.spliterator(), false);</span>
+    }
+
+    static &lt;T&gt; Stream&lt;T&gt; of(final Stream&lt;T&gt; stream) {
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        return stream == null ? Stream.empty() : stream;</span>
+    }
+
+    /**
+     * Null-safe version of {@link Stream#of(Object[])}.
+     *
+     * Copied from Apache Commons Lang.
+     *
+     * @param &lt;T&gt; the type of stream elements.
+     * @param values the elements of the new stream, may be {@code null}.
+     * @return the new stream on {@code values} or {@link Stream#empty()}.
+     */
+    @SafeVarargs // Creating a stream from an array is safe
+    static &lt;T&gt; Stream&lt;T&gt; of(final T... values) {
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        return values == null ? Stream.empty() : Stream.of(values);</span>
+    }
+
+    static &lt;T&gt; IOConsumer&lt;T&gt; toIOConsumer(final IOConsumer&lt;T&gt; action) {
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        return action != null ? action : IOConsumer.noop();</span>
+    }
+
+    private IOStreams() {
+        // no instances
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

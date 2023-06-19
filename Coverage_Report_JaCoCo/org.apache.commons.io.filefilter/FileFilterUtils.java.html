@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileFilterUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.filefilter</a> &gt; <span class="el_source">FileFilterUtils.java</span></div><h1>FileFilterUtils.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.filefilter;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOCase;
+
+/**
+ * Useful utilities for working with file filters. It provides access to most
+ * file filter implementations in this package so you don't have to import
+ * every class you use.
+ *
+ * @since 1.0
+ */
+public class FileFilterUtils {
+
+    /* Constructed on demand and then cached */
+<span class="fc" id="L47">    private static final IOFileFilter CVS_FILTER = notFileFilter(</span>
+<span class="fc" id="L48">            and(directoryFileFilter(), nameFileFilter(&quot;CVS&quot;)));</span>
+
+
+    /* Constructed on demand and then cached */
+<span class="fc" id="L52">    private static final IOFileFilter SVN_FILTER = notFileFilter(</span>
+<span class="fc" id="L53">            and(directoryFileFilter(), nameFileFilter(&quot;.svn&quot;)));</span>
+
+    /**
+     * Returns a filter that returns true if the file was last modified before
+     * or at the specified cutoff date.
+     *
+     * @param cutoffDate  the time threshold
+     * @return an appropriately configured age file filter
+     * @see AgeFileFilter
+     * @since 1.2
+     */
+    public static IOFileFilter ageFileFilter(final Date cutoffDate) {
+<span class="nc" id="L65">        return new AgeFileFilter(cutoffDate);</span>
+    }
+
+    /**
+     * Returns a filter that filters files based on a cutoff date.
+     *
+     * @param cutoffDate  the time threshold
+     * @param acceptOlder  if true, older files get accepted, if false, newer
+     * @return an appropriately configured age file filter
+     * @see AgeFileFilter
+     * @since 1.2
+     */
+    public static IOFileFilter ageFileFilter(final Date cutoffDate, final boolean acceptOlder) {
+<span class="nc" id="L78">        return new AgeFileFilter(cutoffDate, acceptOlder);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file was last modified before
+     * or at the same time as the specified reference file.
+     *
+     * @param cutoffReference  the file whose last modification
+     *        time is used as the threshold age of the files
+     * @return an appropriately configured age file filter
+     * @see AgeFileFilter
+     * @since 1.2
+     */
+    public static IOFileFilter ageFileFilter(final File cutoffReference) {
+<span class="nc" id="L92">        return new AgeFileFilter(cutoffReference);</span>
+    }
+
+    /**
+     * Returns a filter that filters files based on a cutoff reference file.
+     *
+     * @param cutoffReference  the file whose last modification
+     *        time is used as the threshold age of the files
+     * @param acceptOlder  if true, older files get accepted, if false, newer
+     * @return an appropriately configured age file filter
+     * @see AgeFileFilter
+     * @since 1.2
+     */
+    public static IOFileFilter ageFileFilter(final File cutoffReference, final boolean acceptOlder) {
+<span class="nc" id="L106">        return new AgeFileFilter(cutoffReference, acceptOlder);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file was last modified before
+     * or at the specified cutoff time.
+     *
+     * @param cutoffMillis  the time threshold
+     * @return an appropriately configured age file filter
+     * @see AgeFileFilter
+     * @since 1.2
+     */
+    public static IOFileFilter ageFileFilter(final long cutoffMillis) {
+<span class="nc" id="L119">        return new AgeFileFilter(cutoffMillis);</span>
+    }
+
+    /**
+     * Returns a filter that filters files based on a cutoff time.
+     *
+     * @param cutoffMillis  the time threshold
+     * @param acceptOlder  if true, older files get accepted, if false, newer
+     * @return an appropriately configured age file filter
+     * @see AgeFileFilter
+     * @since 1.2
+     */
+    public static IOFileFilter ageFileFilter(final long cutoffMillis, final boolean acceptOlder) {
+<span class="nc" id="L132">        return new AgeFileFilter(cutoffMillis, acceptOlder);</span>
+    }
+
+    /**
+     * Returns a filter that ANDs the specified filters.
+     *
+     * @param filters the IOFileFilters that will be ANDed together.
+     * @return a filter that ANDs the specified filters
+     *
+     * @throws IllegalArgumentException if the filters are null or contain a
+     *         null value.
+     * @see AndFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter and(final IOFileFilter... filters) {
+<span class="fc" id="L147">        return new AndFileFilter(toList(filters));</span>
+    }
+
+    /**
+     * Returns a filter that ANDs the two specified filters.
+     *
+     * @param filter1  the first filter
+     * @param filter2  the second filter
+     * @return a filter that ANDs the two specified filters
+     * @see #and(IOFileFilter...)
+     * @see AndFileFilter
+     * @deprecated use {@link #and(IOFileFilter...)}
+     */
+    @Deprecated
+    public static IOFileFilter andFileFilter(final IOFileFilter filter1, final IOFileFilter filter2) {
+<span class="nc" id="L162">        return new AndFileFilter(filter1, filter2);</span>
+    }
+
+    /**
+     * Returns an {@link IOFileFilter} that wraps the
+     * {@link FileFilter} instance.
+     *
+     * @param filter  the filter to be wrapped
+     * @return a new filter that implements IOFileFilter
+     * @see DelegateFileFilter
+     */
+    public static IOFileFilter asFileFilter(final FileFilter filter) {
+<span class="nc" id="L174">        return new DelegateFileFilter(filter);</span>
+    }
+
+    /**
+     * Returns an {@link IOFileFilter} that wraps the
+     * {@link FilenameFilter} instance.
+     *
+     * @param filter  the filter to be wrapped
+     * @return a new filter that implements IOFileFilter
+     * @see DelegateFileFilter
+     */
+    public static IOFileFilter asFileFilter(final FilenameFilter filter) {
+<span class="nc" id="L186">        return new DelegateFileFilter(filter);</span>
+    }
+
+    /**
+     * Returns a filter that checks if the file is a directory.
+     *
+     * @return file filter that accepts only directories and not files
+     * @see DirectoryFileFilter#DIRECTORY
+     */
+    public static IOFileFilter directoryFileFilter() {
+<span class="fc" id="L196">        return DirectoryFileFilter.DIRECTORY;</span>
+    }
+
+    /**
+     * Returns a filter that always returns false.
+     *
+     * @return a false filter
+     * @see FalseFileFilter#FALSE
+     */
+    public static IOFileFilter falseFileFilter() {
+<span class="nc" id="L206">        return FalseFileFilter.FALSE;</span>
+    }
+
+    /**
+     * Returns a filter that checks if the file is a file (and not a directory).
+     *
+     * @return file filter that accepts only files and not directories
+     * @see FileFileFilter#INSTANCE
+     */
+    public static IOFileFilter fileFileFilter() {
+<span class="fc" id="L216">        return FileFileFilter.INSTANCE;</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Applies an {@link IOFileFilter} to the provided {@link File}
+     * objects. The resulting array is a subset of the original file list that
+     * matches the provided filter.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * Set&amp;lt;File&amp;gt; allFiles = ...
+     * Set&amp;lt;File&amp;gt; javaFiles = FileFilterUtils.filterSet(allFiles,
+     *     FileFilterUtils.suffixFileFilter(&quot;.java&quot;));
+     * &lt;/pre&gt;
+     * @param filter the filter to apply to the set of files.
+     * @param files the array of files to apply the filter to.
+     *
+     * @return a subset of {@code files} that is accepted by the
+     *         file filter.
+     * @throws NullPointerException if the filter is {@code null}
+     *         or {@code files} contains a {@code null} value.
+     *
+     * @since 2.0
+     */
+    public static File[] filter(final IOFileFilter filter, final File... files) {
+<span class="nc" id="L242">        Objects.requireNonNull(filter, &quot;filter&quot;);</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">        if (files == null) {</span>
+<span class="nc" id="L244">            return FileUtils.EMPTY_FILE_ARRAY;</span>
+        }
+<span class="nc" id="L246">        return filterFiles(filter, Stream.of(files), Collectors.toList()).toArray(FileUtils.EMPTY_FILE_ARRAY);</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Applies an {@link IOFileFilter} to the provided {@link File}
+     * objects. The resulting array is a subset of the original file list that
+     * matches the provided filter.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * The {@link Set} returned by this method is not guaranteed to be thread safe.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * Set&amp;lt;File&amp;gt; allFiles = ...
+     * Set&amp;lt;File&amp;gt; javaFiles = FileFilterUtils.filterSet(allFiles,
+     *     FileFilterUtils.suffixFileFilter(&quot;.java&quot;));
+     * &lt;/pre&gt;
+     * @param filter the filter to apply to the set of files.
+     * @param files the array of files to apply the filter to.
+     *
+     * @return a subset of {@code files} that is accepted by the
+     *         file filter.
+     * @throws IllegalArgumentException if the filter is {@code null}
+     *         or {@code files} contains a {@code null} value.
+     *
+     * @since 2.0
+     */
+    public static File[] filter(final IOFileFilter filter, final Iterable&lt;File&gt; files) {
+<span class="nc" id="L276">        return filterList(filter, files).toArray(FileUtils.EMPTY_FILE_ARRAY);</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Applies an {@link IOFileFilter} to the provided {@link File} stream and collects the accepted files.
+     * &lt;/p&gt;
+     *
+     * @param filter the filter to apply to the stream of files.
+     * @param stream the stream of files on which to apply the filter.
+     * @param collector how to collect the end result.
+     *
+     * @param &lt;R&gt; the return type.
+     * @param &lt;A&gt; the mutable accumulation type of the reduction operation (often hidden as an implementation detail)
+     * @return a subset of files from the stream that is accepted by the filter.
+     * @throws NullPointerException if the filter is {@code null}.
+     */
+    private static &lt;R, A&gt; R filterFiles(final IOFileFilter filter, final Stream&lt;File&gt; stream,
+        final Collector&lt;? super File, A, R&gt; collector) {
+<span class="nc" id="L295">        Objects.requireNonNull(filter, &quot;filter&quot;);</span>
+<span class="nc" id="L296">        Objects.requireNonNull(collector, &quot;collector&quot;);</span>
+<span class="nc bnc" id="L297" title="All 2 branches missed.">        if (stream == null) {</span>
+<span class="nc" id="L298">            return Stream.&lt;File&gt;empty().collect(collector);</span>
+        }
+<span class="nc" id="L300">        return stream.filter(filter::accept).collect(collector);</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Applies an {@link IOFileFilter} to the provided {@link File}
+     * objects. The resulting list is a subset of the original files that
+     * matches the provided filter.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * The {@link List} returned by this method is not guaranteed to be thread safe.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * List&amp;lt;File&amp;gt; filesAndDirectories = ...
+     * List&amp;lt;File&amp;gt; directories = FileFilterUtils.filterList(filesAndDirectories,
+     *     FileFilterUtils.directoryFileFilter());
+     * &lt;/pre&gt;
+     * @param filter the filter to apply to each files in the list.
+     * @param files the collection of files to apply the filter to.
+     *
+     * @return a subset of {@code files} that is accepted by the
+     *         file filter.
+     * @throws IllegalArgumentException if the filter is {@code null}
+     *         or {@code files} contains a {@code null} value.
+     * @since 2.0
+     */
+    public static List&lt;File&gt; filterList(final IOFileFilter filter, final File... files) {
+<span class="nc" id="L329">        return Arrays.asList(filter(filter, files));</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Applies an {@link IOFileFilter} to the provided {@link File}
+     * objects. The resulting list is a subset of the original files that
+     * matches the provided filter.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * The {@link List} returned by this method is not guaranteed to be thread safe.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * List&amp;lt;File&amp;gt; filesAndDirectories = ...
+     * List&amp;lt;File&amp;gt; directories = FileFilterUtils.filterList(filesAndDirectories,
+     *     FileFilterUtils.directoryFileFilter());
+     * &lt;/pre&gt;
+     * @param filter the filter to apply to each files in the list.
+     * @param files the collection of files to apply the filter to.
+     *
+     * @return a subset of {@code files} that is accepted by the
+     *         file filter.
+     * @throws IllegalArgumentException if the filter is {@code null}
+     * @since 2.0
+     */
+    public static List&lt;File&gt; filterList(final IOFileFilter filter, final Iterable&lt;File&gt; files) {
+<span class="nc bnc" id="L357" title="All 2 branches missed.">        if (files == null) {</span>
+<span class="nc" id="L358">            return Collections.emptyList();</span>
+        }
+<span class="nc" id="L360">        return filterFiles(filter, StreamSupport.stream(files.spliterator(), false), Collectors.toList());</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Applies an {@link IOFileFilter} to the provided {@link File}
+     * objects. The resulting set is a subset of the original file list that
+     * matches the provided filter.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * The {@link Set} returned by this method is not guaranteed to be thread safe.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * Set&amp;lt;File&amp;gt; allFiles = ...
+     * Set&amp;lt;File&amp;gt; javaFiles = FileFilterUtils.filterSet(allFiles,
+     *     FileFilterUtils.suffixFileFilter(&quot;.java&quot;));
+     * &lt;/pre&gt;
+     * @param filter the filter to apply to the set of files.
+     * @param files the collection of files to apply the filter to.
+     *
+     * @return a subset of {@code files} that is accepted by the
+     *         file filter.
+     * @throws IllegalArgumentException if the filter is {@code null}
+     *         or {@code files} contains a {@code null} value.
+     *
+     * @since 2.0
+     */
+    public static Set&lt;File&gt; filterSet(final IOFileFilter filter, final File... files) {
+<span class="nc" id="L390">        return new HashSet&lt;&gt;(Arrays.asList(filter(filter, files)));</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Applies an {@link IOFileFilter} to the provided {@link File}
+     * objects. The resulting set is a subset of the original file list that
+     * matches the provided filter.
+     * &lt;/p&gt;
+     *
+     * &lt;p&gt;
+     * The {@link Set} returned by this method is not guaranteed to be thread safe.
+     * &lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * Set&amp;lt;File&amp;gt; allFiles = ...
+     * Set&amp;lt;File&amp;gt; javaFiles = FileFilterUtils.filterSet(allFiles,
+     *     FileFilterUtils.suffixFileFilter(&quot;.java&quot;));
+     * &lt;/pre&gt;
+     * @param filter the filter to apply to the set of files.
+     * @param files the collection of files to apply the filter to.
+     *
+     * @return a subset of {@code files} that is accepted by the
+     *         file filter.
+     * @throws IllegalArgumentException if the filter is {@code null}
+     *
+     * @since 2.0
+     */
+    public static Set&lt;File&gt; filterSet(final IOFileFilter filter, final Iterable&lt;File&gt; files) {
+<span class="nc bnc" id="L419" title="All 2 branches missed.">        if (files == null) {</span>
+<span class="nc" id="L420">            return Collections.emptySet();</span>
+        }
+<span class="nc" id="L422">        return filterFiles(filter, StreamSupport.stream(files.spliterator(), false), Collectors.toSet());</span>
+    }
+
+    /**
+     * Returns a filter that accepts files that begin with the provided magic
+     * number.
+     *
+     * @param magicNumber the magic number (byte sequence) to match at the
+     *        beginning of each file.
+     *
+     * @return an IOFileFilter that accepts files beginning with the provided
+     *         magic number.
+     *
+     * @throws IllegalArgumentException if {@code magicNumber} is
+     *         {@code null} or is of length zero.
+     * @see MagicNumberFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter magicNumberFileFilter(final byte[] magicNumber) {
+<span class="nc" id="L441">        return new MagicNumberFileFilter(magicNumber);</span>
+    }
+
+    /**
+     * Returns a filter that accepts files that contains the provided magic
+     * number at a specified offset within the file.
+     *
+     * @param magicNumber the magic number (byte sequence) to match at the
+     *        provided offset in each file.
+     * @param offset the offset within the files to look for the magic number.
+     *
+     * @return an IOFileFilter that accepts files containing the magic number
+     *         at the specified offset.
+     *
+     * @throws IllegalArgumentException if {@code magicNumber} is
+     *         {@code null}, or contains no bytes, or {@code offset}
+     *         is a negative number.
+     * @see MagicNumberFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter magicNumberFileFilter(final byte[] magicNumber, final long offset) {
+<span class="nc" id="L462">        return new MagicNumberFileFilter(magicNumber, offset);</span>
+    }
+
+    /**
+     * Returns a filter that accepts files that begin with the provided magic
+     * number.
+     *
+     * @param magicNumber the magic number (byte sequence) to match at the
+     *        beginning of each file.
+     *
+     * @return an IOFileFilter that accepts files beginning with the provided
+     *         magic number.
+     *
+     * @throws IllegalArgumentException if {@code magicNumber} is
+     *         {@code null} or the empty String.
+     * @see MagicNumberFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter magicNumberFileFilter(final String magicNumber) {
+<span class="nc" id="L481">        return new MagicNumberFileFilter(magicNumber);</span>
+    }
+
+    /**
+     * Returns a filter that accepts files that contains the provided magic
+     * number at a specified offset within the file.
+     *
+     * @param magicNumber the magic number (byte sequence) to match at the
+     *        provided offset in each file.
+     * @param offset the offset within the files to look for the magic number.
+     *
+     * @return an IOFileFilter that accepts files containing the magic number
+     *         at the specified offset.
+     *
+     * @throws IllegalArgumentException if {@code magicNumber} is
+     *         {@code null} or the empty String, or if offset is a
+     *         negative number.
+     * @see MagicNumberFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter magicNumberFileFilter(final String magicNumber, final long offset) {
+<span class="nc" id="L502">        return new MagicNumberFileFilter(magicNumber, offset);</span>
+    }
+
+    /**
+     * Decorates a filter to make it ignore CVS directories.
+     * Passing in {@code null} will return a filter that accepts everything
+     * except CVS directories.
+     *
+     * @param filter  the filter to decorate, null means an unrestricted filter
+     * @return the decorated filter, never null
+     * @since 1.1 (method existed but had a bug in 1.0)
+     */
+    public static IOFileFilter makeCVSAware(final IOFileFilter filter) {
+<span class="fc bfc" id="L515" title="All 2 branches covered.">        return filter == null ? CVS_FILTER : and(filter, CVS_FILTER);</span>
+    }
+
+    /**
+     * Decorates a filter so that it only applies to directories and not to files.
+     *
+     * @param filter  the filter to decorate, null means an unrestricted filter
+     * @return the decorated filter, never null
+     * @see DirectoryFileFilter#DIRECTORY
+     * @since 1.3
+     */
+    public static IOFileFilter makeDirectoryOnly(final IOFileFilter filter) {
+<span class="pc bpc" id="L527" title="1 of 2 branches missed.">        if (filter == null) {</span>
+<span class="nc" id="L528">            return DirectoryFileFilter.DIRECTORY;</span>
+        }
+<span class="fc" id="L530">        return DirectoryFileFilter.DIRECTORY.and(filter);</span>
+    }
+
+    /**
+     * Decorates a filter so that it only applies to files and not to directories.
+     *
+     * @param filter  the filter to decorate, null means an unrestricted filter
+     * @return the decorated filter, never null
+     * @see FileFileFilter#INSTANCE
+     * @since 1.3
+     */
+    public static IOFileFilter makeFileOnly(final IOFileFilter filter) {
+<span class="pc bpc" id="L542" title="1 of 2 branches missed.">        if (filter == null) {</span>
+<span class="nc" id="L543">            return FileFileFilter.INSTANCE;</span>
+        }
+<span class="fc" id="L545">        return FileFileFilter.INSTANCE.and(filter);</span>
+    }
+
+    /**
+     * Decorates a filter to make it ignore SVN directories.
+     * Passing in {@code null} will return a filter that accepts everything
+     * except SVN directories.
+     *
+     * @param filter  the filter to decorate, null means an unrestricted filter
+     * @return the decorated filter, never null
+     * @since 1.1
+     */
+    public static IOFileFilter makeSVNAware(final IOFileFilter filter) {
+<span class="pc bpc" id="L558" title="1 of 2 branches missed.">        return filter == null ? SVN_FILTER : and(filter, SVN_FILTER);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file name matches the specified text.
+     *
+     * @param name  the file name
+     * @return a name checking filter
+     * @see NameFileFilter
+     */
+    public static IOFileFilter nameFileFilter(final String name) {
+<span class="fc" id="L569">        return new NameFileFilter(name);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file name matches the specified text.
+     *
+     * @param name  the file name
+     * @param ioCase  how to handle case sensitivity, null means case-sensitive
+     * @return a name checking filter
+     * @see NameFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter nameFileFilter(final String name, final IOCase ioCase) {
+<span class="nc" id="L582">        return new NameFileFilter(name, ioCase);</span>
+    }
+
+    /**
+     * Returns a filter that NOTs the specified filter.
+     *
+     * @param filter  the filter to invert
+     * @return a filter that NOTs the specified filter
+     * @see NotFileFilter
+     */
+    public static IOFileFilter notFileFilter(final IOFileFilter filter) {
+<span class="fc" id="L593">        return filter.negate();</span>
+    }
+
+    /**
+     * Returns a filter that ORs the specified filters.
+     *
+     * @param filters the IOFileFilters that will be ORed together.
+     * @return a filter that ORs the specified filters
+     *
+     * @throws IllegalArgumentException if the filters are null or contain a
+     *         null value.
+     * @see OrFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter or(final IOFileFilter... filters) {
+<span class="fc" id="L608">        return new OrFileFilter(toList(filters));</span>
+    }
+
+    /**
+     * Returns a filter that ORs the two specified filters.
+     *
+     * @param filter1  the first filter
+     * @param filter2  the second filter
+     * @return a filter that ORs the two specified filters
+     * @see #or(IOFileFilter...)
+     * @see OrFileFilter
+     * @deprecated use {@link #or(IOFileFilter...)}
+     */
+    @Deprecated
+    public static IOFileFilter orFileFilter(final IOFileFilter filter1, final IOFileFilter filter2) {
+<span class="nc" id="L623">        return new OrFileFilter(filter1, filter2);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file name starts with the specified text.
+     *
+     * @param prefix  the file name prefix
+     * @return a prefix checking filter
+     * @see PrefixFileFilter
+     */
+    public static IOFileFilter prefixFileFilter(final String prefix) {
+<span class="fc" id="L634">        return new PrefixFileFilter(prefix);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file name starts with the specified text.
+     *
+     * @param prefix  the file name prefix
+     * @param ioCase  how to handle case sensitivity, null means case-sensitive
+     * @return a prefix checking filter
+     * @see PrefixFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter prefixFileFilter(final String prefix, final IOCase ioCase) {
+<span class="nc" id="L647">        return new PrefixFileFilter(prefix, ioCase);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file is bigger than a certain size.
+     *
+     * @param threshold  the file size threshold
+     * @return an appropriately configured SizeFileFilter
+     * @see SizeFileFilter
+     * @since 1.2
+     */
+    public static IOFileFilter sizeFileFilter(final long threshold) {
+<span class="nc" id="L659">        return new SizeFileFilter(threshold);</span>
+    }
+
+    /**
+     * Returns a filter that filters based on file size.
+     *
+     * @param threshold  the file size threshold
+     * @param acceptLarger  if true, larger files get accepted, if false, smaller
+     * @return an appropriately configured SizeFileFilter
+     * @see SizeFileFilter
+     * @since 1.2
+     */
+    public static IOFileFilter sizeFileFilter(final long threshold, final boolean acceptLarger) {
+<span class="nc" id="L672">        return new SizeFileFilter(threshold, acceptLarger);</span>
+    }
+
+    /**
+     * Returns a filter that accepts files whose size is &amp;gt;= minimum size
+     * and &amp;lt;= maximum size.
+     *
+     * @param minSizeInclusive the minimum file size (inclusive)
+     * @param maxSizeInclusive the maximum file size (inclusive)
+     * @return an appropriately configured IOFileFilter
+     * @see SizeFileFilter
+     * @since 1.3
+     */
+    public static IOFileFilter sizeRangeFileFilter(final long minSizeInclusive, final long maxSizeInclusive ) {
+<span class="nc" id="L686">        final IOFileFilter minimumFilter = new SizeFileFilter(minSizeInclusive, true);</span>
+<span class="nc" id="L687">        final IOFileFilter maximumFilter = new SizeFileFilter(maxSizeInclusive + 1L, false);</span>
+<span class="nc" id="L688">        return minimumFilter.and(maximumFilter);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file name ends with the specified text.
+     *
+     * @param suffix  the file name suffix
+     * @return a suffix checking filter
+     * @see SuffixFileFilter
+     */
+    public static IOFileFilter suffixFileFilter(final String suffix) {
+<span class="fc" id="L699">        return new SuffixFileFilter(suffix);</span>
+    }
+
+    /**
+     * Returns a filter that returns true if the file name ends with the specified text.
+     *
+     * @param suffix  the file name suffix
+     * @param ioCase  how to handle case sensitivity, null means case-sensitive
+     * @return a suffix checking filter
+     * @see SuffixFileFilter
+     * @since 2.0
+     */
+    public static IOFileFilter suffixFileFilter(final String suffix, final IOCase ioCase) {
+<span class="nc" id="L712">        return new SuffixFileFilter(suffix, ioCase);</span>
+    }
+
+    /**
+     * Create a List of file filters.
+     *
+     * @param filters The file filters
+     * @return The list of file filters
+     * @throws NullPointerException if the filters are null or contain a
+     *         null value.
+     * @since 2.0
+     */
+    public static List&lt;IOFileFilter&gt; toList(final IOFileFilter... filters) {
+<span class="fc" id="L725">        return Stream.of(Objects.requireNonNull(filters, &quot;filters&quot;)).map(Objects::requireNonNull).collect(Collectors.toList());</span>
+    }
+
+    /**
+     * Returns a filter that always returns true.
+     *
+     * @return a true filter
+     * @see TrueFileFilter#TRUE
+     */
+    public static IOFileFilter trueFileFilter() {
+<span class="fc" id="L735">        return TrueFileFilter.TRUE;</span>
+    }
+
+    /**
+     * FileFilterUtils is not normally instantiated.
+     */
+<span class="nc" id="L741">    public FileFilterUtils() {</span>
+<span class="nc" id="L742">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

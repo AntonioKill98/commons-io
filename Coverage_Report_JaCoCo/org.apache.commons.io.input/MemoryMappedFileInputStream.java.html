@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MemoryMappedFileInputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.input</a> &gt; <span class="el_source">MemoryMappedFileInputStream.java</span></div><h1>MemoryMappedFileInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.input;
+
+import static org.apache.commons.io.IOUtils.EOF;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel.MapMode;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+
+import org.apache.commons.io.build.AbstractStreamBuilder;
+
+/**
+ * An {@link InputStream} that utilizes memory mapped files to improve performance. A sliding window of the file is
+ * mapped to memory to avoid mapping the entire file to memory at one time. The size of the sliding buffer is
+ * configurable.
+ * &lt;p&gt;
+ * For most operating systems, mapping a file into memory is more expensive than reading or writing a few tens of
+ * kilobytes of data. From the standpoint of performance. it is generally only worth mapping relatively large files into
+ * memory.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * Note: Use of this class does not necessarily obviate the need to use a {@link BufferedInputStream}. Depending on the
+ * use case, the use of buffering may still further improve performance. For example:
+ * &lt;/p&gt;
+ * &lt;pre&gt;
+ * new BufferedInputStream(new GzipInputStream(new MemoryMappedFileInputStream(path))))
+ * &lt;/pre&gt;
+ * &lt;p&gt;
+ * should outperform:
+ * &lt;/p&gt;
+ * &lt;pre&gt;
+ * new GzipInputStream(new MemoryMappedFileInputStream(path))
+ * &lt;/pre&gt;
+ *
+ * @since 2.12.0
+ */
+public class MemoryMappedFileInputStream extends InputStream {
+
+    /**
+     * Builds a new {@link ReaderInputStream} instance.
+     * &lt;p&gt;
+     * For example:
+     * &lt;/p&gt;
+     * &lt;pre&gt;{@code
+     * MemoryMappedFileInputStream s = MemoryMappedFileInputStream.builder()
+     *   .setPath(path)
+     *   .setBufferSize(256 * 1024)
+     *   .get()}
+     * &lt;/pre&gt;
+     * &lt;p&gt;
+     * @since 2.12.0
+     */
+    public static class Builder extends AbstractStreamBuilder&lt;MemoryMappedFileInputStream, Builder&gt; {
+
+<span class="fc" id="L75">        public Builder() {</span>
+<span class="fc" id="L76">            setBufferSizeDefault(DEFAULT_BUFFER_SIZE);</span>
+<span class="fc" id="L77">            setBufferSize(DEFAULT_BUFFER_SIZE);</span>
+<span class="fc" id="L78">        }</span>
+
+        @Override
+        public MemoryMappedFileInputStream get() throws IOException {
+<span class="fc" id="L82">            return new MemoryMappedFileInputStream(getOrigin().getPath(), getBufferSize());</span>
+        }
+    }
+
+    /**
+     * Default size of the sliding memory mapped buffer. We use 256K, equal to 65536 pages (given a 4K page size).
+     * Increasing the value beyond the default size will generally not provide any increase in throughput.
+     */
+    private static final int DEFAULT_BUFFER_SIZE = 256 * 1024;
+
+<span class="fc" id="L92">    private static final ByteBuffer EMPTY_BUFFER = ByteBuffer.wrap(new byte[0]).asReadOnlyBuffer();</span>
+
+    /**
+     * Constructs a new {@link Builder}.
+     *
+     * @return a new {@link Builder}.
+     * @since 2.12.0
+     */
+    public static Builder builder() {
+<span class="fc" id="L101">        return new Builder();</span>
+    }
+
+    private final int bufferSize;
+    private final FileChannel channel;
+<span class="fc" id="L106">    private ByteBuffer buffer = EMPTY_BUFFER;</span>
+    private boolean closed;
+
+    /**
+     * The starting position (within the file) of the next sliding buffer.
+     */
+    private long nextBufferPosition;
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param file The path of the file to open.
+     * @throws IOException If an I/O error occurs
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+    public MemoryMappedFileInputStream(final Path file) throws IOException {
+<span class="fc" id="L123">        this(file, DEFAULT_BUFFER_SIZE);</span>
+<span class="fc" id="L124">    }</span>
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param file The path of the file to open.
+     * @param bufferSize Size of the sliding buffer.
+     * @throws IOException If an I/O error occurs.
+     * @deprecated Use {@link #builder()}
+     */
+    @Deprecated
+<span class="fc" id="L135">    public MemoryMappedFileInputStream(final Path file, final int bufferSize) throws IOException {</span>
+<span class="fc" id="L136">        this.bufferSize = bufferSize;</span>
+<span class="fc" id="L137">        this.channel = FileChannel.open(file, StandardOpenOption.READ);</span>
+<span class="fc" id="L138">    }</span>
+
+    @Override
+    public int available() throws IOException {
+<span class="nc" id="L142">        return buffer.remaining();</span>
+    }
+
+    private void cleanBuffer() {
+<span class="pc bpc" id="L146" title="1 of 4 branches missed.">        if (ByteBufferCleaner.isSupported() &amp;&amp; buffer.isDirect()) {</span>
+<span class="fc" id="L147">            ByteBufferCleaner.clean(buffer);</span>
+        }
+<span class="fc" id="L149">    }</span>
+
+    @Override
+    public void close() throws IOException {
+<span class="fc bfc" id="L153" title="All 2 branches covered.">        if (!closed) {</span>
+<span class="fc" id="L154">            cleanBuffer();</span>
+<span class="fc" id="L155">            buffer = null;</span>
+<span class="fc" id="L156">            channel.close();</span>
+<span class="fc" id="L157">            closed = true;</span>
+        }
+<span class="fc" id="L159">    }</span>
+
+    private void ensureOpen() throws IOException {
+<span class="fc bfc" id="L162" title="All 2 branches covered.">        if (closed) {</span>
+<span class="fc" id="L163">            throw new IOException(&quot;Stream closed&quot;);</span>
+        }
+<span class="fc" id="L165">    }</span>
+
+    int getBufferSize() {
+<span class="fc" id="L168">        return bufferSize;</span>
+    }
+
+    private void nextBuffer() throws IOException {
+<span class="fc" id="L172">        final long remainingInFile = channel.size() - nextBufferPosition;</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">        if (remainingInFile &gt; 0) {</span>
+<span class="fc" id="L174">            final long amountToMap = Math.min(remainingInFile, bufferSize);</span>
+<span class="fc" id="L175">            cleanBuffer();</span>
+<span class="fc" id="L176">            buffer = channel.map(MapMode.READ_ONLY, nextBufferPosition, amountToMap);</span>
+<span class="fc" id="L177">            nextBufferPosition += amountToMap;</span>
+<span class="fc" id="L178">        } else {</span>
+<span class="fc" id="L179">            buffer = EMPTY_BUFFER;</span>
+        }
+<span class="fc" id="L181">    }</span>
+
+    @Override
+    public int read() throws IOException {
+<span class="fc" id="L185">        ensureOpen();</span>
+<span class="fc bfc" id="L186" title="All 2 branches covered.">        if (!buffer.hasRemaining()) {</span>
+<span class="fc" id="L187">            nextBuffer();</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">            if (!buffer.hasRemaining()) {</span>
+<span class="fc" id="L189">                return EOF;</span>
+            }
+        }
+<span class="fc" id="L192">        return Short.toUnsignedInt(buffer.get());</span>
+    }
+
+    @Override
+    public int read(final byte[] b, final int off, final int len) throws IOException {
+<span class="fc" id="L197">        ensureOpen();</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">        if (!buffer.hasRemaining()) {</span>
+<span class="fc" id="L199">            nextBuffer();</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">            if (!buffer.hasRemaining()) {</span>
+<span class="fc" id="L201">                return EOF;</span>
+            }
+        }
+<span class="fc" id="L204">        final int numBytes = Math.min(buffer.remaining(), len);</span>
+<span class="fc" id="L205">        buffer.get(b, off, numBytes);</span>
+<span class="fc" id="L206">        return numBytes;</span>
+    }
+
+    @Override
+    public long skip(final long n) throws IOException {
+<span class="fc" id="L211">        ensureOpen();</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if (n &lt;= 0) {</span>
+<span class="fc" id="L213">            return 0;</span>
+        }
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        if (n &lt;= buffer.remaining()) {</span>
+<span class="fc" id="L216">            buffer.position((int) (buffer.position() + n));</span>
+<span class="fc" id="L217">            return n;</span>
+        }
+<span class="fc" id="L219">        final long remainingInFile = channel.size() - nextBufferPosition;</span>
+<span class="fc" id="L220">        final long skipped = buffer.remaining() + Math.min(remainingInFile, n - buffer.remaining());</span>
+<span class="fc" id="L221">        nextBufferPosition += skipped - buffer.remaining();</span>
+<span class="fc" id="L222">        nextBuffer();</span>
+<span class="fc" id="L223">        return skipped;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

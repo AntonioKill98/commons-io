@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractFileFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.filefilter</a> &gt; <span class="el_source">AbstractFileFilter.java</span></div><h1>AbstractFileFilter.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io.filefilter;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
+import java.util.Objects;
+
+import org.apache.commons.io.file.PathFilter;
+import org.apache.commons.io.file.PathVisitor;
+import org.apache.commons.io.function.IOSupplier;
+
+/**
+ * Abstracts the implementation of the {@link FileFilter} (IO), {@link FilenameFilter} (IO), {@link PathFilter} (NIO)
+ * interfaces via our own {@link IOFileFilter} interface.
+ * &lt;p&gt;
+ * Note that a subclass MUST override one of the {@code accept} methods, otherwise that subclass will infinitely loop.
+ * &lt;/p&gt;
+ *
+ * @since 1.0
+ */
+public abstract class AbstractFileFilter implements IOFileFilter, PathVisitor {
+
+    static FileVisitResult toDefaultFileVisitResult(final boolean accept) {
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        return accept ? FileVisitResult.CONTINUE : FileVisitResult.TERMINATE;</span>
+    }
+
+    /**
+     * What to do when this filter accepts.
+     */
+    private final FileVisitResult onAccept;
+
+    /**
+     * What to do when this filter rejects.
+     */
+    private final FileVisitResult onReject;
+
+    /**
+     * Constructs a new instance.
+     */
+    public AbstractFileFilter() {
+<span class="fc" id="L62">        this(FileVisitResult.CONTINUE, FileVisitResult.TERMINATE);</span>
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param onAccept What to do on acceptance.
+     * @param onReject What to do on rejection.
+     * @since 2.12.0.
+     */
+<span class="fc" id="L72">    protected AbstractFileFilter(final FileVisitResult onAccept, final FileVisitResult onReject) {</span>
+<span class="fc" id="L73">        this.onAccept = onAccept;</span>
+<span class="fc" id="L74">        this.onReject = onReject;</span>
+<span class="fc" id="L75">    }</span>
+
+    /**
+     * Checks to see if the File should be accepted by this filter.
+     *
+     * @param file the File to check
+     * @return true if this file matches the test
+     */
+    @Override
+    public boolean accept(final File file) {
+<span class="fc" id="L85">        Objects.requireNonNull(file, &quot;file&quot;);</span>
+<span class="fc" id="L86">        return accept(file.getParentFile(), file.getName());</span>
+    }
+
+    /**
+     * Checks to see if the File should be accepted by this filter.
+     *
+     * @param dir the directory File to check
+     * @param name the file name within the directory to check
+     * @return true if this file matches the test
+     */
+    @Override
+    public boolean accept(final File dir, final String name) {
+<span class="fc" id="L98">        Objects.requireNonNull(name, &quot;name&quot;);</span>
+<span class="fc" id="L99">        return accept(new File(dir, name));</span>
+    }
+
+    void append(final List&lt;?&gt; list, final StringBuilder buffer) {
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (int i = 0; i &lt; list.size(); i++) {</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            if (i &gt; 0) {</span>
+<span class="nc" id="L105">                buffer.append(&quot;,&quot;);</span>
+            }
+<span class="nc" id="L107">            buffer.append(list.get(i));</span>
+        }
+<span class="nc" id="L109">    }</span>
+
+    void append(final Object[] array, final StringBuilder buffer) {
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            if (i &gt; 0) {</span>
+<span class="fc" id="L114">                buffer.append(&quot;,&quot;);</span>
+            }
+<span class="fc" id="L116">            buffer.append(array[i]);</span>
+        }
+<span class="fc" id="L118">    }</span>
+
+    FileVisitResult get(final IOSupplier&lt;FileVisitResult&gt; supplier) {
+        try {
+<span class="fc" id="L122">            return supplier.get();</span>
+<span class="nc" id="L123">        } catch (IOException e) {</span>
+<span class="nc" id="L124">            return handle(e);</span>
+        }
+    }
+
+    /**
+     * Handles exceptions caught while accepting.
+     *
+     * @param t the caught Throwable.
+     * @return the given Throwable.
+     * @since 2.9.0
+     */
+    protected FileVisitResult handle(final Throwable t) {
+<span class="nc" id="L136">        return FileVisitResult.TERMINATE;</span>
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException {
+<span class="fc" id="L141">        return FileVisitResult.CONTINUE;</span>
+    }
+
+    @Override
+    public FileVisitResult preVisitDirectory(final Path dir, final BasicFileAttributes attributes) throws IOException {
+<span class="fc" id="L146">        return accept(dir, attributes);</span>
+    }
+
+    /**
+     * Converts a boolean into a FileVisitResult.
+     *
+     * @param accept accepted or rejected.
+     * @return a FileVisitResult.
+     */
+    FileVisitResult toFileVisitResult(final boolean accept) {
+<span class="fc bfc" id="L156" title="All 2 branches covered.">        return accept ? onAccept : onReject;</span>
+    }
+
+    /**
+     * Provides a String representation of this file filter.
+     *
+     * @return a String representation
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L166">        return getClass().getSimpleName();</span>
+    }
+
+    @Override
+    public FileVisitResult visitFile(final Path file, final BasicFileAttributes attributes) throws IOException {
+<span class="nc" id="L171">        return accept(file, attributes);</span>
+    }
+
+    @Override
+    public FileVisitResult visitFileFailed(final Path file, final IOException exc) throws IOException {
+<span class="fc" id="L176">        return FileVisitResult.CONTINUE;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

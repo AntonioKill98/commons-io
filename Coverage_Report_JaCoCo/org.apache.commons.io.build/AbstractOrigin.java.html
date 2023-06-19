@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractOrigin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.build</a> &gt; <span class="el_source">AbstractOrigin.java</span></div><h1>AbstractOrigin.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.build;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.URI;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
+
+/**
+ * Abstracts the origin of data for builders like a {@link File}, {@link Path}, and so on.
+ *
+ * @param &lt;T&gt; the type of instances to build.
+ * @param &lt;B&gt; the type of builder subclass.
+ * @since 2.12.0
+ */
+public abstract class AbstractOrigin&lt;T, B extends AbstractOrigin&lt;T, B&gt;&gt; extends AbstractSupplier&lt;T, B&gt; {
+
+    /**
+     * A {@link File} origin.
+     */
+    public static class FileOrigin extends AbstractOrigin&lt;File, FileOrigin&gt; {
+
+        public FileOrigin(final File origin) {
+<span class="fc" id="L49">            super(origin);</span>
+<span class="fc" id="L50">        }</span>
+
+        @Override
+        public File getFile() {
+<span class="fc" id="L54">            return get();</span>
+        }
+
+        @Override
+        public Path getPath() {
+<span class="fc" id="L59">            return get().toPath();</span>
+        }
+
+    }
+
+    /**
+     * An {@link InputStream} origin.
+     * &lt;p&gt;
+     * This origin cannot provide other aspects.
+     * &lt;/p&gt;
+     */
+    public static class InputStreamOrigin extends AbstractOrigin&lt;InputStream, InputStreamOrigin&gt; {
+
+        public InputStreamOrigin(final InputStream origin) {
+<span class="fc" id="L73">            super(origin);</span>
+<span class="fc" id="L74">        }</span>
+
+        @Override
+        public InputStream getInputStream(final OpenOption... options) {
+<span class="fc" id="L78">            return get();</span>
+        }
+
+    }
+
+    /**
+     * An {@link OutputStream} origin.
+     * &lt;p&gt;
+     * This origin cannot provide other aspects.
+     * &lt;/p&gt;
+     */
+    public static class OutputStreamOrigin extends AbstractOrigin&lt;OutputStream, OutputStreamOrigin&gt; {
+
+        public OutputStreamOrigin(final OutputStream origin) {
+<span class="fc" id="L92">            super(origin);</span>
+<span class="fc" id="L93">        }</span>
+
+        @Override
+        public OutputStream getOutputStream(final OpenOption... options) {
+<span class="fc" id="L97">            return get();</span>
+        }
+
+    }
+
+    /**
+     * A {@link Path} origin.
+     */
+    public static class PathOrigin extends AbstractOrigin&lt;Path, PathOrigin&gt; {
+
+        public PathOrigin(final Path origin) {
+<span class="fc" id="L108">            super(origin);</span>
+<span class="fc" id="L109">        }</span>
+
+        @Override
+        public File getFile() {
+<span class="fc" id="L113">            return get().toFile();</span>
+        }
+
+        @Override
+        public Path getPath() {
+<span class="fc" id="L118">            return get();</span>
+        }
+
+    }
+
+    /**
+     * An {@link Reader} origin.
+     * &lt;p&gt;
+     * This origin cannot provide other aspects.
+     * &lt;/p&gt;
+     */
+    public static class ReaderOrigin extends AbstractOrigin&lt;Reader, ReaderOrigin&gt; {
+
+        public ReaderOrigin(final Reader origin) {
+<span class="fc" id="L132">            super(origin);</span>
+<span class="fc" id="L133">        }</span>
+
+        @Override
+        public Reader getReader(final Charset charset) throws IOException {
+<span class="fc" id="L137">            return get();</span>
+        }
+    }
+
+    /**
+     * A {@link URI} origin.
+     */
+    public static class URIOrigin extends AbstractOrigin&lt;URI, URIOrigin&gt; {
+
+        public URIOrigin(final URI origin) {
+<span class="fc" id="L147">            super(origin);</span>
+<span class="fc" id="L148">        }</span>
+
+        @Override
+        public URI get() {
+<span class="fc" id="L152">            return origin;</span>
+        }
+
+        @Override
+        public File getFile() {
+<span class="nc" id="L157">            return getPath().toFile();</span>
+        }
+
+        @Override
+        public Path getPath() {
+<span class="fc" id="L162">            return Paths.get(get());</span>
+        }
+
+    }
+
+    /**
+     * An {@link Writer} origin.
+     * &lt;p&gt;
+     * This origin cannot provide other aspects.
+     * &lt;/p&gt;
+     */
+    public static class WriterOrigin extends AbstractOrigin&lt;Writer, WriterOrigin&gt; {
+
+        public WriterOrigin(final Writer origin) {
+<span class="fc" id="L176">            super(origin);</span>
+<span class="fc" id="L177">        }</span>
+
+        @Override
+        public Writer getWriter(final Charset charset, final OpenOption... options) throws IOException {
+<span class="fc" id="L181">            return get();</span>
+        }
+    }
+
+    /**
+     * The non-null origin.
+     */
+    final T origin;
+
+    /**
+     * Constructs a new instance for a subclass.
+     *
+     * @param origin The origin.
+     */
+<span class="fc" id="L195">    protected AbstractOrigin(final T origin) {</span>
+<span class="fc" id="L196">        this.origin = Objects.requireNonNull(origin, &quot;origin&quot;);</span>
+<span class="fc" id="L197">    }</span>
+
+    /**
+     * Gets the origin.
+     *
+     * @return the origin.
+     */
+    @Override
+    public T get() {
+<span class="fc" id="L206">        return origin;</span>
+    }
+
+    /**
+     * Gets a new Reader on the origin, buffered by default.
+     *
+     * @param charset the charset to use for decoding
+     * @return a new Reader on the origin.
+     * @throws IOException if an I/O error occurs opening the file.
+     */
+    public Reader getReader(final Charset charset) throws IOException {
+<span class="nc" id="L217">        return Files.newBufferedReader(getPath(), charset);</span>
+    }
+
+    /**
+     * Gets a new Writer on the origin, buffered by default.
+     *
+     * @param charset the charset to use for encoding
+     * @param options options specifying how the file is opened
+     * @return a new Writer on the origin.
+     * @throws IOException if an I/O error occurs opening or creating the file.
+     */
+    public Writer getWriter(final Charset charset, final OpenOption... options) throws IOException {
+<span class="nc" id="L229">        return Files.newBufferedWriter(getPath(), charset, options);</span>
+    }
+
+    /**
+     * Gets this origin as a Path, if possible.
+     *
+     * @return this origin as a Path, if possible.
+     */
+    public File getFile() {
+<span class="nc" id="L238">        throw new UnsupportedOperationException(origin.toString());</span>
+    }
+
+    /**
+     * Gets this origin as an InputStream, if possible.
+     *
+     * @param options options specifying how the file is opened
+     * @return this origin as an InputStream, if possible.
+     * @throws IOException if an I/O error occurs.
+     */
+    public InputStream getInputStream(final OpenOption... options) throws IOException {
+<span class="fc" id="L249">        return Files.newInputStream(getPath(), options);</span>
+    }
+
+    /**
+     * Gets this origin as an OutputStream, if possible.
+     *
+     * @param options options specifying how the file is opened
+     * @return this origin as an OutputStream, if possible.
+     * @throws IOException if an I/O error occurs.
+     */
+    public OutputStream getOutputStream(final OpenOption... options) throws IOException {
+<span class="nc" id="L260">        return Files.newOutputStream(getPath(), options);</span>
+    }
+
+    /**
+     * Gets this origin as a Path, if possible.
+     *
+     * @return this origin as a Path\, if possible.
+     */
+    public Path getPath() {
+<span class="nc" id="L269">        throw new UnsupportedOperationException(origin.toString());</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L274">        return origin.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

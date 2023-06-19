@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CloseableURLConnection.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io</a> &gt; <span class="el_source">CloseableURLConnection.java</span></div><h1>CloseableURLConnection.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.Permission;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+/**
+ * Delegates to a URLConnection while implementing AutoCloseable.
+ */
+class CloseableURLConnection extends URLConnection implements AutoCloseable {
+
+    static CloseableURLConnection open(final URI uri) throws IOException {
+<span class="fc" id="L36">        return open(Objects.requireNonNull(uri, &quot;uri&quot;).toURL());</span>
+    }
+
+    static CloseableURLConnection open(final URL url) throws IOException {
+<span class="fc" id="L40">        return new CloseableURLConnection(url.openConnection());</span>
+    }
+
+    private final URLConnection urlConnection;
+
+    CloseableURLConnection(final URLConnection urlConnection) {
+<span class="fc" id="L46">        super(Objects.requireNonNull(urlConnection, &quot;urlConnection&quot;).getURL());</span>
+<span class="fc" id="L47">        this.urlConnection = urlConnection;</span>
+<span class="fc" id="L48">    }</span>
+
+    @Override
+    public void addRequestProperty(final String key, final String value) {
+<span class="nc" id="L52">        urlConnection.addRequestProperty(key, value);</span>
+<span class="nc" id="L53">    }</span>
+
+    @Override
+    public void close() {
+<span class="fc" id="L57">        IOUtils.close(urlConnection);</span>
+<span class="fc" id="L58">    }</span>
+
+    @Override
+    public void connect() throws IOException {
+<span class="nc" id="L62">        urlConnection.connect();</span>
+<span class="nc" id="L63">    }</span>
+
+    @Override
+    public boolean equals(final Object obj) {
+<span class="nc" id="L67">        return urlConnection.equals(obj);</span>
+    }
+
+    @Override
+    public boolean getAllowUserInteraction() {
+<span class="nc" id="L72">        return urlConnection.getAllowUserInteraction();</span>
+    }
+
+    @Override
+    public int getConnectTimeout() {
+<span class="nc" id="L77">        return urlConnection.getConnectTimeout();</span>
+    }
+
+    @Override
+    public Object getContent() throws IOException {
+<span class="nc" id="L82">        return urlConnection.getContent();</span>
+    }
+
+    @Override
+    public Object getContent(final Class[] classes) throws IOException {
+<span class="nc" id="L87">        return urlConnection.getContent(classes);</span>
+    }
+
+    @Override
+    public String getContentEncoding() {
+<span class="nc" id="L92">        return urlConnection.getContentEncoding();</span>
+    }
+
+    @Override
+    public int getContentLength() {
+<span class="nc" id="L97">        return urlConnection.getContentLength();</span>
+    }
+
+    @Override
+    public long getContentLengthLong() {
+<span class="nc" id="L102">        return urlConnection.getContentLengthLong();</span>
+    }
+
+    @Override
+    public String getContentType() {
+<span class="nc" id="L107">        return urlConnection.getContentType();</span>
+    }
+
+    @Override
+    public long getDate() {
+<span class="nc" id="L112">        return urlConnection.getDate();</span>
+    }
+
+    @Override
+    public boolean getDefaultUseCaches() {
+<span class="nc" id="L117">        return urlConnection.getDefaultUseCaches();</span>
+    }
+
+    @Override
+    public boolean getDoInput() {
+<span class="nc" id="L122">        return urlConnection.getDoInput();</span>
+    }
+
+    @Override
+    public boolean getDoOutput() {
+<span class="nc" id="L127">        return urlConnection.getDoOutput();</span>
+    }
+
+    @Override
+    public long getExpiration() {
+<span class="nc" id="L132">        return urlConnection.getExpiration();</span>
+    }
+
+    @Override
+    public String getHeaderField(final int n) {
+<span class="nc" id="L137">        return urlConnection.getHeaderField(n);</span>
+    }
+
+    @Override
+    public String getHeaderField(final String name) {
+<span class="nc" id="L142">        return urlConnection.getHeaderField(name);</span>
+    }
+
+    @Override
+    public long getHeaderFieldDate(final String name, final long Default) {
+<span class="nc" id="L147">        return urlConnection.getHeaderFieldDate(name, Default);</span>
+    }
+
+    @Override
+    public int getHeaderFieldInt(final String name, final int Default) {
+<span class="nc" id="L152">        return urlConnection.getHeaderFieldInt(name, Default);</span>
+    }
+
+    @Override
+    public String getHeaderFieldKey(final int n) {
+<span class="nc" id="L157">        return urlConnection.getHeaderFieldKey(n);</span>
+    }
+
+    @Override
+    public long getHeaderFieldLong(final String name, final long Default) {
+<span class="nc" id="L162">        return urlConnection.getHeaderFieldLong(name, Default);</span>
+    }
+
+    @Override
+    public Map&lt;String, List&lt;String&gt;&gt; getHeaderFields() {
+<span class="nc" id="L167">        return urlConnection.getHeaderFields();</span>
+    }
+
+    @Override
+    public long getIfModifiedSince() {
+<span class="nc" id="L172">        return urlConnection.getIfModifiedSince();</span>
+    }
+
+    @Override
+    public InputStream getInputStream() throws IOException {
+<span class="fc" id="L177">        return urlConnection.getInputStream();</span>
+    }
+
+    @Override
+    public long getLastModified() {
+<span class="nc" id="L182">        return urlConnection.getLastModified();</span>
+    }
+
+    @Override
+    public OutputStream getOutputStream() throws IOException {
+<span class="nc" id="L187">        return urlConnection.getOutputStream();</span>
+    }
+
+    @Override
+    public Permission getPermission() throws IOException {
+<span class="nc" id="L192">        return urlConnection.getPermission();</span>
+    }
+
+    @Override
+    public int getReadTimeout() {
+<span class="nc" id="L197">        return urlConnection.getReadTimeout();</span>
+    }
+
+    @Override
+    public Map&lt;String, List&lt;String&gt;&gt; getRequestProperties() {
+<span class="nc" id="L202">        return urlConnection.getRequestProperties();</span>
+    }
+
+    @Override
+    public String getRequestProperty(final String key) {
+<span class="nc" id="L207">        return urlConnection.getRequestProperty(key);</span>
+    }
+
+    @Override
+    public URL getURL() {
+<span class="nc" id="L212">        return urlConnection.getURL();</span>
+    }
+
+    @Override
+    public boolean getUseCaches() {
+<span class="nc" id="L217">        return urlConnection.getUseCaches();</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L222">        return urlConnection.hashCode();</span>
+    }
+
+    @Override
+    public void setAllowUserInteraction(final boolean allowUserInteraction) {
+<span class="nc" id="L227">        urlConnection.setAllowUserInteraction(allowUserInteraction);</span>
+<span class="nc" id="L228">    }</span>
+
+    @Override
+    public void setConnectTimeout(final int timeout) {
+<span class="nc" id="L232">        urlConnection.setConnectTimeout(timeout);</span>
+<span class="nc" id="L233">    }</span>
+
+    @Override
+    public void setDefaultUseCaches(final boolean defaultUseCaches) {
+<span class="nc" id="L237">        urlConnection.setDefaultUseCaches(defaultUseCaches);</span>
+<span class="nc" id="L238">    }</span>
+
+    @Override
+    public void setDoInput(final boolean doInput) {
+<span class="nc" id="L242">        urlConnection.setDoInput(doInput);</span>
+<span class="nc" id="L243">    }</span>
+
+    @Override
+    public void setDoOutput(final boolean doOutput) {
+<span class="nc" id="L247">        urlConnection.setDoOutput(doOutput);</span>
+<span class="nc" id="L248">    }</span>
+
+    @Override
+    public void setIfModifiedSince(final long ifModifiedSince) {
+<span class="nc" id="L252">        urlConnection.setIfModifiedSince(ifModifiedSince);</span>
+<span class="nc" id="L253">    }</span>
+
+    @Override
+    public void setReadTimeout(final int timeout) {
+<span class="nc" id="L257">        urlConnection.setReadTimeout(timeout);</span>
+<span class="nc" id="L258">    }</span>
+
+    @Override
+    public void setRequestProperty(final String key, final String value) {
+<span class="nc" id="L262">        urlConnection.setRequestProperty(key, value);</span>
+<span class="nc" id="L263">    }</span>
+
+    @Override
+    public void setUseCaches(final boolean useCaches) {
+<span class="nc" id="L267">        urlConnection.setUseCaches(useCaches);</span>
+<span class="nc" id="L268">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L272">        return urlConnection.toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

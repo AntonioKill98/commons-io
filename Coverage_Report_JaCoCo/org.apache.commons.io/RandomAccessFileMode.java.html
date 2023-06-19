@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RandomAccessFileMode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io</a> &gt; <span class="el_source">RandomAccessFileMode.java</span></div><h1>RandomAccessFileMode.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.io;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.RandomAccessFile;
+import java.nio.file.Path;
+
+/**
+ * Access modes and factory methods for {@link RandomAccessFile}.
+ *
+ * @since 2.12.0
+ */
+<span class="fc" id="L29">public enum RandomAccessFileMode {</span>
+
+    /**
+     * Mode &quot;r&quot; opens for reading only.
+     */
+<span class="fc" id="L34">    READ_ONLY(&quot;r&quot;),</span>
+
+    /**
+     * Mode &quot;rw&quot; opens for reading and writing.
+     */
+<span class="fc" id="L39">    READ_WRITE(&quot;rw&quot;),</span>
+
+    /**
+     * Mode &quot;rws&quot; opens for reading and writing, as with &quot;rw&quot;, and also require that every update to the file's content or
+     * metadata be written synchronously to the underlying storage device.
+     */
+<span class="fc" id="L45">    READ_WRITE_SYNC_ALL(&quot;rws&quot;),</span>
+
+    /**
+     * Mode &quot;rwd&quot; open for reading and writing, as with &quot;rw&quot;, and also require that every update to the file's content be
+     * written synchronously to the underlying storage device.
+     */
+<span class="fc" id="L51">    READ_WRITE_SYNC_CONTENT(&quot;rwd&quot;);</span>
+
+    private final String mode;
+
+<span class="fc" id="L55">    RandomAccessFileMode(final String mode) {</span>
+<span class="fc" id="L56">        this.mode = mode;</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Creates a random access file stream to read from, and optionally to write to, the file specified by the {@link File}
+     * argument.
+     *
+     * @param file the file object
+     * @return a random access file stream
+     * @throws FileNotFoundException See {@link RandomAccessFile#RandomAccessFile(File, String)}.
+     */
+    public RandomAccessFile create(final File file) throws FileNotFoundException {
+<span class="fc" id="L68">        return new RandomAccessFile(file, mode);</span>
+    }
+
+    /**
+     * Creates a random access file stream to read from, and optionally to write to, the file specified by the {@link File}
+     * argument.
+     *
+     * @param file the file object
+     * @return a random access file stream
+     * @throws FileNotFoundException See {@link RandomAccessFile#RandomAccessFile(File, String)}.
+     */
+    public RandomAccessFile create(final Path file) throws FileNotFoundException {
+<span class="nc" id="L80">        return create(file.toFile());</span>
+    }
+
+    /**
+     * Creates a random access file stream to read from, and optionally to write to, the file specified by the {@link File}
+     * argument.
+     *
+     * @param file the file object
+     * @return a random access file stream
+     * @throws FileNotFoundException See {@link RandomAccessFile#RandomAccessFile(File, String)}.
+     */
+    public RandomAccessFile create(final String file) throws FileNotFoundException {
+<span class="fc" id="L92">        return new RandomAccessFile(file, mode);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L97">        return mode;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

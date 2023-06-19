@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IOPredicate.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Apache Commons IO</a> &gt; <a href="index.source.html" class="el_package">org.apache.commons.io.function</a> &gt; <span class="el_source">IOPredicate.java</span></div><h1>IOPredicate.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.commons.io.function;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.util.Objects;
+import java.util.function.Predicate;
+
+/**
+ * Like {@link Predicate} but throws {@link IOException}.
+ *
+ * @param &lt;T&gt; the type of the input to the predicate
+ * @since 2.12.0
+ */
+@FunctionalInterface
+public interface IOPredicate&lt;T&gt; {
+
+    /**
+     * Always false.
+     *
+     * @param &lt;T&gt; the type of the input to the predicate
+     * @return a constant predicate that tests always false.
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    static &lt;T&gt; IOPredicate&lt;T&gt; alwaysFalse() {
+<span class="fc" id="L42">        return (IOPredicate&lt;T&gt;) Constants.IO_PREDICATE_FALSE;</span>
+    }
+
+    /**
+     * Always true.
+     *
+     * @param &lt;T&gt; the type of the input to the predicate
+     * @return a constant predicate that tests always true.
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    static &lt;T&gt; IOPredicate&lt;T&gt; alwaysTrue() {
+<span class="fc" id="L53">        return (IOPredicate&lt;T&gt;) Constants.IO_PREDICATE_TRUE;</span>
+    }
+
+    /**
+     * Creates a predicate that tests if two arguments are equal using {@link Objects#equals(Object, Object)}.
+     *
+     * @param &lt;T&gt; the type of arguments to the predicate
+     * @param target the object to compare for equality, may be {@code null}
+     * @return a predicate that tests if two arguments are equal using {@link Objects#equals(Object, Object)}
+     */
+    static &lt;T&gt; IOPredicate&lt;T&gt; isEqual(final Object target) {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        return null == target ? Objects::isNull : object -&gt; target.equals(object);</span>
+    }
+
+    /**
+     * Creates a composed predicate that represents a short-circuiting logical AND of this predicate and another. When
+     * evaluating the composed predicate, if this predicate is {@code false}, then the {@code other} predicate is not
+     * evaluated.
+     *
+     * &lt;p&gt;
+     * Any exceptions thrown during evaluation of either predicate are relayed to the caller; if evaluation of this
+     * predicate throws an exception, the {@code other} predicate will not be evaluated.
+     * &lt;/p&gt;
+     *
+     * @param other a predicate that will be logically-ANDed with this predicate
+     * @return a composed predicate that represents the short-circuiting logical AND of this predicate and the {@code other}
+     *         predicate
+     * @throws NullPointerException if other is null
+     */
+    default IOPredicate&lt;T&gt; and(final IOPredicate&lt;? super T&gt; other) {
+<span class="fc" id="L83">        Objects.requireNonNull(other);</span>
+<span class="fc bfc" id="L84" title="All 4 branches covered.">        return t -&gt; test(t) &amp;&amp; other.test(t);</span>
+    }
+
+    /**
+     * Creates a {@link Predicate} for this instance that throws {@link UncheckedIOException} instead of
+     * {@link IOException}.
+     *
+     * @return an UncheckedIOException Predicate.
+     */
+    default Predicate&lt;T&gt; asPredicate() {
+<span class="fc" id="L94">        return t -&gt; Uncheck.test(this, t);</span>
+    }
+
+    /**
+     * Creates a predicate that represents the logical negation of this predicate.
+     *
+     * @return a predicate that represents the logical negation of this predicate
+     */
+    default IOPredicate&lt;T&gt; negate() {
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        return t -&gt; !test(t);</span>
+    }
+
+    /**
+     * Creates a composed predicate that represents a short-circuiting logical OR of this predicate and another. When
+     * evaluating the composed predicate, if this predicate is {@code true}, then the {@code other} predicate is not
+     * evaluated.
+     *
+     * &lt;p&gt;
+     * Any exceptions thrown during evaluation of either predicate are relayed to the caller; if evaluation of this
+     * predicate throws an exception, the {@code other} predicate will not be evaluated.
+     * &lt;/p&gt;
+     *
+     * @param other a predicate that will be logically-ORed with this predicate
+     * @return a composed predicate that represents the short-circuiting logical OR of this predicate and the {@code other}
+     *         predicate
+     * @throws NullPointerException if other is null
+     */
+    default IOPredicate&lt;T&gt; or(final IOPredicate&lt;? super T&gt; other) {
+<span class="fc" id="L122">        Objects.requireNonNull(other);</span>
+<span class="fc bfc" id="L123" title="All 4 branches covered.">        return t -&gt; test(t) || other.test(t);</span>
+    }
+
+    /**
+     * Evaluates this predicate on the given argument.
+     *
+     * @param t the input argument
+     * @return {@code true} if the input argument matches the predicate, otherwise {@code false}
+     * @throws IOException if an I/O error occurs.
+     */
+    boolean test(T t) throws IOException;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
