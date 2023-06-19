@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>IOBaseStreamAdapter.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.function;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.stream.BaseStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Abstracts an {@link IOBaseStream} implementation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Keep package-private for now.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;T&#62; the type of the stream elements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;S&#62; the type of the stream extending {@code IOBaseStream}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>abstract class IOBaseStreamAdapter&#60;T, S extends IOBaseStream&#60;T, S, B&#62;, B extends BaseStream&#60;T, B&#62;&#62; implements IOBaseStream&#60;T, S, B&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The underlying base stream.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final B delegate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param delegate the delegate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    IOBaseStreamAdapter(final B delegate) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.delegate = Objects.requireNonNull(delegate, &#34;delegate&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public B unwrap() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_49'/>
+49
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_49'>1</a>
+<span>
+1. unwrap : replaced return value with null for org/apache/commons/io/function/IOBaseStreamAdapter::unwrap &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return delegate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@740af600_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@740af600_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@740af600_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@740af600_49'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>unwrap<br/><b>Killed by : </b>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testOfOne()]</span></span> replaced return value with null for org/apache/commons/io/function/IOBaseStreamAdapter::unwrap &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnFlush2()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testSkip()] (5 ms)</li><li>org.apache.commons.io.function.IOConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOConsumerTest]/[method:testForAllStreamOf1()] (1 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnAppendCharSequenceIntInt1()] (1 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnAppendChar2()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testIterateLong()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteCharArrayIntInt1()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnAppendCharSequenceIntInt2()] (1 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testGetObserversOrder()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testConstructorsNull()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testDataBytesCalled()] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testSkipFromFileChannel()] (484 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnAppendCharSequence1()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testFlatMapToInt()] (1 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testCloseMulti()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testMax()] (1 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testCollectionCloseBranchIOException()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteCharArrayIntInt1()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteString1()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testPeek()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testForaAllIOConsumerBiFunction()] (0 ms)</li><li>org.apache.commons.io.function.IOConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOConsumerTest]/[method:testForAllArrayOf2()] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadOneByte()] (456 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkippedAfterRead()] (127 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testDirectory()] (646 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testAnyMatch()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testCollectSupplierOfRBiConsumerOfRQsuperTBiConsumerOfRR()] (1 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testGetObservers1()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnClose1()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testNotificationCallbacksBufferSizeDefault()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testTee()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testFindFirst()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testOfIterable()] (2 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testOfOne()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testCollectCollectorOfQsuperTAR()] (0 ms)</li><li>org.apache.commons.io.FileUtilsCleanSymlinksTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsCleanSymlinksTest]/[method:testStillClearsIfGivenDirectoryIsASymlink()] (4 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnAppendChar1()] (1 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteString1()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testReduceTBinaryOperatorOfT()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testForaAllIOConsumerBiFunctionNull()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testIterator()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testUnordered()] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadMultipleBytes()] (57 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkipped()] (457 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testSkipFromFileChannel()] (100 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testOfArray()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnClose2()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testDataByteCalled_ctor()] (4 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testDistinct()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteCharArray2()] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkippedAfterEOF()] (35 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteInt2()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testForEachIOConsumerOfQsuperT()] (1 ms)</li><li>org.apache.commons.io.input.MessageDigestCalculatingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MessageDigestCalculatingInputStreamTest]/[method:test()] (6 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testReduceBinaryOperatorOfT()] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadPastEOF()] (40 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testBrokenInputStreamRead()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testMin()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testLimit()] (0 ms)</li><li>org.apache.commons.io.FileUtilsCleanSymlinksTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsCleanSymlinksTest]/[method:testCleanDirWithASymlinkDir()] (5 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testMapToDouble()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testMapToInt()] (1 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteCharArray1()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteStringIntInt2()] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkipped()] (117 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteStringIntInt2()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testIterateException()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnAppendCharSequence2()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteInt1()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testSorted()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testEmpty()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testCount()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testFlatMap()] (0 ms)</li><li>org.apache.commons.io.FileUtilsCleanSymlinksTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsCleanSymlinksTest]/[method:testCleanDirWithParentSymlinks()] (8 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testCollectionCloseBranchIOException()] (0 ms)</li><li>org.apache.commons.io.input.TimestampedObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TimestampedObserverTest]/[method:testExample()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testMap()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnAppendChar1()] (1 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnAppendCharSequence2()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnAppendChar2()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteString2()] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkippedAfterEOF()] (29 ms)</li><li>org.apache.commons.io.function.IOConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOConsumerTest]/[method:testForAllStreamOf2()] (0 ms)</li><li>org.apache.commons.io.function.IOConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOConsumerTest]/[method:testForAllIterableOf2()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteStringIntInt1()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testFlatMapToDouble()] (3 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnFlush2()] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testNegativeBytesSkippedAfterRead()] (461 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadMultipleBytes()] (477 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testFilter()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testAllMatch()] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadOneByte()] (114 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnAppendCharSequenceIntInt2()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnAppendCharSequenceIntInt1()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteString2()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testNotificationCallbacksBufferSize1()] (7 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testToArray()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testFindAny()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testReduceUBiFunctionOfUQsuperTUBinaryOperatorOfU()] (1 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteCharArrayIntInt2()] (1 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteInt1()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testAdapt()] (0 ms)</li><li>org.apache.commons.io.function.IOConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOConsumerTest]/[method:testForAllArrayOf1()] (1 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testGetObservers0()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testFlatMapToLong()] (1 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnFlush1()] (0 ms)</li><li>org.apache.commons.io.FileUtilsCleanSymlinksTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsCleanSymlinksTest]/[method:testCleanDirWithSymlinkFile()] (5 ms)</li><li>org.apache.commons.io.input.TimestampedObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TimestampedObserverTest]/[method:test()] (51 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testSpliterator()] (0 ms)</li><li>org.apache.commons.io.function.IOBaseStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBaseStreamTest]/[method:testWrap()] (1 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testDataByteCalled_add()] (2 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testParallel()] (1 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteCharArrayIntInt2()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteCharArray2()] (1 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkippedAfterRead()] (457 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testNegativeBytesSkippedAfterRead()] (105 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testIsParallel()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testOnCloseMultipleHandlers()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testForaAllIOConsumer()] (1 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testConstructorsNull()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteInt2()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testUnwrap()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testMapToLong()] (1 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testBrokenInputStreamReadBuffer()] (1 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testNotificationCallbacksBufferSize2()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testSequential()] (1 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnClose2()] (0 ms)</li><li>org.apache.commons.io.DeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DeleteDirectoryTest]/[method:testDeleteDirectoryWithFileUtils()] (5 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testSortedComparatorOfQsuperT()] (0 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnFlush1()] (1 ms)</li><li>org.apache.commons.io.function.IOConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOConsumerTest]/[method:testForAllIterableOf1()] (1 ms)</li><li>org.apache.commons.io.output.TeeWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.TeeWriterTest]/[method:testArrayIOExceptionOnWriteStringIntInt1()] (1 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnClose1()] (0 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnAppendCharSequence1()] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadPastEOF()] (43 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testArrayIOExceptionOnWriteCharArray1()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testNoneMatch()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testOnClose()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testBrokenInputStreamReadSubBuffer()] (1 ms)</li><li>org.apache.commons.io.output.ProxyCollectionWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.ProxyCollectionWriterTest]/[method:testTee()] (1 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testForEachOrdered()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testToArrayIntFunctionOfA()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

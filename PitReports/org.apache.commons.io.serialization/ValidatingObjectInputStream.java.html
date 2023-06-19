@@ -1,0 +1,3309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ValidatingObjectInputStream.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * or more contributor license agreements.  See the NOTICE file</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed with this work for additional information</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * regarding copyright ownership.  The ASF licenses this file</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to you under the Apache License, Version 2.0 (the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#34;License&#34;); you may not use this file except in compliance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * with the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * software distributed under the License is distributed on an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * KIND, either express or implied.  See the License for the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * specific language governing permissions and limitations</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.serialization;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.InputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.InvalidClassException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.ObjectInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.ObjectStreamClass;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.regex.Pattern;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.stream.Stream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An {@link ObjectInputStream} that&#39;s restricted to deserialize</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * a limited set of classes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Various accept/reject methods allow for specifying which classes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * can be deserialized.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Design inspired by &#60;a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * href=&#34;http://www.ibm.com/developerworks/library/se-lookahead/&#34;&#62;IBM</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * DeveloperWorks Article&#60;/a&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class ValidatingObjectInputStream extends ObjectInputStream {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private final List&#60;ClassNameMatcher&#62; acceptMatchers = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private final List&#60;ClassNameMatcher&#62; rejectMatchers = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an object to deserialize the specified input stream.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * At least one accept method needs to be called to specify which</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * classes can be deserialized, as by default no classes are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * accepted.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param input an input stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs while reading stream header</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream(final InputStream input) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(input);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Accept the specified classes for deserialization, unless they</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * are otherwise rejected.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param classes Classes to accept</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream accept(final Class&#60;?&#62;... classes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_71'>2</a>
+<span>
+1. accept : removed call to java/util/stream/Stream::forEach &rarr; KILLED<br/>
+2. lambda$accept$0 : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::lambda$accept$0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Stream.of(classes).map(c -&#62; new FullClassNameMatcher(c.getName())).forEach(acceptMatchers::add);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_72'>1</a>
+<span>
+1. accept : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::accept &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Accept class names where the supplied ClassNameMatcher matches for</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * deserialization, unless they are otherwise rejected.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param m the matcher to use</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream accept(final ClassNameMatcher m) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        acceptMatchers.add(m);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_84'>1</a>
+<span>
+1. accept : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::accept &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Accept class names that match the supplied pattern for</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * deserialization, unless they are otherwise rejected.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param pattern standard Java regexp</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream accept(final Pattern pattern) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        acceptMatchers.add(new RegexpClassNameMatcher(pattern));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_96'>1</a>
+<span>
+1. accept : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::accept &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Accept the wildcard specified classes for deserialization,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * unless they are otherwise rejected.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param patterns Wildcard file name patterns as defined by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *                  {@link org.apache.commons.io.FilenameUtils#wildcardMatch(String, String) FilenameUtils.wildcardMatch}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream accept(final String... patterns) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_108'>1</a>
+<span>
+1. accept : removed call to java/util/stream/Stream::forEach &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Stream.of(patterns).map(WildcardClassNameMatcher::new).forEach(acceptMatchers::add);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_109'>1</a>
+<span>
+1. accept : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::accept &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Called to throw {@link InvalidClassException} if an invalid</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * class name is found during deserialization. Can be overridden, for example</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * to log those class names.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param className name of the invalid class</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws InvalidClassException if the specified class is not allowed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void invalidClassNameFound(final String className) throws InvalidClassException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        throw new InvalidClassException(&#34;Class name not accepted: &#34; + className);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Reject the specified classes for deserialization, even if they</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * are otherwise accepted.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param classes Classes to reject</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream reject(final Class&#60;?&#62;... classes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_132'>2</a>
+<span>
+1. reject : removed call to java/util/stream/Stream::forEach &rarr; KILLED<br/>
+2. lambda$reject$1 : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::lambda$reject$1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Stream.of(classes).map(c -&#62; new FullClassNameMatcher(c.getName())).forEach(rejectMatchers::add);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_133'>1</a>
+<span>
+1. reject : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::reject &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Reject class names where the supplied ClassNameMatcher matches for</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * deserialization, even if they are otherwise accepted.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param m the matcher to use</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream reject(final ClassNameMatcher m) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        rejectMatchers.add(m);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_145'/>
+145
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_145'>1</a>
+<span>
+1. reject : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::reject &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Reject class names that match the supplied pattern for</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * deserialization, even if they are otherwise accepted.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param pattern standard Java regexp</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream reject(final Pattern pattern) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        rejectMatchers.add(new RegexpClassNameMatcher(pattern));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_157'/>
+157
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_157'>1</a>
+<span>
+1. reject : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::reject &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Reject the wildcard specified classes for deserialization,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * even if they are otherwise accepted.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param patterns Wildcard file name patterns as defined by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *                  {@link org.apache.commons.io.FilenameUtils#wildcardMatch(String, String) FilenameUtils.wildcardMatch}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ValidatingObjectInputStream reject(final String... patterns) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_169'/>
+169
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_169'>1</a>
+<span>
+1. reject : removed call to java/util/stream/Stream::forEach &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Stream.of(patterns).map(WildcardClassNameMatcher::new).forEach(rejectMatchers::add);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_170'/>
+170
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_170'>1</a>
+<span>
+1. reject : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::reject &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected Class&#60;?&#62; resolveClass(final ObjectStreamClass osc) throws IOException, ClassNotFoundException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_175'>1</a>
+<span>
+1. resolveClass : removed call to org/apache/commons/io/serialization/ValidatingObjectInputStream::validateClassName &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        validateClassName(osc.getName());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_176'/>
+176
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_176'>1</a>
+<span>
+1. resolveClass : replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::resolveClass &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return super.resolveClass(osc);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Check that the classname conforms to requirements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param name The class name</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws InvalidClassException when a non-accepted class is encountered</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void validateClassName(final String name) throws InvalidClassException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Reject has precedence over accept</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (final ClassNameMatcher m : rejectMatchers) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_186'>1</a>
+<span>
+1. validateClassName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (m.matches(name)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_187'/>
+187
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_187'>1</a>
+<span>
+1. validateClassName : removed call to org/apache/commons/io/serialization/ValidatingObjectInputStream::invalidClassNameFound &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                invalidClassNameFound(name);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        boolean ok = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (final ClassNameMatcher m : acceptMatchers) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_193'/>
+193
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_193'>1</a>
+<span>
+1. validateClassName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (m.matches(name)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                ok = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_198'/>
+198
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_198'>1</a>
+<span>
+1. validateClassName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!ok) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_199'>1</a>
+<span>
+1. validateClassName : removed call to org/apache/commons/io/serialization/ValidatingObjectInputStream::invalidClassNameFound &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            invalidClassNameFound(name);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21469961_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21469961_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassAcceptedSecond()]</span></span> removed call to java/util/stream/Stream::forEach &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$accept$0<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassAcceptedSecond()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::lambda$accept$0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectCustomMatcher()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::accept &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptCustomMatcher()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::accept &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptPattern()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::accept &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptWildcard()]</span></span> removed call to java/util/stream/Stream::forEach &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptWildcard()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::accept &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reject<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectPrecedence()]</span></span> removed call to java/util/stream/Stream::forEach &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$reject$1<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectPrecedence()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::lambda$reject$1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reject<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectPrecedence()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::reject &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_145'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reject<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectCustomMatcher()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::reject &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_157'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reject<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectPattern()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::reject &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_169'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reject<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectWildcard()]</span></span> removed call to java/util/stream/Stream::forEach &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_170'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reject<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectWildcard()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::reject &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveClass<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:noAccept()]</span></span> removed call to org/apache/commons/io/serialization/ValidatingObjectInputStream::validateClassName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_176'>176</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_176'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveClass<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptPattern()]</span></span> replaced return value with null for org/apache/commons/io/serialization/ValidatingObjectInputStream::resolveClass &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateClassName<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectCustomMatcher()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_187'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateClassName<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectCustomMatcher()]</span></span> removed call to org/apache/commons/io/serialization/ValidatingObjectInputStream::invalidClassNameFound &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_193'>193</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_193'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateClassName<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptPattern()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_198'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateClassName<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:noAccept()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21469961_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21469961_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateClassName<br/><b>Killed by : </b>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:noAccept()]</span></span> removed call to org/apache/commons/io/serialization/ValidatingObjectInputStream::invalidClassNameFound &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectPrecedence()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassAcceptedSecond()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:noAccept()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectWildcard()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectOnly()] (1 ms)</li><li>org.apache.commons.io.serialization.MoreComplexObjectTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.MoreComplexObjectTest]/[method:trustJavaLang()] (1 ms)</li><li>org.apache.commons.io.serialization.MoreComplexObjectTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.MoreComplexObjectTest]/[method:useBlacklist()] (3 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptCustomMatcher()] (1 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassOnlyAccepted()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptWildcard()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassNotAccepted()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassAcceptedSecondWildcard()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectCustomMatcher()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:customInvalidMethod()] (1 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:reject()] (1 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:exceptionIncludesClassName()] (1 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptPattern()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassAcceptedFirstWildcard()] (0 ms)</li><li>org.apache.commons.io.serialization.MoreComplexObjectTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.MoreComplexObjectTest]/[method:trustJavaIncludingArrays()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectPattern()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassAcceptedFirst()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

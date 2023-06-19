@@ -1,0 +1,2964 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>CopyDirectoryVisitor.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.file;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.CopyOption;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.FileVisitResult;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.Files;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.Path;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.ProviderMismatchException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.file.attribute.BasicFileAttributes;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.file.Counters.PathCounters;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copies a source directory to a target directory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.7</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class CopyDirectoryVisitor extends CountingPathVisitor {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static CopyOption[] toCopyOption(final CopyOption... copyOptions) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_40'/>
+40
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_40'>2</a>
+<span>
+1. toCopyOption : negated conditional &rarr; KILLED<br/>
+2. toCopyOption : replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::toCopyOption &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return copyOptions == null ? PathUtils.EMPTY_COPY_OPTIONS : copyOptions.clone();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final CopyOption[] copyOptions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Path sourceDirectory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Path targetDirectory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new visitor that deletes files except for the files and directories explicitly given.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param pathCounter How to count visits.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param sourceDirectory The source directory</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param targetDirectory The target directory</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param copyOptions Specifies how the copying should be done.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CopyDirectoryVisitor(final PathCounters pathCounter, final Path sourceDirectory, final Path targetDirectory, final CopyOption... copyOptions) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(pathCounter);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.sourceDirectory = sourceDirectory;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.targetDirectory = targetDirectory;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.copyOptions = toCopyOption(copyOptions);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new visitor that deletes files except for the files and directories explicitly given.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param pathCounter How to count visits.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fileFilter How to filter file paths.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param dirFilter How to filter directory paths.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param sourceDirectory The source directory</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param targetDirectory The target directory</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param copyOptions Specifies how the copying should be done.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.9.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CopyDirectoryVisitor(final PathCounters pathCounter, final PathFilter fileFilter, final PathFilter dirFilter, final Path sourceDirectory,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        final Path targetDirectory, final CopyOption... copyOptions) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(pathCounter, fileFilter, dirFilter);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.sourceDirectory = sourceDirectory;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.targetDirectory = targetDirectory;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.copyOptions = toCopyOption(copyOptions);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Copies the sourceFile to the targetFile.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param sourceFile the source file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param targetFile the target file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.8.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void copy(final Path sourceFile, final Path targetFile) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Files.copy(sourceFile, targetFile, copyOptions);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean equals(final Object obj) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_95'/>
+95
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_95'>1</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (this == obj) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_96'>1</a>
+<span>
+1. equals : replaced boolean return with false for org/apache/commons/io/file/CopyDirectoryVisitor::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_98'>1</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!super.equals(obj)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_99'/>
+99
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_99'>1</a>
+<span>
+1. equals : replaced boolean return with true for org/apache/commons/io/file/CopyDirectoryVisitor::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_101'>1</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (getClass() != obj.getClass()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_102'>1</a>
+<span>
+1. equals : replaced boolean return with true for org/apache/commons/io/file/CopyDirectoryVisitor::equals &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final CopyDirectoryVisitor other = (CopyDirectoryVisitor) obj;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_105'/>
+105
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_105'>3</a>
+<span>
+1. equals : replaced boolean return with true for org/apache/commons/io/file/CopyDirectoryVisitor::equals &rarr; SURVIVED<br/>
+2. equals : negated conditional &rarr; KILLED<br/>
+3. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return Arrays.equals(copyOptions, other.copyOptions) &#38;&#38; Objects.equals(sourceDirectory, other.sourceDirectory)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_106'>1</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            &#38;&#38; Objects.equals(targetDirectory, other.targetDirectory);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the copy options.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the copy options.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.8.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CopyOption[] getCopyOptions() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_116'>1</a>
+<span>
+1. getCopyOptions : replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::getCopyOptions &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return copyOptions.clone();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the source directory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the source directory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.8.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Path getSourceDirectory() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_126'>1</a>
+<span>
+1. getSourceDirectory : replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::getSourceDirectory &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return sourceDirectory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the target directory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the target directory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.8.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Path getTargetDirectory() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_136'>1</a>
+<span>
+1. getTargetDirectory : replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::getTargetDirectory &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return targetDirectory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int hashCode() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int prime = 31;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int result = super.hashCode();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_143'/>
+143
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_143'>2</a>
+<span>
+1. hashCode : Replaced integer multiplication with division &rarr; SURVIVED<br/>
+2. hashCode : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        result = prime * result + Arrays.hashCode(copyOptions);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_144'/>
+144
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_144'>2</a>
+<span>
+1. hashCode : Replaced integer multiplication with division &rarr; SURVIVED<br/>
+2. hashCode : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        result = prime * result + Objects.hash(sourceDirectory, targetDirectory);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_145'/>
+145
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_145'>1</a>
+<span>
+1. hashCode : replaced int return with 0 for org/apache/commons/io/file/CopyDirectoryVisitor::hashCode &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileVisitResult preVisitDirectory(final Path directory, final BasicFileAttributes attributes)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final Path newTargetDir = resolveRelativeAsString(directory);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_152'/>
+152
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_152'>1</a>
+<span>
+1. preVisitDirectory : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (Files.notExists(newTargetDir)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            Files.createDirectory(newTargetDir);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_155'/>
+155
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_155'>1</a>
+<span>
+1. preVisitDirectory : replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::preVisitDirectory &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return super.preVisitDirectory(directory, attributes);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Relativizes against {@code sourceDirectory}, then resolves against {@code targetDirectory}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * We have to call {@link Path#toString()} relative value because we cannot use paths belonging to different</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * FileSystems in the Path methods, usually this leads to {@link ProviderMismatchException}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param directory the directory to relativize.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new path, relativized against sourceDirectory, then resolved against targetDirectory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Path resolveRelativeAsString(final Path directory) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_168'/>
+168
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_168'>1</a>
+<span>
+1. resolveRelativeAsString : replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::resolveRelativeAsString &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return targetDirectory.resolve(sourceDirectory.relativize(directory).toString());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileVisitResult visitFile(final Path sourceFile, final BasicFileAttributes attributes) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final Path targetFile = resolveRelativeAsString(sourceFile);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_174'>1</a>
+<span>
+1. visitFile : removed call to org/apache/commons/io/file/CopyDirectoryVisitor::copy &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        copy(sourceFile, targetFile);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_175'>1</a>
+<span>
+1. visitFile : replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::visitFile &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return super.visitFile(targetFile, attributes);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_40'>40</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_40'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toCopyOption<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toCopyOption<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::toCopyOption &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryEmptyFolder(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize0(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced boolean return with false for org/apache/commons/io/file/CopyDirectoryVisitor::equals &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize0(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryEmptyFolder(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced boolean return with true for org/apache/commons/io/file/CopyDirectoryVisitor::equals &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize0(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_102'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/apache/commons/io/file/CopyDirectoryVisitor::equals &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_105'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/apache/commons/io/file/CopyDirectoryVisitor::equals &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize0(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize0(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize0(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCopyOptions<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::getCopyOptions &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getSourceDirectory<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::getSourceDirectory &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTargetDirectory<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::getTargetDirectory &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_143'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> Replaced integer multiplication with division &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_144'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> Replaced integer multiplication with division &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_145'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/io/file/CopyDirectoryVisitor::hashCode &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_152'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>preVisitDirectory<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>preVisitDirectory<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::preVisitDirectory &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resolveRelativeAsString<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::resolveRelativeAsString &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visitFile<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> removed call to org/apache/commons/io/file/CopyDirectoryVisitor::copy &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6fd7cb58_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6fd7cb58_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visitFile<br/><b>Killed by : </b>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2]</span></span> replaced return value with null for org/apache/commons/io/file/CopyDirectoryVisitor::visitFile &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize0(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize0(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsCleanDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsCleanDirectoryTest]/[method:testCleanDirectory2FileSize2()] (2 ms)</li><li>org.apache.commons.io.file.CleaningPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CleaningPathVisitorTest]/[test-template:testCleanFolders1FileSize1Skip(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteDirectoryTest]/[method:testDeleteDirectory1FileSize0()] (0 ms)</li><li>org.apache.commons.io.file.CleaningPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CleaningPathVisitorTest]/[test-template:testCleanFolders1FileSize1Skip(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryEmptyFolderFilters(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.file.CleaningPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CleaningPathVisitorTest]/[test-template:testCleanFolders1FileSize1(org.apache.commons.io.file.CleaningPathVisitor)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryEmptyFolderFilters(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.file.CleaningPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CleaningPathVisitorTest]/[test-template:testCleanFolders1FileSize1(org.apache.commons.io.file.CleaningPathVisitor)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.file.CleaningPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CleaningPathVisitorTest]/[test-template:testCleanFolders2FileSize2(org.apache.commons.io.file.CleaningPathVisitor)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryEmptyFolder(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryEmptyFolder(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders2FileSize2(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testCopyDirectoryForDifferentFilesystemsWithRelativePathReverse()] (2 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteDirectoryTest]/[method:testDeleteDirectory1FileSize0NoOptions()] (1 ms)</li><li>org.apache.commons.io.file.CleaningPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CleaningPathVisitorTest]/[test-template:testCleanFolders2FileSize2(org.apache.commons.io.file.CleaningPathVisitor)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders2FileSize2(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.file.CleaningPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CleaningPathVisitorTest]/[test-template:testCleanFolders1FileSize0(org.apache.commons.io.file.CleaningPathVisitor)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.file.CleaningPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CleaningPathVisitorTest]/[test-template:testCleanFolders1FileSize0(org.apache.commons.io.file.CleaningPathVisitor)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.file.CopyDirectoryVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.CopyDirectoryVisitorTest]/[test-template:testCopyDirectoryFolders1FileSize1(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteDirectoryTest]/[method:testDeleteDirectory2FileSize2()] (2 ms)</li><li>org.apache.commons.io.file.DeletingPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DeletingPathVisitorTest]/[test-template:testDeleteFolders1FileSize1(org.apache.commons.io.file.DeletingPathVisitor)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsCleanDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsCleanDirectoryTest]/[method:testCleanDirectory1FileSize0()] (0 ms)</li><li>org.apache.commons.io.file.DeletingPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DeletingPathVisitorTest]/[test-template:testDeleteFolders1FileSize1(org.apache.commons.io.file.DeletingPathVisitor)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.file.DeletingPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DeletingPathVisitorTest]/[test-template:testDeleteFolders2FileSize2(org.apache.commons.io.file.DeletingPathVisitor)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.file.DeletingPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DeletingPathVisitorTest]/[test-template:testDeleteFolders1FileSize0(org.apache.commons.io.file.DeletingPathVisitor)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteDirectoryTest]/[method:testDeleteDirectory1FileSize0OverrideReadOnly()] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testCopyDirectoryForDifferentFilesystemsWithAbsolutePathReverse()] (17 ms)</li><li>org.apache.commons.io.file.DeletingPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DeletingPathVisitorTest]/[test-template:testDeleteFolders1FileSize0(org.apache.commons.io.file.DeletingPathVisitor)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.file.DeletingPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DeletingPathVisitorTest]/[test-template:testDeleteFolders2FileSize2(org.apache.commons.io.file.DeletingPathVisitor)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsCleanDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsCleanDirectoryTest]/[method:testCleanDirectory1FileSize1()] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testCopyDirectoryForDifferentFilesystemsWithAbsolutePath()] (2 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteDirectoryTest]/[method:testDeleteDirectory1FileSize1()] (0 ms)</li><li>org.apache.commons.io.file.DeletingPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DeletingPathVisitorTest]/[test-template:testDeleteFolders1FileSize1Skip(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testCopyDirectoryForDifferentFilesystemsWithRelativePath()] (2 ms)</li><li>org.apache.commons.io.file.DeletingPathVisitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DeletingPathVisitorTest]/[test-template:testDeleteFolders1FileSize1Skip(org.apache.commons.io.file.Counters$PathCounters)]/[test-template-invocation:#2] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

@@ -1,0 +1,3427 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Charsets.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.charset.Charset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.charset.StandardCharsets;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.charset.UnsupportedCharsetException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.SortedMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.TreeMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Charsets required of every implementation of the Java platform.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * From the Java documentation &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Standard charsets&#60;/a&#62;:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;cite&#62;Every implementation of the Java platform is required to support the following character encodings. Consult</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the release documentation for your implementation to see if any other encodings are supported. Consult the release</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * documentation for your implementation to see if any other encodings are supported. &#60;/cite&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;ul&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;li&#62;{@code US-ASCII}&#60;br&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the Unicode character set.&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;li&#62;{@code ISO-8859-1}&#60;br&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1.&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;li&#62;{@code UTF-8}&#60;br&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Eight-bit Unicode Transformation Format.&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;li&#62;{@code UTF-16BE}&#60;br&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Sixteen-bit Unicode Transformation Format, big-endian byte order.&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;li&#62;{@code UTF-16LE}&#60;br&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Sixteen-bit Unicode Transformation Format, little-endian byte order.&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;li&#62;{@code UTF-16}&#60;br&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Sixteen-bit Unicode Transformation Format, byte order specified by a mandatory initial byte-order mark (either order</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * accepted on input, big-endian used on output.)&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/ul&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;Standard charsets&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.3</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>public class Charsets {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // This class should only contain Charset instances for required encodings. This guarantees that it will load</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // correctly and without delay on all Java platforms.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final SortedMap&#60;String, Charset&#62; STANDARD_CHARSET_MAP;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final SortedMap&#60;String, Charset&#62; standardCharsetMap = new TreeMap&#60;&#62;(String.CASE_INSENSITIVE_ORDER);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        standardCharsetMap.put(StandardCharsets.ISO_8859_1.name(), StandardCharsets.ISO_8859_1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        standardCharsetMap.put(StandardCharsets.US_ASCII.name(), StandardCharsets.US_ASCII);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        standardCharsetMap.put(StandardCharsets.UTF_16.name(), StandardCharsets.UTF_16);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        standardCharsetMap.put(StandardCharsets.UTF_16BE.name(), StandardCharsets.UTF_16BE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        standardCharsetMap.put(StandardCharsets.UTF_16LE.name(), StandardCharsets.UTF_16LE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        standardCharsetMap.put(StandardCharsets.UTF_8.name(), StandardCharsets.UTF_8);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        STANDARD_CHARSET_MAP = Collections.unmodifiableSortedMap(standardCharsetMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * CharEncodingISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Every implementation of the Java platform is required to support this character encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;Standard charsets&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use Java 7&#39;s {@link java.nio.charset.StandardCharsets}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Seven-bit ASCII, also known as ISO646-US, also known as the Basic Latin block of the Unicode character set.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Every implementation of the Java platform is required to support this character encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;Standard charsets&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use Java 7&#39;s {@link java.nio.charset.StandardCharsets}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Charset US_ASCII = StandardCharsets.US_ASCII;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sixteen-bit Unicode Transformation Format, The byte order specified by a mandatory initial byte-order mark</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * (either order accepted on input, big-endian used on output)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Every implementation of the Java platform is required to support this character encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;Standard charsets&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use Java 7&#39;s {@link java.nio.charset.StandardCharsets}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Charset UTF_16 = StandardCharsets.UTF_16;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sixteen-bit Unicode Transformation Format, big-endian byte order.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Every implementation of the Java platform is required to support this character encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;Standard charsets&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use Java 7&#39;s {@link java.nio.charset.StandardCharsets}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Charset UTF_16BE = StandardCharsets.UTF_16BE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sixteen-bit Unicode Transformation Format, little-endian byte order.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Every implementation of the Java platform is required to support this character encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;Standard charsets&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use Java 7&#39;s {@link java.nio.charset.StandardCharsets}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Charset UTF_16LE = StandardCharsets.UTF_16LE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Eight-bit Unicode Transformation Format.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Every implementation of the Java platform is required to support this character encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;Standard charsets&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use Java 7&#39;s {@link java.nio.charset.StandardCharsets}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Charset UTF_8 = StandardCharsets.UTF_8;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a sorted map from canonical charset names to charset objects required of every implementation of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Java platform.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * From the Java documentation &#60;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html&#34;&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Standard charsets&#60;/a&#62;:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return An immutable, case-insensitive map from canonical charset names to charset objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see Charset#availableCharsets()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.5</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static SortedMap&#60;String, Charset&#62; requiredCharsets() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_172'/>
+172
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_172'>1</a>
+<span>
+1. requiredCharsets : replaced return value with null for org/apache/commons/io/Charsets::requiredCharsets &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return STANDARD_CHARSET_MAP;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the given Charset or the default Charset if the given Charset is null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charset</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *            A charset or null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the given Charset or the default Charset if the given Charset is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Charset toCharset(final Charset charset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_183'>2</a>
+<span>
+1. toCharset : replaced return value with null for org/apache/commons/io/Charsets::toCharset &rarr; KILLED<br/>
+2. toCharset : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return charset == null ? Charset.defaultCharset() : charset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the given charset if non-null, otherwise return defaultCharset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charset The charset to test, may be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param defaultCharset The charset to return if charset is null, may be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a Charset .</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.12.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Charset toCharset(final Charset charset, final Charset defaultCharset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_195'/>
+195
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_195'>2</a>
+<span>
+1. toCharset : replaced return value with null for org/apache/commons/io/Charsets::toCharset &rarr; KILLED<br/>
+2. toCharset : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return charset == null ? defaultCharset : charset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_199'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a Charset for the named charset. If the name is null, return the default Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetName The name of the requested charset, may be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a Charset for the named charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UnsupportedCharsetException If the named charset is unavailable (unchecked exception).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Charset toCharset(final String charsetName) throws UnsupportedCharsetException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_206'/>
+206
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_206'>1</a>
+<span>
+1. toCharset : replaced return value with null for org/apache/commons/io/Charsets::toCharset &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return toCharset(charsetName, Charset.defaultCharset());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_209'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_210'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a Charset for the named charset. If the name is null, return the given default Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetName The name of the requested charset, may be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param defaultCharset The name charset to return if charsetName is null, may be null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a Charset for the named charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UnsupportedCharsetException If the named charset is unavailable (unchecked exception).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.12.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Charset toCharset(final String charsetName, final Charset defaultCharset) throws UnsupportedCharsetException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_219'/>
+219
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_219'>2</a>
+<span>
+1. toCharset : replaced return value with null for org/apache/commons/io/Charsets::toCharset &rarr; KILLED<br/>
+2. toCharset : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return charsetName == null ? defaultCharset : Charset.forName(charsetName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52392a14_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52392a14_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>requiredCharsets<br/><b>Killed by : </b>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testRequiredCharsets()]</span></span> replaced return value with null for org/apache/commons/io/Charsets::requiredCharsets &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52392a14_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toCharset<br/><b>Killed by : </b>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String()]</span></span> replaced return value with null for org/apache/commons/io/Charsets::toCharset &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toCharset<br/><b>Killed by : </b>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52392a14_195'>195</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_195'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toCharset<br/><b>Killed by : </b>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String_Charset()]</span></span> replaced return value with null for org/apache/commons/io/Charsets::toCharset &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toCharset<br/><b>Killed by : </b>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String_Charset()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52392a14_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toCharset<br/><b>Killed by : </b>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String()]</span></span> replaced return value with null for org/apache/commons/io/Charsets::toCharset &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52392a14_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52392a14_219'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toCharset<br/><b>Killed by : </b>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String_Charset()]</span></span> replaced return value with null for org/apache/commons/io/Charsets::toCharset &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toCharset<br/><b>Killed by : </b>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String_Charset()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testInvalidEncoding()] (3 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#1] (7 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testResetThrows()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestSimple.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestSimple]/[method:testUnsupportedEncodingUTF16()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToString_URI_CharsetName()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#2] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_charSequenceToOutputStream_Encoding()] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testWriteImmediately()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testConstructNullCharsetNameEncoder()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#1] (4 ms)</li><li>org.apache.commons.io.input.BoundedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BoundedReaderTest]/[method:testLineNumberReaderAndFileReaderLastLineEolNo()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream_Encoding_nullOut()] (1 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testOneLines()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadByteArrayIndexed()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testCodingErrorAction()] (1 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testCloseEarly()] (1 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_charArrayToOutputStream()] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToString_URL_CharsetName()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testMarkReset_UTF8()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testFlush()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testCloseThrows()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawContent()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingBig5(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16LEEncoding()] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToCharArray_InputStream_CharsetName()] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#3] (2 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_CharsetEncoder_constructor()] (2 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateHttpEncoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#2] (2 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8WithSingleByteWrite()] (4 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#11] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String_Charset()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF8WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest]/[method:testCalculateRawEncodingAdditionalUTF32()] (0 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testAlternateLockDir()] (1 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToString_URI_CharsetNameNull()] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEmpty()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testCloseThrows()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testLargeSingleByteRead_RequiredCharsets()] (15 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter_nullIn()] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testReadLines_InputStream_String()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#1] (6 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_charSequenceToOutputStream()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_B10_D10_S2_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadByteArrayThrows()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_charArrayToOutputStream_Encoding()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF8WithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#10] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testLargeBufferedRead_UTF8()] (2 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToString_InputStreamSupplier()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testNullCharset()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testWriteIntThrows()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWriteLines_OutputStream_Encoding_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#12] (5 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16LEWithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream_Encoding_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_CharsetName_constructor()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.WindowsLineEndingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.WindowsLineEndingInputStreamTest]/[method:retainLineFeed()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16Encoding()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testBufferedRead_AvailableCharset()] (7 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#10] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingBig5(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_B10_D10_S0_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.WindowsLineEndingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.WindowsLineEndingInputStreamTest]/[method:malformed()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testLargeBufferedRead_RequiredCharsets()] (15 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetDecoderWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testResourceToString_NullCharset_WithClassLoader()] (1 ms)</li><li>org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest]/[method:testCalculateHttpEncodingUtf32()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadByteArrayIndexedThrows()] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingAdditionalUTF16()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUtf32Le()] (2 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#8] (1 ms)</li><li>org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest]/[method:testCalculateRawEncodingStandardUtf32()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#8] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestSimple.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestSimple]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testTwoLines()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#11] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateHttpEncodingUtf32()] (0 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testSkipping()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testSkip_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.DeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DeleteDirectoryTest]/[method:testDeleteDirectoryWithPathUtilsOverrideReadOnly()] (4 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin7Encoding()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8CharsetWithSingleByteWrite()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testSingleByteRead_UTF16()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithoutBOMUtf32Be()] (19 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testNextLineOnlyNullEncoding()] (0 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testValidEncoding()] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testReadStringEmptyFile()] (1 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testFilteringFileReader()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testBufferedRead_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_B10_D13_S1_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#6] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetNameWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testCodingError()] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testReadFully_InputStream_Offset()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream_Encoding_nullIn()] (1 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWriteLines_OutputStream()] (0 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testFilteringBufferedReader()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingBig5(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest]/[method:testCalculateRawEncodingStandard()] (1 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testBufferSmallest()] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToString_URL_CharsetNameNull()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_byteArrayToWriter_nullWriter()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter_Encoding_nullOut()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToCharArray_InputStream()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testNoXmlHeader()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16WithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testFlush()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingStandardUtf32()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#2] (2 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testReadLines_InputStream()] (1 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#12] (5 ms)</li><li>org.apache.commons.io.output.QueueOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.QueueOutputStreamTest]/[method:writeStringMultiThread()] (1 ms)</li><li>org.apache.commons.io.DemuxInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DemuxInputStreamTest]/[method:testInputStream()] (128 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testHashCode()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testRead()] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin1Encoding()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructorAppend_File_existingFile_withContent()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testSingleByteRead_RequiredCharsets()] (1 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testResourceToString_ExistingResourceAtRootPackage()] (1 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#6] (1 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testWriteStringToFile1()] (1 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_stringToOutputStream_Encoding()] (1 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream_Encoding()] (3 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestSimple.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestSimple]/[method:testLineCount()] (1 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_Loop_UTF8()] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testHttpContent()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_byteArrayToWriter_Encoding_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingBig5(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testReadZero()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_stringToOutputStream()] (0 ms)</li><li>org.apache.commons.io.DeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DeleteDirectoryTest]/[method:testDeleteDirectoryWithPathUtils()] (26 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testWriteBigString()] (58 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingUTF16(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testReadZero_EmptyString()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_stringToOutputStream_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_byteArrayToWriter_Encoding_nullWriter()] (0 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testNextLineOnlyDefaultEncoding()] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadByteArray()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#1] (4 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#6] (1 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream_nullIn()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testUTF16WithSingleByteRead()] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLowerCaseEncodingWithTurkishLocale_IO_557()] (1 ms)</li><li>org.apache.commons.io.input.BoundedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BoundedReaderTest]/[method:testLineNumberReaderAndFileReaderLastLineEolYes()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_byteArrayToWriter_Encoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testWriteLittleString()] (101 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter_Encoding_nullIn()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testBufferedRead_RequiredCharset()] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin15Encoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16BEWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToByteArray_Reader()] (1 ms)</li><li>org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest]/[method:testCalculateHttpEncoding()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testMarkSupported()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testCharsetMismatchInfiniteLoop_RequiredCharsets()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_charSequenceToOutputStream_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testZeroLines()] (1 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#8] (1 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#9] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testConstructor_File_encoding_badEncoding()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter_Encoding()] (1 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToString_URI()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16LEWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_byteArrayToWriter()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWriteLines_OutputStream_nullSeparator()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingStandard()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingUTF16(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWriteLines_OutputStream_Encoding_nullStream()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testDefaultEncoding()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testSkip_USASCII()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testNextLineOnlyUtf8Encoding()] (1 ms)</li><li>org.apache.commons.io.DeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DeleteDirectoryTest]/[method:testDeleteFileCheckParentAccess()] (3 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF8Encoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToString_URL()] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16BEEncoding()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_Loop_UTF16()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestSimple.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestSimple]/[method:testUnsupportedEncodingBig5()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testWriteInt()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testSkipThrows()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToInputStream_CharSequence()] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testReadStringSimpleUtf8()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingNoBOM()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testMarkReset_USASCII()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadThrows()] (0 ms)</li><li>org.apache.commons.io.input.WindowsLineEndingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.WindowsLineEndingInputStreamTest]/[method:simpleString()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingAdditionalUTF32()] (1 ms)</li><li>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testToCharset_String()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_byteArrayToWriter_Encoding_nullData()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#1] (5 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#10] (2 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToInputStream_String()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingBig5(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWriteLines_OutputStream_nullStream()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#2] (2 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWriteLines_OutputStream_Encoding_nullSeparator()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#12] (6 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#3] (9 ms)</li><li>org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest]/[method:testCalculateRawEncodingNoBOM()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_B10_D13_S0_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#2] (3 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.WindowsLineEndingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.WindowsLineEndingInputStreamTest]/[method:inTheMiddleOfTheLine()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testCharsetMismatchInfiniteLoop()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testBufferTooSmall()] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEUC_JPEncoding()] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testToString_InputStream()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testClose()] (2 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testMarkReset()] (0 ms)</li><li>org.apache.commons.io.input.WindowsLineEndingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.WindowsLineEndingInputStreamTest]/[method:twoLinesAtEnd()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testResourceToString_NullCharset()] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8CharsetWithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testFileLocked()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.StringInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.StringInputStreamTest]/[method:testStringConstructorString()] (0 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testFileNotLocked()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_directory()] (1 ms)</li><li>org.apache.commons.io.CopyUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CopyUtilsTest]/[method:copy_inputStreamToWriterWithEncoding()] (1 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWriteLines_OutputStream_Encoding_nullData()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_B10_D10_S1_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testLargeUTF8WithBufferedRead()] (2 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#11] (2 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testUTF8WithBufferedRead()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testSingleByteRead_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.StringInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.StringInputStreamTest]/[method:testStringConstructorStringCharset()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestSimple.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestSimple]/[method:testFileSizeIsExactMultipleOfBlockSize()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream_nullOut()] (1 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testCounting()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testUTF8WithSingleByteRead()] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStartWithReopenAndBufferSizeAndCharset()] (218 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testThreeLines()] (2 ms)</li><li>org.apache.commons.io.input.WindowsLineEndingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.WindowsLineEndingInputStreamTest]/[method:linuxLineFeeds()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#11] (1 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testReadZeroEmptyString()] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testSetReadOnlyFile()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_B10_D20_S0_UTF8()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testFlushThrows()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_string_constructor()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingUTF16(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithoutBOMUtf32Le()] (2 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEBCDICEncoding()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingUTF16(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#1] (7 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testLargeSingleByteRead_UTF8()] (2 ms)</li><li>org.apache.commons.io.LineIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.LineIteratorTest]/[method:testNextOnly()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testSkip()] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testResourceToString_ExistingResourceAtSubPackage_WithClassLoader()] (1 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testAvailable()] (69 ms)</li><li>org.apache.commons.io.output.QueueOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.QueueOutputStreamTest]/[method:writeString()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWriteLines_OutputStream_Encoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#2] (3 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#1] (7 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testLargeUTF8WithSingleByteRead()] (1 ms)</li><li>org.apache.commons.io.input.WindowsLineEndingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.WindowsLineEndingInputStreamTest]/[method:multipleBlankLines()] (0 ms)</li><li>org.apache.commons.io.IOUtilsWriteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsWriteTest]/[method:testWrite_charArrayToOutputStream_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter_Encoding_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testResourceToString_ExistingResourceAtSubPackage()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testHttp()] (80 ms)</li><li>org.apache.commons.io.IOUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsTest]/[method:testResourceToString_ExistingResourceAtRootPackage_WithClassLoader()] (0 ms)</li><li>org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.compatibility.XmlStreamReaderUtilitiesCompatibilityTest]/[method:testCalculateRawEncodingAdditionalUTF16()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testReadZero_RequiredCharsets()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#6] (1 ms)</li><li>org.apache.commons.io.DeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DeleteDirectoryTest]/[method:testDeleteDirectoryWithFileUtils()] (5 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUtf32Be()] (4 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[method:testFileSizeIsExactMultipleOfBlockSize()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testIO_356_B10_D10_S0_UTF16()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testConstructNullCharset()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#10] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testEquals()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_existingFile_withContent()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.CharsetsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CharsetsTest]/[method:testRequiredCharsets()] (1 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter_nullOut()] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16BEWithBufferedWrite()] (1 ms)</li><li>org.apache.commons.io.input.CharSequenceInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CharSequenceInputStreamTest]/[method:testNullCharsetName()] (0 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReads(java.lang.String)]/[test-template-invocation:#12] (5 ms)</li><li>org.apache.commons.io.input.QueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.QueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.PollingQueueInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.PollingQueueInputStreamTest]/[test-template:bufferedReadWrite(java.lang.String)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUnsupportedEncodingUTF16(int)]/[test-template-invocation:#2] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

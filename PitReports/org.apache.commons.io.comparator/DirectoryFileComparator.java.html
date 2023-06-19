@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>DirectoryFileComparator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.comparator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.File;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Comparator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Compare two files using the {@link File#isDirectory()} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This comparator can be used to sort lists or arrays by directories and files.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Example of sorting a list of files/directories using the {@link #DIRECTORY_COMPARATOR} singleton instance:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *       List&#38;lt;File&#38;gt; list = ...</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *       ((AbstractFileComparator) DirectoryFileComparator.DIRECTORY_COMPARATOR).sort(list);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Example of doing a &#60;i&#62;reverse&#60;/i&#62; sort of an array of files/directories using the {@link #DIRECTORY_REVERSE}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * singleton instance:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *       File[] array = ...</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *       ((AbstractFileComparator) DirectoryFileComparator.DIRECTORY_REVERSE).sort(array);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class DirectoryFileComparator extends AbstractFileComparator implements Serializable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int TYPE_FILE = 2;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int TYPE_DIRECTORY = 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = 296132640160964395L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Singleton default comparator instance */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Comparator&#60;File&#62; DIRECTORY_COMPARATOR = new DirectoryFileComparator();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Singleton reverse default comparator instance */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static final Comparator&#60;File&#62; DIRECTORY_REVERSE = new ReverseFileComparator(DIRECTORY_COMPARATOR);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Compares the two files using the {@link File#isDirectory()} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file1 The first file to compare.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file2 The second file to compare.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the result of calling file1&#39;s {@link File#compareTo(File)} with file2 as the parameter.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int compare(final File file1, final File file2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_71'>2</a>
+<span>
+1. compare : Replaced integer subtraction with addition &rarr; KILLED<br/>
+2. compare : replaced int return with 0 for org/apache/commons/io/comparator/DirectoryFileComparator::compare &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return getType(file1) - getType(file2);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Converts type to numeric value.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file The file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return 1 for directories and 2 for files.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private int getType(final File file) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_81'/>
+81
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_81'>2</a>
+<span>
+1. getType : negated conditional &rarr; KILLED<br/>
+2. getType : replaced int return with 0 for org/apache/commons/io/comparator/DirectoryFileComparator::getType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return file.isDirectory() ? TYPE_DIRECTORY : TYPE_FILE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@294b73ce_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@294b73ce_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.apache.commons.io.comparator.DirectoryFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.DirectoryFileComparatorTest]/[method:testComparator()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>org.apache.commons.io.comparator.DirectoryFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.DirectoryFileComparatorTest]/[method:testComparator()]</span></span> replaced int return with 0 for org/apache/commons/io/comparator/DirectoryFileComparator::compare &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@294b73ce_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@294b73ce_81'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getType<br/><b>Killed by : </b>org.apache.commons.io.comparator.DirectoryFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.DirectoryFileComparatorTest]/[method:testComparator()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getType<br/><b>Killed by : </b>org.apache.commons.io.comparator.DirectoryFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.DirectoryFileComparatorTest]/[method:testComparator()]</span></span> replaced int return with 0 for org/apache/commons/io/comparator/DirectoryFileComparator::getType &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.comparator.DirectoryFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.DirectoryFileComparatorTest]/[method:testComparator()] (0 ms)</li><li>org.apache.commons.io.comparator.DirectoryFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.DirectoryFileComparatorTest]/[method:testReverseComparator()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

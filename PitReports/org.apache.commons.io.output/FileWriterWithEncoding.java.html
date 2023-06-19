@@ -1,0 +1,5305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>FileWriterWithEncoding.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.output;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.File;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.FileWriter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.OutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.OutputStreamWriter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.charset.Charset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.charset.CharsetEncoder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.Charsets;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.FileUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.IOUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.build.AbstractStreamBuilder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Writer of files that allows the encoding to be set.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class provides a simple alternative to {@link FileWriter} that allows an encoding to be set. Unfortunately, it cannot subclass {@link FileWriter}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * By default, the file will be overwritten, but this may be changed to append.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The encoding must be specified using either the name of the {@link Charset}, the {@link Charset}, or a {@link CharsetEncoder}. If the default encoding is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * required then use the {@link java.io.FileWriter} directly, rather than this implementation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.4</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class FileWriterWithEncoding extends ProxyWriter {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Builds a new {@link DeferredFileOutputStream} instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Using a CharsetEncoder:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;pre&#62;{@code</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * FileWriterWithEncoding s = FileWriterWithEncoding.builder()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   .setPath(path)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   .setAppend(false)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   .setCharsetEncoder(StandardCharsets.UTF_8.newEncoder())</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   .get()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Using a Charset:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;pre&#62;{@code</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * FileWriterWithEncoding s = FileWriterWithEncoding.builder()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   .setPath(path)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   .setAppend(false)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   .setCharsetEncoder(StandardCharsets.UTF_8)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   .get()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.12.02</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public static class Builder extends AbstractStreamBuilder&#60;FileWriterWithEncoding, Builder&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private boolean append;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        private CharsetEncoder charsetEncoder = super.getCharset().newEncoder();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @SuppressWarnings(&#34;resource&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public FileWriterWithEncoding get() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_83'>3</a>
+<span>
+1. get : negated conditional &rarr; SURVIVED<br/>
+2. get : negated conditional &rarr; KILLED<br/>
+3. get : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (charsetEncoder != null &#38;&#38; getCharset() != null &#38;&#38; !charsetEncoder.charset().equals(getCharset())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                throw new IllegalStateException(String.format(&#34;Mismatched Charset(%s) and CharsetEncoder(%s)&#34;, getCharset(), charsetEncoder.charset()));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_86'/>
+86
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_86'>1</a>
+<span>
+1. get : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            final Object encoder = charsetEncoder != null ? charsetEncoder : getCharset();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_87'>1</a>
+<span>
+1. get : replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding$Builder::get &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return new FileWriterWithEncoding(FileWriterWithEncoding.initWriter(getOrigin().getFile(), encoder, append));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Sets whether or not to append.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param append Whether or not to append.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @return this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public Builder setAppend(final boolean append) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.append = append;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_98'>1</a>
+<span>
+1. setAppend : replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding$Builder::setAppend &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * Sets charsetEncoder to use for encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @param charsetEncoder The charsetEncoder to use for encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         * @return this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public Builder setCharsetEncoder(final CharsetEncoder charsetEncoder) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.charsetEncoder = charsetEncoder;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_109'>1</a>
+<span>
+1. setCharsetEncoder : replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding$Builder::setCharsetEncoder &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new {@link Builder}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return Creates a new {@link Builder}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.12.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Builder builder() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_121'>1</a>
+<span>
+1. builder : replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding::builder &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new Builder();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Initializes the wrapped file writer. Ensure that a cleanup occurs if the writer creation fails.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file     the file to be accessed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param encoding the encoding to use - may be Charset, CharsetEncoder or String, null uses the default Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param append   true to append</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new initialized OutputStreamWriter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an error occurs</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static OutputStreamWriter initWriter(final File file, final Object encoding, final boolean append) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Objects.requireNonNull(file, &#34;file&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        OutputStream outputStream = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final boolean fileExistedAlready = file.exists();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            outputStream = FileUtils.newOutputStream(file, append);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_139'>2</a>
+<span>
+1. initWriter : negated conditional &rarr; KILLED<br/>
+2. initWriter : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (encoding == null || encoding instanceof Charset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_140'/>
+140
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_140'>1</a>
+<span>
+1. initWriter : replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding::initWriter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                return new OutputStreamWriter(outputStream, Charsets.toCharset((Charset) encoding));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_142'/>
+142
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_142'>1</a>
+<span>
+1. initWriter : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (encoding instanceof CharsetEncoder) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_143'>1</a>
+<span>
+1. initWriter : replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding::initWriter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                return new OutputStreamWriter(outputStream, (CharsetEncoder) encoding);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_145'/>
+145
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_145'>1</a>
+<span>
+1. initWriter : replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding::initWriter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return new OutputStreamWriter(outputStream, (String) encoding);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException | RuntimeException ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_148'/>
+148
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_148'>1</a>
+<span>
+1. initWriter : removed call to org/apache/commons/io/IOUtils::close &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                IOUtils.close(outputStream);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_150'>1</a>
+<span>
+1. initWriter : removed call to java/lang/Exception::addSuppressed &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                ex.addSuppressed(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_152'/>
+152
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_152'>1</a>
+<span>
+1. initWriter : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (!fileExistedAlready) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                FileUtils.deleteQuietly(file);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw ex;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file    the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charset the encoding to use, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final File file, final Charset charset) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(file, charset, false);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file     the file to write to, not null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param encoding the name of the requested charset, null uses the default Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param append   true if content should be appended, false to overwrite.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file is null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings(&#34;resource&#34;) // Call site is responsible for closing a new instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final File file, final Charset encoding, final boolean append) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(initWriter(file, encoding, append));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file           the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetEncoder the encoding to use, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_199'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final File file, final CharsetEncoder charsetEncoder) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(file, charsetEncoder, false);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_206'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file           the file to write to, not null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetEncoder the encoding to use, null uses the default Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param append         true if content should be appended, false to overwrite.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_209'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file is null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_210'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings(&#34;resource&#34;) // Call site is responsible for closing a new instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final File file, final CharsetEncoder charsetEncoder, final boolean append) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(initWriter(file, charsetEncoder, append));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file        the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_223'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetName the name of the requested charset, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_224'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_225'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_226'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_227'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_228'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_229'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final File file, final String charsetName) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_230'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(file, charsetName, false);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_231'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_232'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_233'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_234'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_235'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_236'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param file        the file to write to, not null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_237'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetName the name of the requested charset, null uses the default Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_238'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param append      true if content should be appended, false to overwrite.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_239'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file is null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_240'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_241'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_242'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_243'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_244'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings(&#34;resource&#34;) // Call site is responsible for closing a new instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_245'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final File file, final String charsetName, final boolean append) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_246'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(initWriter(file, charsetName, append));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_247'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_248'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_249'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private FileWriterWithEncoding(final OutputStreamWriter outputStreamWriter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_250'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(outputStreamWriter);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_251'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_252'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_253'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_254'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_255'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_256'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fileName the name of the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_257'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charset  the charset to use, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_258'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file name or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_259'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_260'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_261'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_262'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_263'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final String fileName, final Charset charset) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_264'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(new File(fileName), charset, false);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_265'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_266'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_267'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_268'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_269'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_270'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fileName the name of the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_271'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charset  the encoding to use, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_272'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param append   true if content should be appended, false to overwrite</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_273'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file name or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_274'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_275'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_276'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_277'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_278'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final String fileName, final Charset charset, final boolean append) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_279'/>
+279
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_279'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        this(new File(fileName), charset, append);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_280'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_281'/>
+281
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_281'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_282'/>
+282
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_282'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_283'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_284'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_285'/>
+285
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_285'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fileName the name of the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_286'/>
+286
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_286'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param encoding the encoding to use, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_287'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file name or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_288'/>
+288
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_288'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_289'/>
+289
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_289'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_290'/>
+290
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_290'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_291'/>
+291
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_291'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_292'/>
+292
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_292'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final String fileName, final CharsetEncoder encoding) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_293'/>
+293
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_293'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(new File(fileName), encoding, false);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_294'/>
+294
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_294'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_295'/>
+295
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_295'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_296'/>
+296
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_296'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_297'/>
+297
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_297'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_298'/>
+298
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_298'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_299'/>
+299
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_299'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fileName       the name of the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_300'/>
+300
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_300'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetEncoder the encoding to use, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_301'/>
+301
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_301'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param append         true if content should be appended, false to overwrite</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_302'/>
+302
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_302'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file name or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_303'/>
+303
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_303'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_304'/>
+304
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_304'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_305'/>
+305
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_305'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_306'/>
+306
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_306'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_307'/>
+307
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_307'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final String fileName, final CharsetEncoder charsetEncoder, final boolean append) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_308'/>
+308
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_308'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        this(new File(fileName), charsetEncoder, append);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_309'/>
+309
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_309'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_310'/>
+310
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_310'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_311'/>
+311
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_311'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_312'/>
+312
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_312'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_313'/>
+313
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_313'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_314'/>
+314
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_314'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fileName    the name of the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_315'/>
+315
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_315'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetName the name of the requested charset, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_316'/>
+316
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_316'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file name or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_317'/>
+317
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_317'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_318'/>
+318
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_318'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_319'/>
+319
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_319'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_320'/>
+320
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_320'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_321'/>
+321
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_321'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final String fileName, final String charsetName) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_322'/>
+322
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_322'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(new File(fileName), charsetName, false);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_323'/>
+323
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_323'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_324'/>
+324
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_324'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_325'/>
+325
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_325'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_326'/>
+326
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_326'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a FileWriterWithEncoding with a file encoding.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_327'/>
+327
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_327'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_328'/>
+328
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_328'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param fileName    the name of the file to write to, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_329'/>
+329
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_329'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charsetName the name of the requested charset, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_330'/>
+330
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_330'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param append      true if content should be appended, false to overwrite</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_331'/>
+331
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_331'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the file name or encoding is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_332'/>
+332
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_332'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException          in case of an I/O error</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_333'/>
+333
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_333'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use {@link #builder()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_334'/>
+334
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_334'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_335'/>
+335
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_335'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_336'/>
+336
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_336'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FileWriterWithEncoding(final String fileName, final String charsetName, final boolean append) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_337'/>
+337
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_337'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        this(new File(fileName), charsetName, append);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_338'/>
+338
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_338'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28d3a52d_339'/>
+339
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_339'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_CharsetEncoder_constructor()]</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>get<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_directory()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_86'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructorAppend_File_existingFile_withContent()]</span></span> replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding$Builder::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setAppend<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructorAppend_File_existingFile_withContent()]</span></span> replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding$Builder::setAppend &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setCharsetEncoder<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_CharsetEncoder_constructor()]</span></span> replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding$Builder::setCharsetEncoder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>builder<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_directory()]</span></span> replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding::builder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_encoding_badEncoding()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_encoding_badEncoding()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_140'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_CharsetName_constructor()]</span></span> replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding::initWriter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_142'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_encoding_badEncoding()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructorAppend_File_existingFile_withContent()]</span></span> replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding::initWriter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_145'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructorAppend_File_existingFile_withContent()]</span></span> replaced return value with null for org/apache/commons/io/output/FileWriterWithEncoding::initWriter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_148'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/io/IOUtils::close &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_150'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Exception::addSuppressed &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28d3a52d_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28d3a52d_152'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>initWriter<br/><b>Killed by : </b>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_encoding_badEncoding()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_CharsetEncoder_constructor()] (2 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_CharsetEncoder_constructor()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_directory()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructorAppend_File_existingFile_withContent()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_CharsetEncoder_constructor()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_existingFile_withContent()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_encoding_badEncoding()] (2 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_CharsetName_constructor()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:testDifferentEncoding()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_constructor()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_string_constructor()] (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

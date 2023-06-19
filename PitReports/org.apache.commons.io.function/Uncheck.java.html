@@ -1,0 +1,3959 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Uncheck.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.function;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.UncheckedIOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unchecks calls by throwing {@link UncheckedIOException} instead of {@link IOException}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.12.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class Uncheck {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Accepts an IO consumer with the given arguments.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the first input type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;U&#62; the second input type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the first input argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param u the second input argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param consumer Consumes the value.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T, U&#62; void accept(final IOBiConsumer&#60;T, U&#62; consumer, final T t, final U u) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_42'/>
+42
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_42'>1</a>
+<span>
+1. accept : removed call to org/apache/commons/io/function/IOBiConsumer::accept &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            consumer.accept(t, u);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Accepts an IO consumer with the given argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the input type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the input argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param consumer Consumes the value.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T&#62; void accept(final IOConsumer&#60;T&#62; consumer, final T t) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_58'/>
+58
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_58'>1</a>
+<span>
+1. accept : removed call to org/apache/commons/io/function/IOConsumer::accept &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            consumer.accept(t);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Accepts an IO consumer with the given arguments.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the first input type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;U&#62; the second input type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;V&#62; the third input type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the first input argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param u the second input argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param v the third input argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param consumer Consumes the value.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T, U, V&#62; void accept(final IOTriConsumer&#60;T, U, V&#62; consumer, final T t, final U u, final V v) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_78'>1</a>
+<span>
+1. accept : removed call to org/apache/commons/io/function/IOTriConsumer::accept &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            consumer.accept(t, u, v);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Applies an IO function with the given arguments.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the first function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;U&#62; the second function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;R&#62; the return type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param function the function.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the first function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param u the second function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the function result.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T, U, R&#62; R apply(final IOBiFunction&#60;T, U, R&#62; function, final T t, final U u) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_98'>1</a>
+<span>
+1. apply : replaced return value with null for org/apache/commons/io/function/Uncheck::apply &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return function.apply(t, u);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Applies an IO function with the given arguments.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param function the function.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the first function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;R&#62; the return type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the first function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the function result.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T, R&#62; R apply(final IOFunction&#60;T, R&#62; function, final T t) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_116'>1</a>
+<span>
+1. apply : replaced return value with null for org/apache/commons/io/function/Uncheck::apply &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return function.apply(t);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Applies an IO quad-function with the given arguments.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param function the function.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the first function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;U&#62; the second function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;V&#62; the third function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;W&#62; the fourth function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;R&#62; the return type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the first function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param u the second function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param v the third function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param w the fourth function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the function result.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T, U, V, W, R&#62; R apply(final IOQuadFunction&#60;T, U, V, W, R&#62; function, final T t, final U u, final V v, final W w) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_140'/>
+140
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_140'>1</a>
+<span>
+1. apply : replaced return value with null for org/apache/commons/io/function/Uncheck::apply &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return function.apply(t, u, v, w);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Applies an IO tri-function with the given arguments.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the first function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;U&#62; the second function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;V&#62; the third function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;R&#62; the return type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param function the function.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the first function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param u the second function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param v the third function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the function result.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T, U, V, R&#62; R apply(final IOTriFunction&#60;T, U, V, R&#62; function, final T t, final U u, final V v) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_162'/>
+162
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_162'>1</a>
+<span>
+1. apply : replaced return value with null for org/apache/commons/io/function/Uncheck::apply &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return function.apply(t, u, v);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Compares the arguments with the comparator.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the first function argument type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param comparator the function.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the first function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param u the second function argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the comparator result.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T&#62; int compare(final IOComparator&#60;T&#62; comparator, final T t, final T u) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_180'/>
+180
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_180'>1</a>
+<span>
+1. compare : replaced int return with 0 for org/apache/commons/io/function/Uncheck::compare &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return comparator.compare(t, u);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the result from an IO supplier.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the return type of the operations.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param supplier Supplies the return value.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return result from the supplier.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T&#62; T get(final IOSupplier&#60;T&#62; supplier) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_196'/>
+196
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_196'>1</a>
+<span>
+1. get : replaced return value with null for org/apache/commons/io/function/Uncheck::get &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return supplier.get();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_199'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Runs an IO runnable.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param runnable The runnable to run.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_206'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws UncheckedIOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static void run(final IORunnable runnable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_209'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_210'/>
+210
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_210'>1</a>
+<span>
+1. run : removed call to org/apache/commons/io/function/IORunnable::run &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            runnable.run();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Tests an IO predicate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the type of the input to the predicate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param predicate the predicate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param t the input to the predicate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return {@code true} if the input argument matches the predicate, otherwise {@code false}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_223'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_224'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T&#62; boolean test(final IOPredicate&#60;T&#62; predicate, final T t) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_225'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_226'/>
+226
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_226'>2</a>
+<span>
+1. test : replaced boolean return with true for org/apache/commons/io/function/Uncheck::test &rarr; KILLED<br/>
+2. test : replaced boolean return with false for org/apache/commons/io/function/Uncheck::test &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return predicate.test(t);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_227'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_228'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw wrap(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_229'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_230'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_231'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_232'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_233'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a new UncheckedIOException for the given detail message.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_234'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_235'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method exists because there is no String constructor in {@link UncheckedIOException}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_236'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_237'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_238'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e The exception to wrap.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_239'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new {@link UncheckedIOException}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_240'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_241'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static UncheckedIOException wrap(final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_242'/>
+242
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_242'>1</a>
+<span>
+1. wrap : replaced return value with null for org/apache/commons/io/function/Uncheck::wrap &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new UncheckedIOException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_243'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_244'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_245'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_246'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * No instances needed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_247'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_248'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private Uncheck() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_249'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // no instances needed.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_250'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70703fd8_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_251'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_42'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testAcceptIOBiConsumerOfTUTU()]</span></span> removed call to org/apache/commons/io/function/IOBiConsumer::accept &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_58'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testAcceptIOConsumerOfTT()]</span></span> removed call to org/apache/commons/io/function/IOConsumer::accept &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testAcceptIOTriConsumerOfTUVTUV()]</span></span> removed call to org/apache/commons/io/function/IOTriConsumer::accept &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testApplyIOBiFunctionOfTURTU()]</span></span> replaced return value with null for org/apache/commons/io/function/Uncheck::apply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testReadAllLinesPath()]</span></span> replaced return value with null for org/apache/commons/io/function/Uncheck::apply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_140'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testApplyIOQuadFunctionOfTUVWRTUVW()]</span></span> replaced return value with null for org/apache/commons/io/function/Uncheck::apply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_162'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testApplyIOTriFunctionOfTUVRTUV()]</span></span> replaced return value with null for org/apache/commons/io/function/Uncheck::apply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_180'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>compare<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/io/function/Uncheck::compare &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_196'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>get<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testGet()]</span></span> replaced return value with null for org/apache/commons/io/function/Uncheck::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_210'>210</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_210'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>run<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testRun()]</span></span> removed call to org/apache/commons/io/function/IORunnable::run &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_226'>226</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_226'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>test<br/><b>Killed by : </b>org.apache.commons.io.function.IOPredicateTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOPredicateTest]/[method:testOrUnchecked()]</span></span> replaced boolean return with true for org/apache/commons/io/function/Uncheck::test &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>test<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testTest()]</span></span> replaced boolean return with false for org/apache/commons/io/function/Uncheck::test &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70703fd8_242'>242</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70703fd8_242'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>wrap<br/><b>Killed by : </b>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testRun()]</span></span> replaced return value with null for org/apache/commons/io/function/Uncheck::wrap &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testSize()] (0 ms)</li><li>org.apache.commons.io.FileUtilsFileNewerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsFileNewerTest]/[method:testIsFileNewerImaginaryFile()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteStringIndexedThrows()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testSetLastModifiedTime()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testResetThrows()] (0 ms)</li><li>org.apache.commons.io.function.IOPredicateTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOPredicateTest]/[method:testAsPredicate()] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteFileTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteFileTest]/[method:testDeleteReadOnlyFileDirectory1FileSize1()] (0 ms)</li><li>org.apache.commons.io.function.IOBaseStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBaseStreamTest]/[method:testSpliterator()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteCharArrayIndexed()] (0 ms)</li><li>org.apache.commons.io.function.IOBaseStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBaseStreamTest]/[method:testIteratorSimple()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadCharBufferThrows()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateSymbolicLink()] (0 ms)</li><li>org.apache.commons.io.function.IOBaseStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBaseStreamTest]/[method:testUnwrap()] (1 ms)</li><li>org.apache.commons.io.function.IOPredicateTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOPredicateTest]/[method:testOrUnchecked()] (1 ms)</li><li>org.apache.commons.io.function.IOBinaryOperatorStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBinaryOperatorStreamTest]/[method:testReduce()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadByteArrayIndexed()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testGetAttribute()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testReadAttributesPathStringLinkOptionArray()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testAppendCharSequenceIndexedThrows()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedAppendableTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedAppendableTest]/[method:testAppendCharThrows()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testCloseThrows()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewDirectoryStreamPathString()] (2 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewDirectoryStreamPathFilterOfQsuperPath()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testSetPosixFilePermissions()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedAppendableTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedAppendableTest]/[method:testAppendChar()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadCharArrayIndexed()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateTempFilePathStringStringFileAttributeOfQArray()] (1 ms)</li><li>org.apache.commons.io.function.IOBaseStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBaseStreamTest]/[method:testIteratorPathIO()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReadThrows()] (0 ms)</li><li>org.apache.commons.io.FileUtilsListFilesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsListFilesTest]/[method:testListFilesByExtension()] (3 ms)</li><li>org.apache.commons.io.UncheckedIOTest.[engine:junit-jupiter]/[class:org.apache.commons.io.UncheckedIOTest]/[method:testGet()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteStringThrows()] (0 ms)</li><li>org.apache.commons.io.FileCleanerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileCleanerTest]/[method:testFileCleanerDirectory_ForceStrategy()] (535 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateTempFileStringStringFileAttributeOfQArray()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testAppendCharThrows()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testCloseThrows()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testProbeContentType()] (2 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewDirectoryStreamPath()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testSkip()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateTempDirectoryPathStringFileAttributeOfQArray()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadByteArrayThrows()] (0 ms)</li><li>org.apache.commons.io.UncheckedIOTest.[engine:junit-jupiter]/[class:org.apache.commons.io.UncheckedIOTest]/[method:testAccept()] (0 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testTest()] (0 ms)</li><li>org.apache.commons.io.function.IOIteratorAdapterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOIteratorAdapterTest]/[method:testAsIterator()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCopyPathPathCopyOptionArray()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testRead()] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteFileTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteFileTest]/[method:testSetReadOnlyFileDirectory1FileSize1()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testWriteIntThrows()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testWritePathIterableOfQextendsCharSequenceOpenOptionArray()] (0 ms)</li><li>org.apache.commons.io.function.IOFunctionTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOFunctionTest]/[method:testAsFunction()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadLineThrows()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testReadAllLinesPathCharset()] (0 ms)</li><li>org.apache.commons.io.comparator.LastModifiedFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.LastModifiedFileComparatorTest]/[method:testReverseComparator()] (2131 ms)</li><li>org.apache.commons.io.FileUtilsCleanSymlinksTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsCleanSymlinksTest]/[method:testCleanDirWithParentSymlinks()] (8 ms)</li><li>org.apache.commons.io.function.IOBiConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBiConsumerTest]/[method:testAsBiConsumer()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewByteChannelPathSetOfQextendsOpenOptionFileAttributeOfQArray()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testDelete()] (0 ms)</li><li>org.apache.commons.io.function.IOConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOConsumerTest]/[method:testAsConsumer()] (2 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testBufferSize()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReadCharArrayThrows()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadByteArrayIndexedThrows()] (1 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteTest]/[method:testDeleteEmptyDirectoryOverrideReadOnly()] (0 ms)</li><li>org.apache.commons.io.comparator.LastModifiedFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.LastModifiedFileComparatorTest]/[method:testSortList()] (1823 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewByteChannelPathOpenOptionArray()] (0 ms)</li><li>org.apache.commons.io.DeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DeleteDirectoryTest]/[method:testDeleteDirectoryWithPathUtilsOverrideReadOnly()] (4 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testMove()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteCharArrayIndexedThrows()] (0 ms)</li><li>org.apache.commons.io.function.IOBinaryOperatorStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBinaryOperatorStreamTest]/[method:testMinBy()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testReadAllBytes()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testGetOwner()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testReadAttributesPathClassOfALinkOptionArray()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewOutputStream()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testSkipThrows()] (0 ms)</li><li>org.apache.commons.io.FileUtilsCleanSymlinksTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsCleanSymlinksTest]/[method:testCleanDirWithSymlinkFile()] (5 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testAppendCharSequenceIndexed()] (0 ms)</li><li>org.apache.commons.io.UncheckedIOTest.[engine:junit-jupiter]/[class:org.apache.commons.io.UncheckedIOTest]/[method:testApply1()] (1 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testApplyIOBiFunctionOfTURTU()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateFile()] (0 ms)</li><li>org.apache.commons.io.filefilter.AgeFileFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.filefilter.AgeFileFilterTest]/[method:testJavadocExampleUsingIo()] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testReadAttributesPosix()] (0 ms)</li><li>org.apache.commons.io.UncheckedIOTest.[engine:junit-jupiter]/[class:org.apache.commons.io.UncheckedIOTest]/[method:testApply2()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testFlush()] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testIsPosix()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteIntThrows()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testWalkFileTreePathSetOfFileVisitOptionIntFileVisitorOfQsuperPath()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testRead()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadCharArrayIndexedThrows()] (1 ms)</li><li>org.apache.commons.io.function.IOBiFunctionTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBiFunctionTest]/[method:testAsBiFunction()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testFlushThrows()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadCharBuffer()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadCharArray()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testAppendChar()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteCharArrayThrows()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteString()] (0 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testAcceptIOConsumerOfTT()] (0 ms)</li><li>org.apache.commons.io.function.IOPredicateTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOPredicateTest]/[method:testIsEqualUnchecked()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewBufferedReaderPathCharset()] (0 ms)</li><li>org.apache.commons.io.FileDeleteStrategyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileDeleteStrategyTest]/[method:testDeleteForce()] (3 ms)</li><li>org.apache.commons.io.file.PathUtilsDeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsDeleteDirectoryTest]/[method:testDeleteDirectory1FileSize0OverrideReadOnly()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testGetFileStore()] (2 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testLinesPathCharset()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadyThrows()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testCloseThrows()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testMarkReset()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testReadAllLinesPath()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testMarkThrows()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadByteArray()] (1 ms)</li><li>org.apache.commons.io.FileUtilsListFilesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsListFilesTest]/[method:testListFiles()] (5 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testFlush()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewBufferedWriterPathOpenOptionArray()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testIsHidden()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testMarkReset()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewInputStream()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testGetPosixFilePermissions()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testResetThrows()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateDirectories()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testWalkFileTreePathFileVisitorOfQsuperPath()] (15 ms)</li><li>org.apache.commons.io.function.IOBaseStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBaseStreamTest]/[method:testOnClose()] (1 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testRun()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testRead()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testSkip()] (0 ms)</li><li>org.apache.commons.io.function.IOPredicateTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOPredicateTest]/[method:testTestUnchecked()] (0 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testAcceptIOTriConsumerOfTUVTUV()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testDirectory()] (646 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testApplyIOFunctionOfTRT()] (1 ms)</li><li>org.apache.commons.io.function.IOSpliteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOSpliteratorTest]/[method:testForEachRemaining()] (0 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testGet()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateDirectory()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReadCharBufferThrows()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReadCharArrayIndexed()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testAppendCharSequence()] (0 ms)</li><li>org.apache.commons.io.function.IOConsumerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOConsumerTest]/[method:testAccept()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReadCharBuffer()] (0 ms)</li><li>org.apache.commons.io.comparator.SizeFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.SizeFileComparatorTest]/[method:testCompareDirectorySizes()] (2 ms)</li><li>org.apache.commons.io.function.IOIteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOIteratorTest]/[method:testAsIterator()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testMarkThrows()] (0 ms)</li><li>org.apache.commons.io.function.IOBinaryOperatorStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBinaryOperatorStreamTest]/[method:testAsBinaryOperator()] (0 ms)</li><li>org.apache.commons.io.function.IOBinaryOperatorStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOBinaryOperatorStreamTest]/[method:testMaxBy()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testWalkPathFileVisitOptionArray()] (24 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testLinesPath()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testGetLastModifiedTime()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteCharArray()] (0 ms)</li><li>org.apache.commons.io.DeleteDirectoryTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DeleteDirectoryTest]/[method:testDeleteFileCheckParentAccess()] (3 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testAcceptIOBiConsumerOfTUTU()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateLink()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testAppendCharSequenceThrows()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReady()] (0 ms)</li><li>org.apache.commons.io.UncheckedIOTest.[engine:junit-jupiter]/[class:org.apache.commons.io.UncheckedIOTest]/[method:testApply3()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testWriteInt()] (0 ms)</li><li>org.apache.commons.io.FileUtilsFileNewerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsFileNewerTest]/[method:testIsFileNewer()] (2 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testSkipThrows()] (0 ms)</li><li>org.apache.commons.io.FileUtilsListFilesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsListFilesTest]/[method:testIterateFilesByExtension()] (3 ms)</li><li>org.apache.commons.io.function.IOComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOComparatorTest]/[method:testAsComparator()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCreateTempDirectoryStringFileAttributeOfQArray()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteInt()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testCloseThrows()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedAppendableTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedAppendableTest]/[method:testAppendCharSequenceThrows()] (1 ms)</li><li>org.apache.commons.io.FileUtilsCleanSymlinksTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsCleanSymlinksTest]/[method:testCleanDirWithASymlinkDir()] (5 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testNewDirectoryStream()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testReadThrows()] (0 ms)</li><li>org.apache.commons.io.function.IORunnableTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IORunnableTest]/[method:testAsRunnable()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedAppendableTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedAppendableTest]/[method:testAppendCharSequenceIndexedThrows()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testSetAttribute()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testReadSymbolicLink()] (0 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testApplyIOTriFunctionOfTUVRTUV()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadThrows()] (0 ms)</li><li>org.apache.commons.io.comparator.LastModifiedFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.LastModifiedFileComparatorTest]/[method:testSortArray()] (1832 ms)</li><li>org.apache.commons.io.output.UncheckedFilterWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterWriterTest]/[method:testWriteStringIndexed()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedAppendableTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedAppendableTest]/[method:testAppendCharSequence()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReady()] (0 ms)</li><li>org.apache.commons.io.function.IOPredicateTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOPredicateTest]/[method:testAndUnchecked()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testMarkReset()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCopyPathOutputStream()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testClose()] (2 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testDeleteIfExists()] (0 ms)</li><li>org.apache.commons.io.function.IOSpliteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOSpliteratorTest]/[method:testTryAdvance()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testSetOwner()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testWalkPathIntFileVisitOptionArray()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReadCharArrayIndexedThrows()] (1 ms)</li><li>org.apache.commons.io.function.UncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.UncheckTest]/[method:testApplyIOQuadFunctionOfTUVWRTUVW()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReadCharArray()] (0 ms)</li><li>org.apache.commons.io.FileCleaningTrackerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileCleaningTrackerTest]/[method:testFileCleanerDirectory_ForceStrategy()] (533 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadLine()] (0 ms)</li><li>org.apache.commons.io.function.IOStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOStreamTest]/[method:testSpliterator()] (0 ms)</li><li>org.apache.commons.io.function.IOSpliteratorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOSpliteratorTest]/[method:testForEachRemainingAsSpliterator()] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testSetReadOnlyFile()] (1 ms)</li><li>org.apache.commons.io.output.UncheckedAppendableTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedAppendableTest]/[method:testAppendCharSequenceIndexed()] (0 ms)</li><li>org.apache.commons.io.file.DirectoryStreamFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DirectoryStreamFilterTest]/[method:testFilterByNameNot()] (4 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testFlushThrows()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testIsSameFile()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testReadyThrows()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testSkip()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testReadCharArrayThrows()] (0 ms)</li><li>org.apache.commons.io.function.IOSupplierTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOSupplierTest]/[method:testAsSupplier()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testCopyInputStreamPathCopyOptionArray()] (1 ms)</li><li>org.apache.commons.io.function.IOPredicateTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOPredicateTest]/[method:testNegateUnchecked()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewBufferedWriterPathCharsetOpenOptionArray()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testResetThrows()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testWritePathByteArrayOpenOptionArray()] (1 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testList()] (0 ms)</li><li>org.apache.commons.io.comparator.LastModifiedFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.LastModifiedFileComparatorTest]/[method:testComparator()] (1828 ms)</li><li>org.apache.commons.io.function.IOUnaryOperatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.function.IOUnaryOperatorTest]/[method:testAsUnaryOperator()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterInputStreamTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testWritePathIterableOfQextendsCharSequenceCharsetOpenOptionArray()] (1 ms)</li><li>org.apache.commons.io.file.DirectoryStreamFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DirectoryStreamFilterTest]/[method:testFilterByName()] (1 ms)</li><li>org.apache.commons.io.UncheckedIOTest.[engine:junit-jupiter]/[class:org.apache.commons.io.UncheckedIOTest]/[method:testRun()] (2 ms)</li><li>org.apache.commons.io.file.FilesUncheckTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.FilesUncheckTest]/[method:testNewBufferedReaderPath()] (0 ms)</li><li>org.apache.commons.io.input.UncheckedFilterReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedFilterReaderTest]/[method:testCloseThrows()] (1 ms)</li><li>org.apache.commons.io.input.UncheckedBufferedReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.UncheckedBufferedReaderTest]/[method:testSkipThrows()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

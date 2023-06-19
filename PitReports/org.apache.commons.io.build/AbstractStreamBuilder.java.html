@@ -1,0 +1,2904 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>AbstractStreamBuilder.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.build;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.charset.Charset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.Charsets;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.IOUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Abstracts building a typed instance of {@code T}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;T&#62; the type of instances to build.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;B&#62; the type of builder subclass.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.12.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public abstract class AbstractStreamBuilder&#60;T, B extends AbstractStreamBuilder&#60;T, B&#62;&#62; extends AbstractOriginSupplier&#60;T, B&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected static int checkBufferSize(final int initialBufferSize) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_35'/>
+35
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_35'>2</a>
+<span>
+1. checkBufferSize : changed conditional boundary &rarr; NO_COVERAGE<br/>
+2. checkBufferSize : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (initialBufferSize &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;Initial buffer size must be at least 0.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_38'/>
+38
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_38'>1</a>
+<span>
+1. checkBufferSize : replaced int return with 0 for org/apache/commons/io/build/AbstractStreamBuilder::checkBufferSize &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return initialBufferSize;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The buffer size, defaults to {@link IOUtils#DEFAULT_BUFFER_SIZE} ({@value IOUtils#DEFAULT_BUFFER_SIZE}).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private int bufferSize = IOUtils.DEFAULT_BUFFER_SIZE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The buffer size, defaults to {@link IOUtils#DEFAULT_BUFFER_SIZE} ({@value IOUtils#DEFAULT_BUFFER_SIZE}).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private int bufferSizeDefault = IOUtils.DEFAULT_BUFFER_SIZE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The Charset, defaults to {@link Charset#defaultCharset()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private Charset charset = Charset.defaultCharset();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The Charset, defaults to {@link Charset#defaultCharset()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private Charset charsetDefault = Charset.defaultCharset();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the buffer size, defaults to {@link IOUtils#DEFAULT_BUFFER_SIZE} ({@value IOUtils#DEFAULT_BUFFER_SIZE}).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the buffer size, defaults to {@link IOUtils#DEFAULT_BUFFER_SIZE} ({@value IOUtils#DEFAULT_BUFFER_SIZE}).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected int getBufferSize() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_67'/>
+67
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_67'>1</a>
+<span>
+1. getBufferSize : replaced int return with 0 for org/apache/commons/io/build/AbstractStreamBuilder::getBufferSize &rarr; TIMED_OUT<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        return bufferSize;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the buffer size default, defaults to {@link IOUtils#DEFAULT_BUFFER_SIZE} ({@value IOUtils#DEFAULT_BUFFER_SIZE}).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the buffer size default, defaults to {@link IOUtils#DEFAULT_BUFFER_SIZE} ({@value IOUtils#DEFAULT_BUFFER_SIZE}).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected int getBufferSizeDefault() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_76'/>
+76
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_76'>1</a>
+<span>
+1. getBufferSizeDefault : replaced int return with 0 for org/apache/commons/io/build/AbstractStreamBuilder::getBufferSizeDefault &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return bufferSizeDefault;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the Charset, defaults to {@link Charset#defaultCharset()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the Charset, defaults to {@link Charset#defaultCharset()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected Charset getCharset() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_85'>1</a>
+<span>
+1. getCharset : replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::getCharset &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return charset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the Charset default, defaults to {@link Charset#defaultCharset()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the Charset default, defaults to {@link Charset#defaultCharset()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected Charset getCharsetDefault() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_94'>1</a>
+<span>
+1. getCharsetDefault : replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::getCharsetDefault &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return charsetDefault;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sets the buffer size.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Subclasses may ignore this setting.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param bufferSize the buffer size.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public B setBufferSize(final int bufferSize) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_107'>2</a>
+<span>
+1. setBufferSize : changed conditional boundary &rarr; SURVIVED<br/>
+2. setBufferSize : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        this.bufferSize = bufferSize &#62;= 0 ? bufferSize : bufferSizeDefault;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_108'>1</a>
+<span>
+1. setBufferSize : replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setBufferSize &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return asThis();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sets the buffer size.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Subclasses may ignore this setting.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param bufferSize the buffer size, null resets to the default.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public B setBufferSize(final Integer bufferSize) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_121'>1</a>
+<span>
+1. setBufferSize : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        setBufferSize(bufferSize != null ? bufferSize : bufferSizeDefault);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_122'>1</a>
+<span>
+1. setBufferSize : replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setBufferSize &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return asThis();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sets the buffer size for subclasses to initialize.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Subclasses may ignore this setting.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param bufferSizeDefault the buffer size, null resets to the default.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected B setBufferSizeDefault(final int bufferSizeDefault) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.bufferSizeDefault = bufferSizeDefault;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_136'/>
+136
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_136'>1</a>
+<span>
+1. setBufferSizeDefault : replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setBufferSizeDefault &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return asThis();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sets the Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Subclasses may ignore this setting.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charset the Charset, null resets to the default.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public B setCharset(final Charset charset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.charset = Charsets.toCharset(charset, charsetDefault);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_150'>1</a>
+<span>
+1. setCharset : replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setCharset &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return asThis();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sets the Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Subclasses may ignore this setting.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charset the Charset name, null resets to the default.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public B setCharset(final String charset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_163'/>
+163
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_163'>1</a>
+<span>
+1. setCharset : replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setCharset &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return setCharset(Charsets.toCharset(charset, charsetDefault));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sets the Charset default for subclasses to initialize.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Subclasses may ignore this setting.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param defaultCharset the Charset name, null resets to the default.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected B setCharsetDefault(final Charset defaultCharset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.charsetDefault = defaultCharset;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_177'/>
+177
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_177'>1</a>
+<span>
+1. setCharsetDefault : replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setCharsetDefault &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return asThis();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5db3e55_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_35'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkBufferSize<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkBufferSize<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_38'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkBufferSize<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/io/build/AbstractStreamBuilder::checkBufferSize &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_67'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getBufferSize<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/io/build/AbstractStreamBuilder::getBufferSize &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_76'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getBufferSizeDefault<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/io/build/AbstractStreamBuilder::getBufferSizeDefault &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCharset<br/><b>Killed by : </b>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testHashCode()]</span></span> replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::getCharset &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCharsetDefault<br/><b>Killed by : </b>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetDecoderWithSingleByteWrite()]</span></span> replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::getCharsetDefault &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_107'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setBufferSize<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setBufferSize<br/><b>Killed by : </b>org.apache.commons.io.input.MemoryMappedFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MemoryMappedFileInputStreamTest]/[method:testSkipToEndOfCurrentBufferBuilder()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setBufferSize<br/><b>Killed by : </b>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testCodingErrorAction()]</span></span> replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setBufferSize &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setBufferSize<br/><b>Killed by : </b>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#4]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setBufferSize<br/><b>Killed by : </b>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#4]</span></span> replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setBufferSize &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_136'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setBufferSizeDefault<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setBufferSizeDefault &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setCharset<br/><b>Killed by : </b>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testNoXmlHeader()]</span></span> replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setCharset &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_163'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setCharset<br/><b>Killed by : </b>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testNoXmlHeader()]</span></span> replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setCharset &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5db3e55_177'>177</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5db3e55_177'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setCharsetDefault<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/apache/commons/io/build/AbstractStreamBuilder::setCharsetDefault &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testWriteImmediately()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testConstructNullCharsetNameEncoder()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadOneByte()] (456 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkippedAfterRead()] (127 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testCodingErrorAction()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#13] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16LEEncoding()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_CharsetEncoder_constructor()] (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8WithSingleByteWrite()] (4 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF8WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkipped()] (457 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_CharsetEncoder_constructor()] (1 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testAlternateLockDir()] (1 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testSkipFromFileChannel()] (100 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEmpty()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testCloseThrows()] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStart()] (210 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testStopWithNoFile()] (206 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkippedAfterEOF()] (35 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF8WithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testWriteIntThrows()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16LEWithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16Encoding()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetDecoderWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkippedAfterEOF()] (29 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadMultipleBytes()] (477 ms)</li><li>org.apache.commons.io.input.MemoryMappedFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MemoryMappedFileInputStreamTest]/[method:testSmallFileBuilder()] (51 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadOneByte()] (114 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8CharsetWithSingleByteWrite()] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin7Encoding()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#8] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetNameWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testCodingError()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testBufferSmallest()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testNoXmlHeader()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16WithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#1] (3 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testFlush()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testHashCode()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#11] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin1Encoding()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructorAppend_File_existingFile_withContent()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#12] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testReadZero()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testSkipFromFileChannel()] (484 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLowerCaseEncodingWithTurkishLocale_IO_557()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin15Encoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16BEWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testConstructor_File_encoding_badEncoding()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16LEWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStartWithReopenAndBufferSize()] (210 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testDefaultEncoding()] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadMultipleBytes()] (57 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF8Encoding()] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16BEEncoding()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testWriteInt()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadPastEOF()] (40 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testBuilderWithNonStandardTailable()] (211 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkipped()] (117 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.input.MemoryMappedFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MemoryMappedFileInputStreamTest]/[method:testSmallPathBuilder()] (48 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEUC_JPEncoding()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testClose()] (2 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testNegativeBytesSkippedAfterRead()] (461 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8CharsetWithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelay()] (214 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_directory()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#10] (1 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testLargeUTF8WithBufferedRead()] (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testUTF8WithBufferedRead()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStartWithReopenAndBufferSizeAndCharset()] (218 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testFlushThrows()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_string_constructor()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#8] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEBCDICEncoding()] (1 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkippedAfterRead()] (457 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#10] (1 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testNegativeBytesSkippedAfterRead()] (105 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.input.MemoryMappedFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MemoryMappedFileInputStreamTest]/[method:testSkipToEndOfCurrentBufferBuilder()] (45 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testHttp()] (80 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#6] (1 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testConstructor_File_nullFile()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStartWithBufferSize()] (204 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadPastEOF()] (43 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreaterWithDelayAndFromStartWithReopen()] (209 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testEquals()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_existingFile_withContent()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16BEWithBufferedWrite()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreate()] (210 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

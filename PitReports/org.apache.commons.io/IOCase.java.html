@@ -1,0 +1,4462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>IOCase.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.stream.Stream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Enumeration of IO case sensitivity.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Different filing systems have different rules for case-sensitivity.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Windows is case-insensitive, Unix is case-sensitive.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class captures that difference, providing an enumeration to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * control how file name comparisons should be performed. It also provides</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * methods that use the enumeration to perform comparisons.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Wherever possible, you should use the {@code check} methods in this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * class to compare file names.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.3</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public enum IOCase {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The constant for case-sensitive regardless of operating system.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    SENSITIVE(&#34;Sensitive&#34;, true),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The constant for case-insensitive regardless of operating system.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    INSENSITIVE(&#34;Insensitive&#34;, false),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The constant for case sensitivity determined by the current operating system.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Windows is case-insensitive when comparing file names, Unix is case-sensitive.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;strong&#62;Note:&#60;/strong&#62; This only caters for Windows and Unix. Other operating</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * systems (e.g. OSX and OpenVMS) are treated as case-sensitive if they use the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Unix file separator and case-insensitive if they use the Windows file separator</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * (see {@link java.io.File#separatorChar}).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If you serialize this constant on Windows, and deserialize on Unix, or vice</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * versa, then the value of the case-sensitivity flag will change.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    SYSTEM(&#34;System&#34;, !FilenameUtils.isSystemWindows());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Serialization version. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = -6343169151696340687L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Factory method to create an IOCase from a name.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param name  the name to find</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the IOCase object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if the name is invalid</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static IOCase forName(final String name) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_79'>3</a>
+<span>
+1. lambda$forName$0 : replaced boolean return with true for org/apache/commons/io/IOCase::lambda$forName$0 &rarr; KILLED<br/>
+2. lambda$forName$0 : replaced boolean return with false for org/apache/commons/io/IOCase::lambda$forName$0 &rarr; KILLED<br/>
+3. forName : replaced return value with null for org/apache/commons/io/IOCase::forName &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return Stream.of(IOCase.values()).filter(ioCase -&#62; ioCase.getName().equals(name)).findFirst()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_80'/>
+80
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_80'>1</a>
+<span>
+1. lambda$forName$1 : replaced return value with null for org/apache/commons/io/IOCase::lambda$forName$1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .orElseThrow(() -&#62; new IllegalArgumentException(&#34;Invalid IOCase name: &#34; + name));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Tests for cases sensitivity in a null-safe manner.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param ioCase an IOCase.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if the input is non-null and {@link #isCaseSensitive()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.10.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static boolean isCaseSensitive(final IOCase ioCase) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_91'>3</a>
+<span>
+1. isCaseSensitive : negated conditional &rarr; KILLED<br/>
+2. isCaseSensitive : replaced boolean return with true for org/apache/commons/io/IOCase::isCaseSensitive &rarr; KILLED<br/>
+3. isCaseSensitive : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ioCase != null &#38;&#38; ioCase.isCaseSensitive();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the given value if not-null, the defaultValue if null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value the value to test.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param defaultValue the default value.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the given value if not-null, the defaultValue if null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.12.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static IOCase value(final IOCase value, final IOCase defaultValue) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_103'>2</a>
+<span>
+1. value : replaced return value with null for org/apache/commons/io/IOCase::value &rarr; KILLED<br/>
+2. value : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return value != null ? value : defaultValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The enumeration name. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String name;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The sensitivity flag. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final transient boolean sensitive;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param name  the name</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param sensitive  the sensitivity</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    IOCase(final String name, final boolean sensitive) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.name = name;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.sensitive = sensitive;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Compares two strings using the case-sensitivity rule.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method mimics {@link String#compareTo} but takes case-sensitivity</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * into account.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str1  the first string to compare, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str2  the second string to compare, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if equal using the case rules</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if either string is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int checkCompareTo(final String str1, final String str2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Objects.requireNonNull(str1, &#34;str1&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Objects.requireNonNull(str2, &#34;str2&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_138'>2</a>
+<span>
+1. checkCompareTo : replaced int return with 0 for org/apache/commons/io/IOCase::checkCompareTo &rarr; KILLED<br/>
+2. checkCompareTo : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return sensitive ? str1.compareTo(str2) : str1.compareToIgnoreCase(str2);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Checks if one string ends with another using the case-sensitivity rule.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method mimics {@link String#endsWith} but takes case-sensitivity</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * into account.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str  the string to check</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param end  the end to compare against</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if equal using the case rules, false if either input is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean checkEndsWith(final String str, final String end) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_153'/>
+153
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_153'>2</a>
+<span>
+1. checkEndsWith : negated conditional &rarr; KILLED<br/>
+2. checkEndsWith : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (str == null || end == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_154'/>
+154
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_154'>1</a>
+<span>
+1. checkEndsWith : replaced boolean return with true for org/apache/commons/io/IOCase::checkEndsWith &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int endLen = end.length();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_157'/>
+157
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_157'>4</a>
+<span>
+1. checkEndsWith : Replaced integer subtraction with addition &rarr; KILLED<br/>
+2. checkEndsWith : replaced boolean return with true for org/apache/commons/io/IOCase::checkEndsWith &rarr; KILLED<br/>
+3. checkEndsWith : replaced boolean return with false for org/apache/commons/io/IOCase::checkEndsWith &rarr; KILLED<br/>
+4. checkEndsWith : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return str.regionMatches(!sensitive, str.length() - endLen, end, 0, endLen);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Compares two strings using the case-sensitivity rule.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method mimics {@link String#equals} but takes case-sensitivity</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * into account.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str1  the first string to compare, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str2  the second string to compare, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if equal using the case rules</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_170'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if either string is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean checkEquals(final String str1, final String str2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Objects.requireNonNull(str1, &#34;str1&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Objects.requireNonNull(str2, &#34;str2&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_175'>3</a>
+<span>
+1. checkEquals : replaced boolean return with true for org/apache/commons/io/IOCase::checkEquals &rarr; KILLED<br/>
+2. checkEquals : negated conditional &rarr; KILLED<br/>
+3. checkEquals : replaced boolean return with false for org/apache/commons/io/IOCase::checkEquals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return sensitive ? str1.equals(str2) : str1.equalsIgnoreCase(str2);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Checks if one string contains another starting at a specific index using the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * case-sensitivity rule.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method mimics parts of {@link String#indexOf(String, int)}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_183'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * but takes case-sensitivity into account.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_185'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_186'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str  the string to check, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param strStartIndex  the index to start at in str</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_188'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param search  the start to search for, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_189'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the first index of the search String,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *  -1 if no match or {@code null} string input</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if either string is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int checkIndexOf(final String str, final int strStartIndex, final String search) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_195'/>
+195
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_195'>1</a>
+<span>
+1. checkIndexOf : Replaced integer subtraction with addition &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final int endIndex = str.length() - search.length();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_196'/>
+196
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_196'>2</a>
+<span>
+1. checkIndexOf : changed conditional boundary &rarr; KILLED<br/>
+2. checkIndexOf : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (endIndex &#62;= strStartIndex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_197'/>
+197
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_197'>2</a>
+<span>
+1. checkIndexOf : negated conditional &rarr; KILLED<br/>
+2. checkIndexOf : changed conditional boundary &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            for (int i = strStartIndex; i &#60;= endIndex; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_198'/>
+198
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_198'>1</a>
+<span>
+1. checkIndexOf : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (checkRegionMatches(str, i, search)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_199'>1</a>
+<span>
+1. checkIndexOf : replaced int return with 0 for org/apache/commons/io/IOCase::checkIndexOf &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    return i;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_203'/>
+203
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_203'>1</a>
+<span>
+1. checkIndexOf : replaced int return with 0 for org/apache/commons/io/IOCase::checkIndexOf &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_204'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_206'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_207'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Checks if one string contains another at a specific index using the case-sensitivity rule.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_209'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method mimics parts of {@link String#regionMatches(boolean, int, String, int, int)}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_210'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * but takes case-sensitivity into account.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str  the string to check, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param strStartIndex  the index to start at in str</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param search  the start to search for, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if equal using the case rules</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if either string is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean checkRegionMatches(final String str, final int strStartIndex, final String search) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_220'/>
+220
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_220'>3</a>
+<span>
+1. checkRegionMatches : replaced boolean return with false for org/apache/commons/io/IOCase::checkRegionMatches &rarr; KILLED<br/>
+2. checkRegionMatches : negated conditional &rarr; KILLED<br/>
+3. checkRegionMatches : replaced boolean return with true for org/apache/commons/io/IOCase::checkRegionMatches &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return str.regionMatches(!sensitive, strStartIndex, search, 0, search.length());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_221'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_223'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_224'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Checks if one string starts with another using the case-sensitivity rule.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_225'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_226'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method mimics {@link String#startsWith(String)} but takes case-sensitivity</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_227'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * into account.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_228'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_229'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_230'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str  the string to check</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_231'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param start  the start to compare against</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_232'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if equal using the case rules, false if either input is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_233'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_234'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean checkStartsWith(final String str, final String start) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_235'/>
+235
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_235'>5</a>
+<span>
+1. checkStartsWith : negated conditional &rarr; KILLED<br/>
+2. checkStartsWith : replaced boolean return with true for org/apache/commons/io/IOCase::checkStartsWith &rarr; KILLED<br/>
+3. checkStartsWith : negated conditional &rarr; KILLED<br/>
+4. checkStartsWith : negated conditional &rarr; KILLED<br/>
+5. checkStartsWith : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return str != null &#38;&#38; start != null &#38;&#38; str.regionMatches(!sensitive, 0, start, 0, start.length());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_236'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_237'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_238'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_239'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the name of the constant.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_240'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_241'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the name of the constant</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_242'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_243'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String getName() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_244'/>
+244
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_244'>1</a>
+<span>
+1. getName : replaced return value with &#34;&#34; for org/apache/commons/io/IOCase::getName &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return name;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_245'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_246'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_247'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_248'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Does the object represent case-sensitive comparison.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_249'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_250'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if case-sensitive</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_251'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_252'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isCaseSensitive() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_253'/>
+253
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_253'>2</a>
+<span>
+1. isCaseSensitive : replaced boolean return with true for org/apache/commons/io/IOCase::isCaseSensitive &rarr; KILLED<br/>
+2. isCaseSensitive : replaced boolean return with false for org/apache/commons/io/IOCase::isCaseSensitive &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return sensitive;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_254'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_255'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_256'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_257'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Replaces the enumeration from the stream with a real one.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_258'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This ensures that the correct flag is set for SYSTEM.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_259'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_260'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the resolved object</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_261'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_262'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Object readResolve() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_263'/>
+263
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_263'>1</a>
+<span>
+1. readResolve : replaced return value with null for org/apache/commons/io/IOCase::readResolve &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return forName(name);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_264'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_265'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_266'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_267'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets a string describing the sensitivity.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_268'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_269'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a string describing the sensitivity</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_270'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_271'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_272'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_273'/>
+273
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_273'>1</a>
+<span>
+1. toString : replaced return value with &#34;&#34; for org/apache/commons/io/IOCase::toString &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return name;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_274'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_275'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_276'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$forName$0<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_forName()]</span></span> replaced boolean return with true for org/apache/commons/io/IOCase::lambda$forName$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$forName$0<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_forName()]</span></span> replaced boolean return with false for org/apache/commons/io/IOCase::lambda$forName$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>forName<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_forName()]</span></span> replaced return value with null for org/apache/commons/io/IOCase::forName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$forName$1<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_forName()]</span></span> replaced return value with null for org/apache/commons/io/IOCase::lambda$forName$1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isCaseSensitive<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_isCaseSensitive_static()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isCaseSensitive<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_isCaseSensitive_static()]</span></span> replaced boolean return with true for org/apache/commons/io/IOCase::isCaseSensitive &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isCaseSensitive<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_isCaseSensitive_static()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.io.filefilter.NameFileFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.filefilter.NameFileFilterTest]/[method:testJavadocExampleUsingIo()]</span></span> replaced return value with null for org/apache/commons/io/IOCase::value &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.io.comparator.NameFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.NameFileComparatorTest]/[method:testCaseSensitivity()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkCompareTo<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkCompare_functionality()]</span></span> replaced int return with 0 for org/apache/commons/io/IOCase::checkCompareTo &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkCompareTo<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkCompare_case()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_153'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkEndsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_case()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkEndsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_case()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_154'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkEndsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_functionality()]</span></span> replaced boolean return with true for org/apache/commons/io/IOCase::checkEndsWith &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_157'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkEndsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_case()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkEndsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_case()]</span></span> replaced boolean return with true for org/apache/commons/io/IOCase::checkEndsWith &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkEndsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_case()]</span></span> replaced boolean return with false for org/apache/commons/io/IOCase::checkEndsWith &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkEndsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_case()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkEquals<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEquals_case()]</span></span> replaced boolean return with true for org/apache/commons/io/IOCase::checkEquals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkEquals<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEquals_case()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkEquals<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEquals_case()]</span></span> replaced boolean return with false for org/apache/commons/io/IOCase::checkEquals &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_195'>195</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_195'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkIndexOf<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_196'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkIndexOf<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_functionality()]</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkIndexOf<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_case()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_197'>197</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_197'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkIndexOf<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_case()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkIndexOf<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_case()]</span></span> changed conditional boundary &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_198'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkIndexOf<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_case()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkIndexOf<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_case()]</span></span> replaced int return with 0 for org/apache/commons/io/IOCase::checkIndexOf &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_203'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkIndexOf<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_case()]</span></span> replaced int return with 0 for org/apache/commons/io/IOCase::checkIndexOf &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_220'>220</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_220'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkRegionMatches<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkRegionMatches_case()]</span></span> replaced boolean return with false for org/apache/commons/io/IOCase::checkRegionMatches &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkRegionMatches<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkRegionMatches_case()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkRegionMatches<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkRegionMatches_case()]</span></span> replaced boolean return with true for org/apache/commons/io/IOCase::checkRegionMatches &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_235'>235</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_235'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkStartsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkStartsWith_case()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkStartsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkStartsWith_case()]</span></span> replaced boolean return with true for org/apache/commons/io/IOCase::checkStartsWith &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkStartsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkStartsWith_case()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkStartsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkStartsWith_case()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>checkStartsWith<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkStartsWith_case()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_244'>244</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_244'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getName<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_getName()]</span></span> replaced return value with &#34;&#34; for org/apache/commons/io/IOCase::getName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_253'>253</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_253'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isCaseSensitive<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_isCaseSensitive()]</span></span> replaced boolean return with true for org/apache/commons/io/IOCase::isCaseSensitive &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isCaseSensitive<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_isCaseSensitive()]</span></span> replaced boolean return with false for org/apache/commons/io/IOCase::isCaseSensitive &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_263'>263</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_263'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readResolve<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/apache/commons/io/IOCase::readResolve &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1ce9b85e_273'>273</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1ce9b85e_273'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_toString()]</span></span> replaced return value with &#34;&#34; for org/apache/commons/io/IOCase::toString &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.FilenameUtilsWildcardTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsWildcardTest]/[method:testLocaleIndependence()] (14 ms)</li><li>org.apache.commons.io.FileUtilsListFilesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsListFilesTest]/[method:testListFiles()] (5 ms)</li><li>org.apache.commons.io.filefilter.NameFileFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.filefilter.NameFileFilterTest]/[method:testJavadocExampleUsingNio()] (25 ms)</li><li>org.apache.commons.io.DirectoryWalkerTestCaseJava4.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTestCaseJava4]/[method:testFilterAndLimitD()] (1 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilterAndLimitA()] (0 ms)</li><li>org.apache.commons.io.comparator.NameFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.NameFileComparatorTest]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationMonitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationMonitorTest]/[method:testThreadFactory()] (318 ms)</li><li>org.apache.commons.io.filefilter.NameFileFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.filefilter.NameFileFilterTest]/[method:testNoCounting()] (0 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEquals_functionality()] (0 ms)</li><li>org.apache.commons.io.FileUtilsDirectoryContainsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsDirectoryContainsTest]/[method:testDirectoryDoesNotContainsDirectory()] (2 ms)</li><li>org.apache.commons.io.FilenameUtilsWildcardTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsWildcardTest]/[method:testMatch2()] (1 ms)</li><li>org.apache.commons.io.DirectoryWalkerTestCaseJava4.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTestCaseJava4]/[method:testFilterDirAndFile1()] (2 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_case()] (0 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkRegionMatches_functionality()] (0 ms)</li><li>org.apache.commons.io.serialization.MoreComplexObjectTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.MoreComplexObjectTest]/[method:trustJavaLang()] (1 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testDirectory()] (646 ms)</li><li>org.apache.commons.io.filefilter.NameFileFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.filefilter.NameFileFilterTest]/[method:testJavadocExampleUsingIo()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testAddRemoveListeners()] (1 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilterAndLimitC()] (1 ms)</li><li>org.apache.commons.io.FilenameUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsTest]/[method:testDirectoryContains()] (1 ms)</li><li>org.apache.commons.io.comparator.PathFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.PathFileComparatorTest]/[method:testReverseComparator()] (1 ms)</li><li>org.apache.commons.io.comparator.NameFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.NameFileComparatorTest]/[method:testSortArray()] (1 ms)</li><li>org.apache.commons.io.comparator.ExtensionFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.ExtensionFileComparatorTest]/[method:testReverseComparator()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationMonitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationMonitorTest]/[method:testAddRemoveObservers()] (2 ms)</li><li>org.apache.commons.io.serialization.WildcardClassNameMatcherTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.WildcardClassNameMatcherTest]/[method:star()] (0 ms)</li><li>org.apache.commons.io.comparator.PathFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.PathFileComparatorTest]/[method:testSortListNull()] (1 ms)</li><li>org.apache.commons.io.comparator.CompositeFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.CompositeFileComparatorTest]/[method:testComparator()] (1 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassAcceptedFirstWildcard()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilterDirAndFile1()] (2 ms)</li><li>org.apache.commons.io.monitor.FileAlterationMonitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationMonitorTest]/[method:testDefaultConstructor()] (1 ms)</li><li>org.apache.commons.io.comparator.CompositeFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.CompositeFileComparatorTest]/[method:testSortArray()] (1 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkIndexOf_functionality()] (0 ms)</li><li>org.apache.commons.io.FileUtilsListFilesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsListFilesTest]/[method:testListFilesByExtension()] (3 ms)</li><li>org.apache.commons.io.comparator.PathFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.PathFileComparatorTest]/[method:testSortArray()] (0 ms)</li><li>org.apache.commons.io.serialization.WildcardClassNameMatcherTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.WildcardClassNameMatcherTest]/[method:starAndQuestionMark()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testObserveSingleFile()] (1149 ms)</li><li>org.apache.commons.io.monitor.FileAlterationMonitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationMonitorTest]/[method:testCollectionConstructorShouldDoNothingWithNullObservers()] (2 ms)</li><li>org.apache.commons.io.comparator.ExtensionFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.ExtensionFileComparatorTest]/[method:testComparator()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationMonitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationMonitorTest]/[method:testStopWhileWaitingForNextInterval()] (16 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_getName()] (0 ms)</li><li>org.apache.commons.io.comparator.PathFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.PathFileComparatorTest]/[method:testComparator()] (0 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEquals_case()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilterAndLimitD()] (2 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilterDirAndFile3()] (2 ms)</li><li>org.apache.commons.io.comparator.NameFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.NameFileComparatorTest]/[method:testSortList()] (0 ms)</li><li>org.apache.commons.io.comparator.NameFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.NameFileComparatorTest]/[method:testReverseComparator()] (1 ms)</li><li>org.apache.commons.io.FileUtilsListFilesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsListFilesTest]/[method:testIterateFilesByExtension()] (3 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkCompare_case()] (0 ms)</li><li>org.apache.commons.io.serialization.MoreComplexObjectTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.MoreComplexObjectTest]/[method:useBlacklist()] (3 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_functionality()] (0 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkStartsWith_functionality()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilter()] (1 ms)</li><li>org.apache.commons.io.DirectoryWalkerTestCaseJava4.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTestCaseJava4]/[method:testFilterDirAndFile4()] (3 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_isCaseSensitive_static()] (0 ms)</li><li>org.apache.commons.io.file.PathUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.PathUtilsTest]/[method:testNewDirectoryStream()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTestCaseJava4.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTestCaseJava4]/[method:testFilterAndLimitB()] (0 ms)</li><li>org.apache.commons.io.comparator.CompositeFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.CompositeFileComparatorTest]/[method:testSortListNull()] (2 ms)</li><li>org.apache.commons.io.FileUtilsDirectoryContainsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsDirectoryContainsTest]/[method:testFileHavingSamePrefixBug()] (2 ms)</li><li>org.apache.commons.io.comparator.CompositeFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.CompositeFileComparatorTest]/[method:testSortList()] (1 ms)</li><li>org.apache.commons.io.FilenameUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsTest]/[method:testEqualsNormalized()] (1 ms)</li><li>org.apache.commons.io.filefilter.RegexFileFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.filefilter.RegexFileFilterTest]/[method:testRegexEdgeCases()] (1 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_forName()] (0 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_isCaseSensitive()] (1 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:rejectWildcard()] (0 ms)</li><li>org.apache.commons.io.FilenameUtilsWildcardTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsWildcardTest]/[method:test_IO_246()] (0 ms)</li><li>org.apache.commons.io.comparator.CompositeFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.CompositeFileComparatorTest]/[method:testToString()] (2 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testFileDelete()] (3994 ms)</li><li>org.apache.commons.io.FileUtilsDirectoryContainsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsDirectoryContainsTest]/[method:testDirectoryDoesNotContainFile()] (2 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:ourTestClassAcceptedSecondWildcard()] (0 ms)</li><li>org.apache.commons.io.filefilter.RegexFileFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.filefilter.RegexFileFilterTest]/[method:testRegex()] (1 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testFileUpdate()] (3998 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkStartsWith_case()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationMonitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationMonitorTest]/[method:testMonitor()] (1049 ms)</li><li>org.apache.commons.io.FilenameUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsTest]/[method:testEqualsOnSystem()] (1 ms)</li><li>org.apache.commons.io.comparator.NameFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.NameFileComparatorTest]/[method:testComparator()] (1 ms)</li><li>org.apache.commons.io.monitor.FileAlterationMonitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationMonitorTest]/[method:testCollectionConstructorShouldDoNothingWithNullCollection()] (0 ms)</li><li>org.apache.commons.io.comparator.PathFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.PathFileComparatorTest]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.FilenameUtilsWildcardTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsWildcardTest]/[method:testMatch()] (0 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkEndsWith_case()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTestCaseJava4.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTestCaseJava4]/[method:testFilter()] (0 ms)</li><li>org.apache.commons.io.comparator.ExtensionFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.ExtensionFileComparatorTest]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.file.DirectoryStreamFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DirectoryStreamFilterTest]/[method:testFilterByNameNot()] (4 ms)</li><li>org.apache.commons.io.comparator.PathFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.PathFileComparatorTest]/[method:testSortList()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilterAndLimitB()] (0 ms)</li><li>org.apache.commons.io.comparator.NameFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.NameFileComparatorTest]/[method:testCaseSensitivity()] (0 ms)</li><li>org.apache.commons.io.FileUtilsDirectoryContainsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsDirectoryContainsTest]/[method:testDirectoryContainsFile()] (1 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkRegionMatches_case()] (0 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_checkCompare_functionality()] (1 ms)</li><li>org.apache.commons.io.FilenameUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsTest]/[method:testEquals_fullControl()] (0 ms)</li><li>org.apache.commons.io.FilenameUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsTest]/[method:testEquals()] (1 ms)</li><li>org.apache.commons.io.comparator.NameFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.NameFileComparatorTest]/[method:testSortListNull()] (1 ms)</li><li>org.apache.commons.io.comparator.ExtensionFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.ExtensionFileComparatorTest]/[method:testSortList()] (0 ms)</li><li>org.apache.commons.io.comparator.CompositeFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.CompositeFileComparatorTest]/[method:constructorIterable_order()] (1 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilterString()] (2 ms)</li><li>org.apache.commons.io.comparator.CompositeFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.CompositeFileComparatorTest]/[method:testReverseComparator()] (1 ms)</li><li>org.apache.commons.io.FileUtilsDirectoryContainsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsDirectoryContainsTest]/[method:testCanonicalPath()] (1 ms)</li><li>org.apache.commons.io.FilenameUtilsWildcardTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsWildcardTest]/[method:testMatchOnSystem()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTestCaseJava4.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTestCaseJava4]/[method:testFilterAndLimitA()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTest]/[method:testFilterDirAndFile4()] (4 ms)</li><li>org.apache.commons.io.comparator.PathFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.PathFileComparatorTest]/[method:testCaseSensitivity()] (1 ms)</li><li>org.apache.commons.io.comparator.ExtensionFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.ExtensionFileComparatorTest]/[method:testSortArray()] (0 ms)</li><li>org.apache.commons.io.filefilter.WildcardFileFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.filefilter.WildcardFileFilterTest]/[method:testWildcard()] (2 ms)</li><li>org.apache.commons.io.FilenameUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsTest]/[method:testEqualsNormalizedOnSystem()] (1 ms)</li><li>org.apache.commons.io.serialization.WildcardClassNameMatcherTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.WildcardClassNameMatcherTest]/[method:noPattern()] (0 ms)</li><li>org.apache.commons.io.serialization.ValidatingObjectInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.ValidatingObjectInputStreamTest]/[method:acceptWildcard()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationObserverTest]/[method:testFileCreate()] (3981 ms)</li><li>org.apache.commons.io.DirectoryWalkerTestCaseJava4.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTestCaseJava4]/[method:testFilterDirAndFile3()] (1 ms)</li><li>org.apache.commons.io.file.DirectoryStreamFilterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.file.DirectoryStreamFilterTest]/[method:testFilterByName()] (1 ms)</li><li>org.apache.commons.io.IOCaseTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOCaseTest]/[method:test_toString()] (0 ms)</li><li>org.apache.commons.io.monitor.FileAlterationMonitorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.monitor.FileAlterationMonitorTest]/[method:testCollectionConstructor()] (0 ms)</li><li>org.apache.commons.io.comparator.ExtensionFileComparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.comparator.ExtensionFileComparatorTest]/[method:testCaseSensitivity()] (0 ms)</li><li>org.apache.commons.io.DirectoryWalkerTestCaseJava4.[engine:junit-jupiter]/[class:org.apache.commons.io.DirectoryWalkerTestCaseJava4]/[method:testFilterAndLimitC()] (1 ms)</li><li>org.apache.commons.io.serialization.MoreComplexObjectTest.[engine:junit-jupiter]/[class:org.apache.commons.io.serialization.MoreComplexObjectTest]/[method:trustJavaIncludingArrays()] (0 ms)</li><li>org.apache.commons.io.FileUtilsDirectoryContainsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FileUtilsDirectoryContainsTest]/[method:testDirectoryContainsDirectory()] (1 ms)</li><li>org.apache.commons.io.FilenameUtilsWildcardTest.[engine:junit-jupiter]/[class:org.apache.commons.io.FilenameUtilsWildcardTest]/[method:testMatchCaseSpecified()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

@@ -1,0 +1,3984 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ProxyInputStream.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.input;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static org.apache.commons.io.IOUtils.EOF;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.FilterInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.InputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.IOUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A Proxy stream which acts as expected, that is it passes the method</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * calls on to the proxied stream and doesn&#39;t change which methods are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * being called.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * It is an alternative base class to FilterInputStream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to increase reusability, because FilterInputStream changes the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * methods being called, such as read(byte[]) to read(byte[], int, int).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the protected methods for ways in which a subclass can easily decorate</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * a stream with custom pre-, post- or error processing functionality.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class ProxyInputStream extends FilterInputStream {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new ProxyInputStream.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param proxy  the InputStream to delegate to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ProxyInputStream(final InputStream proxy) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(proxy);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // the proxy is stored in a protected superclass variable named &#39;in&#39;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invoked by the read methods after the proxied call has returned</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * successfully. The number of bytes returned to the caller (or -1 if</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the end of stream was reached) is given as an argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Subclasses can override this method to add common post-processing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * functionality without having to override all the read methods.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The default implementation does nothing.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Note this method is &#60;em&#62;not&#60;/em&#62; called from {@link #skip(long)} or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link #reset()}. You need to explicitly override those methods if</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * you want to add post-processing steps also to them.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param n number of bytes read, or -1 if the end of stream was reached</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if the post-processing fails</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings(&#34;unused&#34;) // Possibly thrown from subclasses.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void afterRead(final int n) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // no-op</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code available()} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the number of available bytes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int available() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_84'>1</a>
+<span>
+1. available : replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::available &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return super.available();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_86'>1</a>
+<span>
+1. available : removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            handleIOException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            return 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invoked by the read methods before the call is proxied. The number</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * of bytes that the caller wanted to read (1 for the {@link #read()}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * method, buffer length for {@link #read(byte[])}, etc.) is given as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * an argument.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Subclasses can override this method to add common pre-processing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * functionality without having to override all the read methods.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The default implementation does nothing.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Note this method is &#60;em&#62;not&#60;/em&#62; called from {@link #skip(long)} or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link #reset()}. You need to explicitly override those methods if</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * you want to add pre-processing steps also to them.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param n number of bytes that the caller asked to be read</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if the pre-processing fails</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings(&#34;unused&#34;) // Possibly thrown from subclasses.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void beforeRead(final int n) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // no-op</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code close()} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void close() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_121'>1</a>
+<span>
+1. close : removed call to org/apache/commons/io/IOUtils::close &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        IOUtils.close(in, this::handleIOException);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Handle any IOExceptions thrown; by default, throws the given exception.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method provides a point to implement custom exception</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * handling. The default behavior is to re-throw the exception.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e The IOException thrown</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void handleIOException(final IOException e) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        throw e;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code mark(int)} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param readlimit read ahead limit</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public synchronized void mark(final int readlimit) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_144'/>
+144
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_144'>1</a>
+<span>
+1. mark : removed call to java/io/InputStream::mark &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        in.mark(readlimit);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code markSupported()} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if mark is supported, otherwise false</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean markSupported() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_153'>2</a>
+<span>
+1. markSupported : replaced boolean return with true for org/apache/commons/io/input/ProxyInputStream::markSupported &rarr; SURVIVED<br/>
+2. markSupported : replaced boolean return with false for org/apache/commons/io/input/ProxyInputStream::markSupported &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return in.markSupported();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code read()} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the byte read or -1 if the end of stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int read() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_164'/>
+164
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_164'>1</a>
+<span>
+1. read : removed call to org/apache/commons/io/input/ProxyInputStream::beforeRead &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            beforeRead(1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final int b = in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_166'/>
+166
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_166'>2</a>
+<span>
+1. read : negated conditional &rarr; KILLED<br/>
+2. read : removed call to org/apache/commons/io/input/ProxyInputStream::afterRead &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            afterRead(b != EOF ? 1 : EOF);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_167'/>
+167
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_167'>1</a>
+<span>
+1. read : replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return b;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_169'/>
+169
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_169'>1</a>
+<span>
+1. read : removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            handleIOException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_170'/>
+170
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_170'>1</a>
+<span>
+1. read : replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return EOF;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_171'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_172'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_173'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_174'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_175'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code read(byte[])} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_176'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param bts the buffer to read the bytes into</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_177'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the number of bytes read or EOF if the end of stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_178'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_179'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_180'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_181'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int read(final byte[] bts) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_182'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_183'/>
+183
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_183'>1</a>
+<span>
+1. read : removed call to org/apache/commons/io/input/ProxyInputStream::beforeRead &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            beforeRead(IOUtils.length(bts));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_184'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final int n = in.read(bts);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_185'>1</a>
+<span>
+1. read : removed call to org/apache/commons/io/input/ProxyInputStream::afterRead &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            afterRead(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_186'>1</a>
+<span>
+1. read : replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return n;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_187'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_188'/>
+188
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_188'>1</a>
+<span>
+1. read : removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            handleIOException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_189'/>
+189
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_189'>1</a>
+<span>
+1. read : replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return EOF;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_190'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_191'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_192'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_193'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_194'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code read(byte[], int, int)} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_195'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param bts the buffer to read the bytes into</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_196'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param off The start offset</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_197'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param len The number of bytes to read</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_198'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the number of bytes read or -1 if the end of stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_199'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_200'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_201'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_202'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int read(final byte[] bts, final int off, final int len) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_203'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_204'/>
+204
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_204'>1</a>
+<span>
+1. read : removed call to org/apache/commons/io/input/ProxyInputStream::beforeRead &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            beforeRead(len);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_205'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            final int n = in.read(bts, off, len);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_206'/>
+206
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_206'>1</a>
+<span>
+1. read : removed call to org/apache/commons/io/input/ProxyInputStream::afterRead &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            afterRead(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_207'/>
+207
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_207'>1</a>
+<span>
+1. read : replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return n;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_208'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_209'>1</a>
+<span>
+1. read : removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            handleIOException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_210'/>
+210
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_210'>1</a>
+<span>
+1. read : replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return EOF;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_211'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_212'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_213'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_214'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_215'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code reset()} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_216'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_217'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_218'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_219'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public synchronized void reset() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_220'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_221'/>
+221
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_221'>1</a>
+<span>
+1. reset : removed call to java/io/InputStream::reset &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            in.reset();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_222'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_223'/>
+223
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_223'>1</a>
+<span>
+1. reset : removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            handleIOException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_224'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_225'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_226'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_227'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_228'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Invokes the delegate&#39;s {@code skip(long)} method.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_229'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param ln the number of bytes to skip</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_230'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the actual number of bytes skipped</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_231'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an I/O error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_232'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_233'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_234'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public long skip(final long ln) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_235'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_236'/>
+236
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_236'>1</a>
+<span>
+1. skip : replaced long return with 0 for org/apache/commons/io/input/ProxyInputStream::skip &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return in.skip(ln);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_237'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (final IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_238'/>
+238
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_238'>1</a>
+<span>
+1. skip : removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            handleIOException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_239'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            return 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_240'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_241'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_242'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3a8e9259_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_243'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>available<br/><b>Killed by : </b>org.apache.commons.io.input.TaggedInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TaggedInputStreamTest]/[method:testNormalStream()]</span></span> replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::available &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>available<br/><b>Killed by : </b>org.apache.commons.io.input.TaggedInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TaggedInputStreamTest]/[method:testBrokenStream()]</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>close<br/><b>Killed by : </b>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testClose()]</span></span> removed call to org/apache/commons/io/IOUtils::close &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mark<br/><b>Killed by : </b>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testMarkReset()]</span></span> removed call to java/io/InputStream::mark &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_153'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>markSupported<br/><b>Killed by : </b>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetAfterReadWithoutBOM()]</span></span> replaced boolean return with false for org/apache/commons/io/input/ProxyInputStream::markSupported &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>markSupported<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/apache/commons/io/input/ProxyInputStream::markSupported &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_164'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::beforeRead &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_166'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testRead()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testRead()]</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::afterRead &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testReadEverything()]</span></span> replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_169'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.TaggedInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TaggedInputStreamTest]/[method:testBrokenStream()]</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_170'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_183'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::beforeRead &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testEOF2()]</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::afterRead &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testZeroLength2()]</span></span> replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_188'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testBrokenInputStreamReadBuffer()]</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_189'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_204'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::beforeRead &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testReadBufferOffsetLength()]</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::afterRead &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_207'>207</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_207'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testReadToArrayWithOffset()]</span></span> replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testBrokenInputStreamReadSubBuffer()]</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_210'>210</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_210'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>read<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/io/input/ProxyInputStream::read &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_221'>221</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_221'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testMarkReset()]</span></span> removed call to java/io/InputStream::reset &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_223'>223</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_223'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_236'>236</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_236'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>skip<br/><b>Killed by : </b>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testSkip()]</span></span> replaced long return with 0 for org/apache/commons/io/input/ProxyInputStream::skip &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3a8e9259_238'>238</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3a8e9259_238'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>skip<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/io/input/ProxyInputStream::handleIOException &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.input.TaggedInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TaggedInputStreamTest]/[method:testBrokenStream()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testGetBOMFirstThenReadInclude()] (0 ms)</li><li>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testReadBuffer()] (0 ms)</li><li>org.apache.commons.io.input.SwappedDataInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.SwappedDataInputStreamTest]/[method:testReadFully()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetBeforeReadWithBOM()] (0 ms)</li><li>org.apache.commons.io.CopyUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CopyUtilsTest]/[method:copy_readerToWriter()] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUtf16Le()] (1 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testEOF3()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testGetObserversOrder()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testSkipWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testEOF1()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testDataBytesCalled()] (0 ms)</li><li>org.apache.commons.io.CopyUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CopyUtilsTest]/[method:testCopy_inputStreamToOutputStream()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorURLInput()] (84 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:skipReturnValueWithBom()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawNoBomUtf16BE()] (3 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorPathInput()] (0 ms)</li><li>org.apache.commons.io.input.MarkShieldInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MarkShieldInputStreamTest]/[method:markSupportedIsFalseWhenUnderlyingFalse()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawBomUtf16()] (12 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testAvailableWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawNoBomUtf8()] (2 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawNoBomCp1047()] (7 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawBomUtf32()] (4 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testZeroLength2()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testGetObservers1()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUcs2()] (2 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawNoBomUsAscii()] (3 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testNotificationCallbacksBufferSizeDefault()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testAvailableWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadEmpty()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithBOMUtf16Be()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawContent()] (0 ms)</li><li>org.apache.commons.io.input.MarkShieldInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MarkShieldInputStreamTest]/[method:resetThrowsExceptionWhenUnderlyingDoesNotSupport()] (0 ms)</li><li>org.apache.commons.io.CopyUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CopyUtilsTest]/[method:copy_inputStreamToWriter()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter_Encoding()] (1 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingStandard()] (1 ms)</li><li>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testReadToArrayWithOffset()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateHttpEncoding()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorInputStreamInput()] (0 ms)</li><li>org.apache.commons.io.input.MarkShieldInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MarkShieldInputStreamTest]/[method:markSupportedIsFalseWhenUnderlyingTrue()] (0 ms)</li><li>org.apache.commons.io.input.TaggedInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TaggedInputStreamTest]/[method:testNormalStream()] (0 ms)</li><li>org.apache.commons.io.CopyUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CopyUtilsTest]/[method:testCopy_readerToOutputStream()] (1 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testDataByteCalled_ctor()] (4 ms)</li><li>org.apache.commons.io.input.SwappedDataInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.SwappedDataInputStreamTest]/[method:testReadBoolean()] (0 ms)</li><li>org.apache.commons.io.input.TaggedInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TaggedInputStreamTest]/[method:testEmptyStream()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testSmallBufferWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.MessageDigestCalculatingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MessageDigestCalculatingInputStreamTest]/[method:test()] (6 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testSmallBufferWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testBrokenInputStreamRead()] (0 ms)</li><li>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testCloseMainIOException()] (110 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testReadBufferOffsetLength()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToOutputStreamWithBufferSize()] (4 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testSkipWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadSmall()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingNoBOM()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream_Encoding_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingAdditionalUTF32()] (1 ms)</li><li>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToWriter()] (1 ms)</li><li>org.apache.commons.io.input.TaggedInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TaggedInputStreamTest]/[method:testOtherException()] (0 ms)</li><li>org.apache.commons.io.input.MarkShieldInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MarkShieldInputStreamTest]/[method:resetThrowsExceptionWhenUnderlyingSupports()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testLargeBufferWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testLowerCaseEncodingWithTurkishLocale_IO_557()] (1 ms)</li><li>org.apache.commons.io.input.TimestampedObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TimestampedObserverTest]/[method:testExample()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithMultipleBOM()] (0 ms)</li><li>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testReadEverything()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingAdditionalUTF16()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testLeadingNonBOMSingleRead()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUtf32Le()] (2 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawNoBomIso8859_1()] (13 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadTwiceWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithBOMUtf8()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToWriter_nullOut()] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateHttpEncodingUtf32()] (0 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testSkipping()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithBOMUtf32Be()] (0 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testZeroLength1()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorURLConnectionInput()] (290 ms)</li><li>org.apache.commons.io.input.CloseShieldInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CloseShieldInputStreamTest]/[method:testClose()] (0 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testEOF2()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToAppendable()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testNotificationCallbacksBufferSize1()] (7 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testLargeBufferWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithoutBOMUtf32Be()] (19 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testLargeFiles_IO84()] (15 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawNoBomUtf32BE()] (4 ms)</li><li>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testSkip()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testGetBOMFirstThenRead()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testGetObservers0()] (0 ms)</li><li>org.apache.commons.io.input.TimestampedObserverTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TimestampedObserverTest]/[method:test()] (51 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testCounting()] (0 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testResetting()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToOutputStream()] (0 ms)</li><li>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testRead()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetAfterReadWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testCloseBranchIOException()] (71 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testDataByteCalled_add()] (2 ms)</li><li>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testResetBeforeEnd()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithBOMInclude()] (0 ms)</li><li>org.apache.commons.io.input.CountingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.CountingInputStreamTest]/[method:testZeroLength3()] (0 ms)</li><li>org.apache.commons.io.input.MarkShieldInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MarkShieldInputStreamTest]/[method:markIsNoOpWhenUnderlyingDoesNotSupport()] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithoutBOMUtf32Le()] (2 ms)</li><li>org.apache.commons.io.CopyUtilsTest.[engine:junit-jupiter]/[class:org.apache.commons.io.CopyUtilsTest]/[method:testCopy_readerToOutputStreamString()] (0 ms)</li><li>org.apache.commons.io.input.MarkShieldInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MarkShieldInputStreamTest]/[method:markIsNoOpWhenUnderlyingSupports()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToAppendable_nullOut()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testLeadingNonBOMBufferedRead()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorFileInput()] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawNoBomUtf32LE()] (3 ms)</li><li>org.apache.commons.io.input.AutoCloseInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.AutoCloseInputStreamTest]/[method:testFinalize()] (0 ms)</li><li>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testMarkReset()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderUtilitiesTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderUtilitiesTest]/[method:testCalculateRawEncodingStandardUtf32()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetAfterReadWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testReadOneByte()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_inputStreamToWriter_Encoding_nullEncoding()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawNoBomUtf16LE()] (3 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawBomUtf8()] (6 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testEncodingAttributeXML()] (0 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testBrokenInputStreamReadBuffer()] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetBeforeReadWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testHttp()] (80 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testNotificationCallbacksBufferSize2()] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithBOMUtf32Le()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testEmptyBufferWithoutBOM()] (2 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadTwiceWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUtf32Be()] (4 ms)</li><li>org.apache.commons.io.input.TeeInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TeeInputStreamTest]/[method:testReadToArray()] (0 ms)</li><li>org.apache.commons.io.IOUtilsCopyTest.[engine:junit-jupiter]/[class:org.apache.commons.io.IOUtilsCopyTest]/[method:testCopy_readerToOutputStream_Encoding()] (3 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:skipReturnValueWithoutBom()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUtf16Be()] (2 ms)</li><li>org.apache.commons.io.input.ObservableInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ObservableInputStreamTest]/[method:testBrokenInputStreamReadSubBuffer()] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testEmptyBufferWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testHttpContent()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithBOMUtf16Le()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUtf8()] (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>AbstractSupplier.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.build;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.function.IOSupplier;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Abstracts supplying a typed instance of {@code T}. Use to implement the builder pattern.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;T&#62; the type of instances to build.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;B&#62; the type of builder subclass.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.12.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public abstract class AbstractSupplier&#60;T, B extends AbstractSupplier&#60;T, B&#62;&#62; implements IOSupplier&#60;T&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns this instance typed as the proper subclass type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return this instance typed as the proper subclass type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings(&#34;unchecked&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected B asThis() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_38'/>
+38
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_38'>1</a>
+<span>
+1. asThis : replaced return value with null for org/apache/commons/io/build/AbstractSupplier::asThis &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (B) this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3f777388_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3f777388_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3f777388_38'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>asThis<br/><b>Killed by : </b>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testAvailableWithoutBOM()]</span></span> replaced return value with null for org/apache/commons/io/build/AbstractSupplier::asThis &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetBeforeReadWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorURLInput()] (84 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testWriteImmediately()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testConstructNullCharsetNameEncoder()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadOneByte()] (456 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkippedAfterRead()] (127 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawBomUtf16()] (12 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testCodingErrorAction()] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testAvailableWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawBomUtf32()] (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testAvailableWithBOM()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadEmpty()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#13] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16LEEncoding()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_null_CharsetEncoder_constructor()] (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorInputStreamInput()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8WithSingleByteWrite()] (4 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF8WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_CharsetEncoder_constructor()] (1 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkipped()] (457 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testAlternateLockDir()] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEmpty()] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testSkipFromFileChannel()] (100 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testCloseThrows()] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStart()] (210 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testStopWithNoFile()] (206 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testSmallBufferWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkippedAfterEOF()] (35 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF8WithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testSmallBufferWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testSkipWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testWriteIntThrows()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16LEWithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16Encoding()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetDecoderWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkippedAfterEOF()] (29 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadMultipleBytes()] (477 ms)</li><li>org.apache.commons.io.input.MemoryMappedFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MemoryMappedFileInputStreamTest]/[method:testSmallFileBuilder()] (51 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorURLConnectionInput()] (290 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadOneByte()] (114 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin7Encoding()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8CharsetWithSingleByteWrite()] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithoutBOMUtf32Be()] (19 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#8] (1 ms)</li><li>org.apache.commons.io.input.RandomAccessFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.RandomAccessFileInputStreamTest]/[method:testBuilderPath()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testNullCharsetNameWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testCodingError()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetAfterReadWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testBufferSmallest()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testNoXmlHeader()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16WithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorFileInput()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#1] (3 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testFlush()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetAfterReadWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testRawBomUtf8()] (6 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testEncodingAttributeXML()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testHashCode()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadTwiceWithBOM()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin1Encoding()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructorAppend_File_existingFile_withContent()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#11] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#12] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[test-template:testCharsetEncoderFlush(java.lang.String, java.lang.String)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testEmptyBufferWithBOM()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#12] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testReadZero()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testGetBOMFirstThenReadInclude()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testSkipWithBOM()] (0 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testSkipFromFileChannel()] (484 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:skipReturnValueWithBom()] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLowerCaseEncodingWithTurkishLocale_IO_557()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testConstructorPathInput()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testLatin15Encoding()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16BEWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testConstructor_File_encoding_badEncoding()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16LEWithSingleByteWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStartWithReopenAndBufferSize()] (210 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_Charset_constructor()] (1 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testDefaultEncoding()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadMultipleBytes()] (57 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF8Encoding()] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testUTF16BEEncoding()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testWriteInt()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.input.MessageDigestCalculatingInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MessageDigestCalculatingInputStreamTest]/[method:test()] (6 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testReadPastEOF()] (40 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#7] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadSmall()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#13] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testBytesSkipped()] (117 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testLargeBufferWithBOM()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#6] (0 ms)</li><li>org.apache.commons.io.input.MemoryMappedFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MemoryMappedFileInputStreamTest]/[method:testSmallPathBuilder()] (48 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testLeadingNonBOMSingleRead()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEUC_JPEncoding()] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadTwiceWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testClose()] (2 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testNegativeBytesSkippedAfterRead()] (461 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testLargeUTF8CharsetWithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testLargeBufferWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_directory()] (1 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelay()] (214 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16WithBufferedWrite()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testLargeUTF8WithBufferedRead()] (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#10] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReaderInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReaderInputStreamTest]/[method:testUTF8WithBufferedRead()] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testGetBOMFirstThenRead()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStartWithReopenAndBufferSizeAndCharset()] (218 ms)</li><li>org.apache.commons.io.input.RandomAccessFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.RandomAccessFileInputStreamTest]/[method:testBuilderFile()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#11] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#9] (0 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testFlushThrows()] (0 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:sameEncoding_string_string_constructor()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThresholdPrefixOnly(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithoutBOMUtf32Le()] (2 ms)</li><li>org.apache.commons.io.output.XmlStreamWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.XmlStreamWriterTest]/[method:testEBCDICEncoding()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#8] (1 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testBytesSkippedAfterRead()] (457 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#10] (1 ms)</li><li>org.apache.commons.io.input.BufferedFileChannelInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BufferedFileChannelInputStreamTest]/[method:testNegativeBytesSkippedAfterRead()] (105 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testLeadingNonBOMBufferedRead()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testWriteToLarge(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testNoBoms()] (0 ms)</li><li>org.apache.commons.io.input.MemoryMappedFileInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.MemoryMappedFileInputStreamTest]/[method:testSkipToEndOfCurrentBufferBuilder()] (45 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testMarkResetBeforeReadWithoutBOM()] (0 ms)</li><li>org.apache.commons.io.input.XmlStreamReaderTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.XmlStreamReaderTest]/[method:testHttp()] (80 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#6] (1 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testEmptyBufferWithoutBOM()] (2 ms)</li><li>org.apache.commons.io.output.LockableFileWriterTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.LockableFileWriterTest]/[method:testConstructor_File_nullFile()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testTempFileAboveThreshold(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThreshold(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreateWithDelayAndFromStartWithBufferSize()] (204 ms)</li><li>org.apache.commons.io.input.ReadAheadInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReadAheadInputStreamTest]/[method:testReadPastEOF()] (43 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreaterWithDelayAndFromStartWithReopen()] (209 ms)</li><li>org.apache.commons.io.output.UncheckedFilterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.UncheckedFilterOutputStreamTest]/[method:testEquals()] (1 ms)</li><li>org.apache.commons.io.output.FileWriterWithEncodingTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.FileWriterWithEncodingTest]/[method:constructor_File_existingFile_withContent()] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testThresholdReached(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThreshold(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:skipReturnValueWithoutBom()] (0 ms)</li><li>org.apache.commons.io.output.WriterOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.WriterOutputStreamTest]/[method:testUTF16BEWithBufferedWrite()] (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testBelowThresholdGetInputStream(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAtThreshold(int)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.output.DeferredFileOutputStreamTest]/[test-template:testAboveThresholdGetInputStream(int, java.nio.file.Path)]/[test-template-invocation:#10] (0 ms)</li><li>org.apache.commons.io.input.TailerTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.TailerTest]/[method:testCreate()] (210 ms)</li><li>org.apache.commons.io.input.BOMInputStreamTest.[engine:junit-jupiter]/[class:org.apache.commons.io.input.BOMInputStreamTest]/[method:testReadXmlWithBOMUtf8()] (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

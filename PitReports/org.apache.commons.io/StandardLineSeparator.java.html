@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>StandardLineSeparator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.charset.Charset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Enumerates standard line separators: {@link #CR}, {@link #CRLF}, {@link #LF}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.9.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public enum StandardLineSeparator {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Carriage return. This is the line ending used on Mac OS 9 and earlier.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    CR(&#34;\r&#34;),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Carriage return followed by line feed. This is the line ending used on Windows.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    CRLF(&#34;\r\n&#34;),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Line feed. This is the line ending used on Linux and Mac OS X and later.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    LF(&#34;\n&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String lineSeparator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new instance for a non-null line separator.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param lineSeparator a non-null line separator.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    StandardLineSeparator(final String lineSeparator) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.lineSeparator = Objects.requireNonNull(lineSeparator, &#34;lineSeparator&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the bytes for this instance encoded using the given Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param charset the encoding Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the bytes for this instance encoded using the given Charset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public byte[] getBytes(final Charset charset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_63'>1</a>
+<span>
+1. getBytes : replaced return value with null for org/apache/commons/io/StandardLineSeparator::getBytes &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return lineSeparator.getBytes(charset);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the String value of this instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the String value of this instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String getString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_72'>1</a>
+<span>
+1. getString : replaced return value with &#34;&#34; for org/apache/commons/io/StandardLineSeparator::getString &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return lineSeparator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@21e87f0_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21e87f0_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getBytes<br/><b>Killed by : </b>org.apache.commons.io.StandardLineSeparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.StandardLineSeparatorTest]/[method:testCRLF_getBytes()]</span></span> replaced return value with null for org/apache/commons/io/StandardLineSeparator::getBytes &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@21e87f0_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@21e87f0_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getString<br/><b>Killed by : </b>org.apache.commons.io.StandardLineSeparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.StandardLineSeparatorTest]/[method:testCRLF()]</span></span> replaced return value with &#34;&#34; for org/apache/commons/io/StandardLineSeparator::getString &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#2] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#1] (7 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#3] (9 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#2] (3 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#1] (4 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#2] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.StandardLineSeparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.StandardLineSeparatorTest]/[method:testCRLF_getBytes()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestSimple.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestSimple]/[method:testToString()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#1] (4 ms)</li><li>org.apache.commons.io.ByteOrderMarkTest.[engine:junit-jupiter]/[class:org.apache.commons.io.ByteOrderMarkTest]/[method:testGetBytes()] (9 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.StandardLineSeparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.StandardLineSeparatorTest]/[method:testCR_getBytes()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#9] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#7] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.StandardLineSeparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.StandardLineSeparatorTest]/[method:testCRLF()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestSimple.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestSimple]/[method:testFileSizeIsExactMultipleOfBlockSize()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.StandardLineSeparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.StandardLineSeparatorTest]/[method:testCR()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#3] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#5] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileDefaults(int)]/[test-template-invocation:#2] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16BEFile(int)]/[test-template-invocation:#1] (7 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testShiftJISFile(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileCRBreaks(int)]/[test-template-invocation:#2] (3 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF16LEFile(int)]/[test-template-invocation:#1] (7 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testIsoFileManyWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#2] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#1] (6 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#1] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#2] (2 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaks(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows949File(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#8] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#6] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testGBK(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8FileWindowsBreaksSmallBlockSize2VerifyBlockSpanningNewLines(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamFile]/[test-template:testDataIntegrityWithBufferedReader(java.lang.String, java.lang.String, java.lang.Integer, boolean, boolean)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[method:testFileSizeIsExactMultipleOfBlockSize()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#2] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testWindows31jFile(int)]/[test-template-invocation:#4] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.StandardLineSeparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.StandardLineSeparatorTest]/[method:testLF()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#1] (0 ms)</li><li>org.apache.commons.io.StandardLineSeparatorTest.[engine:junit-jupiter]/[class:org.apache.commons.io.StandardLineSeparatorTest]/[method:testLF_getBytes()] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testEmptyFile(int)]/[test-template-invocation:#4] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#5] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testxWindows950File(int)]/[test-template-invocation:#3] (0 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestSimple.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestSimple]/[method:testLineCount()] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#3] (1 ms)</li><li>org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize.[engine:junit-jupiter]/[class:org.apache.commons.io.input.ReversedLinesFileReaderTestParamBlockSize]/[test-template:testUTF8File(int)]/[test-template-invocation:#1] (5 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.13.1
+
+</body>
+</html>

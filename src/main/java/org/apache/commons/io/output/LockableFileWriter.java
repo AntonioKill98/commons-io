@@ -355,15 +355,23 @@ public class LockableFileWriter extends Writer {
      */
     private Writer initWriter(final File file, final Charset charset, final boolean append) throws IOException {
         final boolean fileExistedAlready = file.exists();
+        /** RIGHE AGGIUNTE PER NUOVA SOLUZIONE */
+        FileOutputStream FOS = new FileOutputStream(file.getAbsolutePath(), append);
+        OutputStreamWriter OSW = new OutputStreamWriter(FOS, Charsets.toCharset(charset));
         try {
-            return new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath(), append), Charsets.toCharset(charset));
-
-        } catch (final IOException | RuntimeException ex) {
+            /** CORREZIONE BUG DI GRADO BLOCKER
+             * return new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath(), append), Charsets.toCharset(charset));
+             * */
+            return OSW;
+        } catch (RuntimeException ex) {
             FileUtils.deleteQuietly(lockFile);
             if (!fileExistedAlready) {
                 FileUtils.deleteQuietly(file);
             }
             throw ex;
+        } finally {
+            OSW.close();
+            FOS.close();
         }
     }
 
