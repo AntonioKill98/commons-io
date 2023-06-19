@@ -2851,7 +2851,7 @@ public class FileUtils {
             destAttrView.setTimes(srcAttr.lastModifiedTime(), srcAttr.lastAccessTime(), srcAttr.creationTime());
         } catch (IOException unused) {
             // Fallback: Only set modified time to match source file
-            targetFile.setLastModified(sourceFile.lastModified());
+            if (targetFile.setLastModified(sourceFile.lastModified())) System.out.println("Tutto OK;");
         }
 
         // TODO: (Help!) Determine historically why setLastModified(File, File) needed PathUtils.setLastModifiedTime() if

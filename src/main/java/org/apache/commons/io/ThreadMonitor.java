@@ -104,6 +104,8 @@ class ThreadMonitor implements Runnable {
             thread.interrupt();
         } catch (final InterruptedException e) {
             // timeout not reached
+            //CORREZIONE BUG, AGGIUNTA DI UN INTERRUPT
+            Thread.currentThread().interrupt();
         }
     }
 }

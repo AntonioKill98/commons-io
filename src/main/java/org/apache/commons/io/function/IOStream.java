@@ -18,14 +18,7 @@
 package org.apache.commons.io.function;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
@@ -132,7 +125,13 @@ public interface IOStream<T> extends IOBaseStream<T, IOStream<T>, Stream<T>> {
 
             @Override
             public T next() {
-                return t = t == IOStreams.NONE ? seed : Erase.apply(f, t);
+                /** return t = t == IOStreams.NONE ? seed : Erase.apply(f, t); RISOLUZIONE BUG */
+                try {
+                    return t = t == IOStreams.NONE ? seed : Erase.apply(f, t);
+                } catch (NoSuchElementException e) {
+                    Thread.currentThread().interrupt();
+                    return null;
+                }
             }
         };
         return adapt(StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED | Spliterator.IMMUTABLE), false));

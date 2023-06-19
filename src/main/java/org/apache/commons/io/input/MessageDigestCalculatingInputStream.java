@@ -138,7 +138,14 @@ public class MessageDigestCalculatingInputStream extends ObservableInputStream {
      * The MD5 cryptographic algorithm is weak and should not be used.
      * </p>
      */
-    private static final String DEFAULT_ALGORITHM = "MD5";
+    /**
+     * VIENE MODIFICATO IN QUESTO PUNTO IL DEFAULT_ALGORITHM, IN ORIGINE MD5, in SHA-512
+     * QUESTO PER CORREGGERE IL SECURITY HOTSPOT RILEVATO DA SonarCube.
+     *
+     * private static final String DEFAULT_ALGORITHM = "MD5"; -->
+     * private static final String DEFAULT_ALGORITHM = "SHA-512";
+     */
+    private static final String DEFAULT_ALGORITHM = "SHA-512";
 
     /**
      * Gets a MessageDigest object that implements the default digest algorithm.

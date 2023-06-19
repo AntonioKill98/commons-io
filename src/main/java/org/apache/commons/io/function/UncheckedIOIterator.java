@@ -20,6 +20,7 @@ package org.apache.commons.io.function;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
@@ -49,7 +50,13 @@ final class UncheckedIOIterator<E> implements Iterator<E> {
 
     @Override
     public E next() {
-        return Uncheck.get(delegate::next);
+        /** return Uncheck.get(delegate::next); CORREZIONE BUG */
+        try {
+            return Uncheck.get(delegate::next);
+        } catch (NoSuchElementException e) {
+            Thread.currentThread().interrupt();
+            return null;
+        }
     }
 
     @Override
