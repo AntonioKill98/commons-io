@@ -83,6 +83,8 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.io.function.IOConsumer;
 import org.apache.commons.io.function.Uncheck;
 
+import java.util.logging.Logger;
+
 /**
  * General file manipulation utilities.
  * <p>
@@ -2851,7 +2853,10 @@ public class FileUtils {
             destAttrView.setTimes(srcAttr.lastModifiedTime(), srcAttr.lastAccessTime(), srcAttr.creationTime());
         } catch (IOException unused) {
             // Fallback: Only set modified time to match source file
-            if (targetFile.setLastModified(sourceFile.lastModified())) System.out.println("Tutto OK;");
+            if (targetFile.setLastModified(sourceFile.lastModified())) {
+                Logger logger = Logger.getLogger(FileUtils.class.getName());
+                logger.info("E' tutto OKKEYYYYY;");
+            }
         }
 
         // TODO: (Help!) Determine historically why setLastModified(File, File) needed PathUtils.setLastModifiedTime() if

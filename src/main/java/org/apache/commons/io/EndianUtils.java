@@ -168,8 +168,7 @@ public class EndianUtils {
      */
     public static short readSwappedShort(final byte[] data, final int offset) {
         /** return (short)(((data[offset + 0] & 0xff) << 0) + CORREZIONE BUG */
-        return (short)(((data[offset] & 0xff)) +
-                ((data[offset + 1] & 0xff) << 8));
+        return (short)((data[offset] & 0xff) + ((data[offset + 1] & 0xff) << 8));
     }
 
     /**
@@ -181,8 +180,7 @@ public class EndianUtils {
      */
     public static short readSwappedShort(final InputStream input) throws IOException {
         /** return (short) (((read(input) & 0xff) << 0) +  CORREZIONE BUG */
-        return (short) (((read(input) &0xff)) +
-                ((read(input) & 0xff) << 8));
+        return (short) ((read(input) &0xff) + ((read(input) & 0xff) << 8));
     }
 
     /**
@@ -195,7 +193,7 @@ public class EndianUtils {
      */
     public static long readSwappedUnsignedInteger(final byte[] data, final int offset) {
         /** final long low = ((data[offset + 0] & 0xff) << 0) +  CORREZIONE BUG */
-        final long low = ((data[offset] & 0xff)) +
+        final long low = (data[offset] & 0xff) +
                      ((data[offset + 1] & 0xff) << 8) +
                      ((data[offset + 2] & 0xff) << 16);
         final long high = data[offset + 3] & 0xff;
@@ -215,8 +213,8 @@ public class EndianUtils {
         final int value3 = read(input);
         final int value4 = read(input);
         /** final long low = ((value1 & 0xff) << 0) + */
-        final long low = (long) ((value1 & 0xff)) +
-                (long) ((value2 & 0xff) << 8) + (long)((value3 & 0xff) << 16);
+        final long low = (long) (value1 & 0xff) +
+                (long) ((value2 & 0xff) << 8) + ((value3 & 0xff) << 16);
         final long high = value4 & 0xff;
         return (high << 24) + (0xffffffffL & low);
     }
@@ -311,8 +309,7 @@ public class EndianUtils {
     public static short swapShort(final short value) {
         /** return (short) (((value >> 0 & 0xff) << 8) +
             ((value >> 8 & 0xff) << 0)); CORREZIONE BUG */
-        return (short) (((value & 0xff) << 8) +
-                ((value >> 8 & 0xff)));
+        return (short) (((value & 0xff) << 8) + (value >> 8 & 0xff));
     }
 
     /**
